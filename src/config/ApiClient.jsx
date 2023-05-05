@@ -1,11 +1,18 @@
 import axios from "axios";
 
 const apiClient = () => {
-  const apiUrl = "https://jsonplaceholder.typicode.com/";
+  const headers = {
+    // "Content-Type": "application/x-www-form-urlencoded",
+    // "Content-Type": "application/json",
+    // "EBUDGET-TOKEN": getToken(),
+    // mode: "no-cors",
+  };
 
   const axiosInstance = axios.create({
-    baseURL: apiUrl,
-    responseType: "json",
+    baseURL: process.env.REACT_APP_BASE_URL,
+    // responseType: "json",
+    headers: headers,
+    // withCredentials: false,
   });
 
   return axiosInstance;

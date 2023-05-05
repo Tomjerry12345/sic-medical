@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import usersReducer from "./users/users.reducer";
+import notifSlice from "./action/action.reducer";
 
 const RootRedux = () =>
   combineReducers({
-    users: usersReducer,
+    notif: notifSlice
   });
 
 export default RootRedux;
