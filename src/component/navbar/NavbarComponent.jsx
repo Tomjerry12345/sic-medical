@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import React from 'react';
-import { Box, Toolbar } from '@mui/material';
+import { Box, Toolbar, Typography, Stack, Button } from '@mui/material';
 import { namedMenu } from '../../values/Constant';
 
 const drawerWidth = 240;
@@ -19,15 +19,25 @@ const NavbarComponent = () => {
 
 
   const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
+    <div  style={{backgroundColor: "	#F0F8FF" }}>
+      {/* darusullam media center */}
+      <Stack style={{textAlign: "center", marginTop: "10px",}}>
+      <Typography style={{fontFamily: "lato", fontSize: "26px", fontWeight: "400"}}>Darusallam Media Center</Typography>
+      {/* images */}
+      <img src='/images/luffy.png' width='174px' height='164px' style={{margin: "auto", marginTop: "10px"}}></img>
+      {/* monkey d luffy */}
+      <Typography style={{fontFamily: "lato", fontSize: "28px", marginTop: "20px"}}>Monkey D Luffy</Typography>
+      {/* button */}
+      <Button variant="contained" style={{width: "130px",height: "43px",backgroundColor: "#8BD7EF", fontSize: "24px" , fontFamily: "lato", margin: "auto", marginTop: "10px", textTransform: "none",}} size='small'>Detail</Button>
+      </Stack>
       <List>
         {namedMenu.map((val, index) => (
           <ListItem key={val.title} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{val.icon}</ListItemIcon>
-              <ListItemText primary={val.title} />
+            <ListItemButton style={{fontFamily: "lato"}}>
+              <Stack direction="row" style={{width: "200px",padding: "8px",borderRadius: "8px" ,boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)", }}>
+              <ListItemIcon >{val.icon}</ListItemIcon>
+              <ListItemText style={{fontFamily: "lato"}}  primary={val.title} />
+              </Stack>
             </ListItemButton>
           </ListItem>
         ))}

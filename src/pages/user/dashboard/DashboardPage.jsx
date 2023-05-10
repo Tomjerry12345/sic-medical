@@ -1,33 +1,116 @@
-import { Toolbar, Typography } from "@mui/material";
-
+import { Grid, Stack, Toolbar, Typography, } from "@mui/material";
+import VideoCameraFrontOutlinedIcon from '@mui/icons-material/VideoCameraFrontOutlined';
 const DashboardPage = () => {
   return (
     <>
-      <Toolbar />
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-        elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-        hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-        velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-        Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-        viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-        Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-        at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-        ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-      </Typography>
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-        consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus
-        sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in.
-        In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-        et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique
-        sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo
-        viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-        ultrices sagittis orci a.
-      </Typography>
+      {/* <Toolbar /> */}
+
+      {/* tulisan dashboard */}
+      <Stack>
+        <Typography
+          style={{
+            fontFamily: "lato",
+            lineHeight: "43px",
+            fontSize: "35px",
+          }}
+        >
+          Dashboard
+        </Typography>
+      </Stack>
+
+      <Stack style={{
+        display: "flex"
+      }} direction="row">
+        {/* images */}
+        <Grid style={{
+          margin: "auto",
+        }}>
+          <img src="images/gambar.png" width="350px" height="350px"  />
+        </Grid>
+        {/* lorem */}
+        <Grid style={{
+          width: "405px",
+          margin: "auto"            
+          }}>
+          <Typography style={{
+            fontFamily: "lato",
+            fontSize: "24px"
+          }}>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type</Typography>
+        </Grid>
+      </Stack>
+
+      <Stack >
+        {/* Feature */}
+        <Typography style={{
+          fontFamily: "lato",
+          fontSize: "32px",
+          marginTop: "-20px"
+        }} mb={4}>Feature</Typography>
+
+        <Stack direction="row" spacing={14} style={{
+          justifyContent: "space-around",
+          
+         
+        }}>
+          {/* icon */}
+          <Stack style={{
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            width: "180px",
+            height: "140px",
+
+          }}>
+          <VideoCameraFrontOutlinedIcon style={{
+             width: "100px",
+             height: "70px",
+             margin: "auto",
+          }} /><h3 style={{
+            textAlign: "center",
+            marginTop: "-10px",
+            fontFamily: "lato"
+            
+          }}>Lorem Ipsum</h3>
+          </Stack>
+
+          {/* icon 2 */}
+          <Stack style={{
+             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+             width: "180px",
+             height: "140px",
+
+          }}>
+          <VideoCameraFrontOutlinedIcon style={{
+             width: "100px",
+             height: "70px",
+             margin: "auto",
+          }} /><h3 style={{
+            textAlign: "center",
+            marginTop: "-10px",
+            fontFamily: "lato"
+            
+          }}>Lorem Ipsum</h3>
+          </Stack>
+
+          {/* icon 3 */}
+          <Stack style={{
+             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+             width: "180px",
+             height: "140px",
+
+          }}>
+          <VideoCameraFrontOutlinedIcon style={{
+             width: "100px",
+             height: "70px",
+             margin: "auto",
+          }} /><h3 style={{
+            textAlign: "center",
+            marginTop: "-10px",
+            fontFamily: "lato"
+            
+          }}>Lorem Ipsum</h3>
+          </Stack>
+         
+        </Stack>
+      </Stack>
     </>
   );
 };
