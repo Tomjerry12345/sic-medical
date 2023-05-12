@@ -1,6 +1,6 @@
 import { Grid, Stack, Typography } from "@mui/material";
 import VideoCameraFrontOutlinedIcon from "@mui/icons-material/VideoCameraFrontOutlined";
-const DashboardPage = () => {
+const DashboardPageDokter = () => {
   return (
     <>
       {/* <Toolbar /> */}
@@ -158,4 +158,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default DashboardPageDokter;

@@ -1,0 +1,49 @@
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+
+const CardUser = ({ nama, spesialis }) => {
+  return (
+    <Card
+      sx={{ maxWidth: 345 }}
+      style={{
+        boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
+        width: "300px",
+      }}
+    >
+      <CardActionArea>
+        {/* image */}
+        <CardMedia
+          component="img"
+          height="140"
+          image="https://images.alphacoders.com/164/164903.jpg"
+          alt=""
+          style={{
+            width: "140px",
+            borderRadius: "50%",
+            margin: "auto",
+            marginTop: "20px",
+          }}
+        />
+        <CardContent style={{ textAlign: "center" }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            fontWeight="600"
+            component="div"
+          >
+            {nama}
+          </Typography>
+          <Typography variant="body2" fontSize="24px" color="text.secondary">
+            {spesialis}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+};
+
+export default CardUser;

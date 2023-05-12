@@ -51,7 +51,7 @@ const rows = [
   },
 ];
 
-const AppointmentPage = () => {
+const AppointmentPageDokter = () => {
   const classes = useStyles();
   return (
     <>
@@ -248,4 +248,4 @@ const AppointmentPage = () => {
   );
 };
 
-export default AppointmentPage;
+export default AppointmentPageDokter;
