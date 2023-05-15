@@ -1,8 +1,21 @@
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { Button, Stack, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import {
+  Button,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import LoginLogic from "./LoginLogic";
 
 const LoginPage = () => {
+  const { value, func } = LoginLogic();
   return (
     <Grid
       container
@@ -31,82 +44,104 @@ const LoginPage = () => {
         </Stack>
       </Grid>
 
-      {/* Typography */}
-      <Stack
-        style={{
-          marginLeft: "35px",
+      <Grid
+        sx={{
+          padding: 2,
         }}
+        item
+        xs={5}
       >
         <Typography
+          sx={{ mt: 4 }}
           fontSize={36}
           style={{ fontFamily: "lato", fontWeight: "900" }}
         >
-          <p>Selamat datang</p>
+          Selamat datang
         </Typography>
-        <Typography
-          fontSize={29}
-          style={{ width: "80%", fontFamily: "lato", marginTop: "-50px" }}
-        >
-          <p>Silahkan Login Terlebih Dahulu </p>
+        <Typography fontSize={26} sx={{ mt: 2 }} style={{ fontFamily: "lato" }}>
+          Silahkan login terlebih dahulu
         </Typography>
 
         {/* TextField */}
-        <Stack
-          spacing={3}
-          style={{
-            width: "132%",
-          }}
-        >
-          <TextField label="Email" variant="outlined" />
-          <TextField label="Password" type="password" variant="outlined" />
+        <Stack sx={{ mt: 4 }} spacing={2} component="form">
+          <TextField
+            name="email"
+            label="Email"
+            variant="outlined"
+            size="small"
+            fullWidth
+            onChange={func.onChange}
+          />
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={value.showPassword ? "text" : "password"}
+              name="password"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={func.handleClickShowPassword}
+                    edge="end"
+                  >
+                    {value.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              onChange={func.onChange}
+            />
+          </FormControl>
         </Stack>
 
-        {/* Login */}
+        {/* Button */}
         <Stack
-          mt={7}
+          mt={4}
           style={{
-            marginLeft: "100px",
-            marginRight: "-40px",
+            width: "100%",
           }}
         >
-          <Button
+          <LoadingButton
+            loading={value.loading}
+            loadingPosition="end"
+            variant="outlined"
             style={{
+              marginLeft: "130px",
               background: "#8BD7EF",
               fontFamily: "lato",
+              width: "50%",
               height: "50px",
-              fontSize: "32px",
+              fontSize: "20px",
               color: "#FFFFFF",
-              fontWeight: "400",
             }}
-            direction={"row"}
-            flexWrap="wrap"
+            onClick={func.onLogin}
           >
-            Login
-          </Button>
+            Save
+          </LoadingButton>
         </Stack>
 
-        {/* blm punya akun */}
-        <Stack mt={5} style={{ alignItems: "center" }}>
+        {/* sudah punya akun */}
+        <Stack sx={{ alignItems: "center", fontSize: "18px", mt: 4 }}>
           <p
             style={{
               fontFamily: "lato",
-              fontSize: "30px",
-              marginRight: "-135px",
             }}
           >
-            Belum punya akun ?{" "}
-            <a
-              href="#"
+            Sudah punya akun ?{" "}
+            <Button
               style={{
                 color: "#8BD7EF",
                 fontWeight: "900",
+                textDecoration: "none",
               }}
+              onClick={func.onMoveToRegister}
             >
-              Daftar
-            </a>
+              Login
+            </Button>
           </p>
         </Stack>
-      </Stack>
+      </Grid>
     </Grid>
   );
 };

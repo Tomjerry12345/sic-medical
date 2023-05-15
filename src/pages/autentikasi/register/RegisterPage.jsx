@@ -1,9 +1,24 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Button, Stack, TextField, MenuItem } from "@mui/material";
+import {
+  Button,
+  Stack,
+  TextField,
+  MenuItem,
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+} from "@mui/material";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import RegisterLogic from "./RegisterLogic";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const RegisterPage = () => {
+  const { value, func } = RegisterLogic();
   return (
     <Grid
       container
@@ -32,46 +47,60 @@ const RegisterPage = () => {
         </Stack>
       </Grid>
 
-      {/* Typography */}
       <Grid
-        style={{
-          marginLeft: "35px",
-          marginTop: "-10px",
+        sx={{
+          padding: 2,
         }}
-        xs={4.5}
+        item
+        xs={5}
       >
-        <Typography
-          fontSize={36}
-          style={{ fontFamily: "lato", fontWeight: "900" }}
-        >
-          <p>Selamat datang</p>
+        <Typography fontSize={36} style={{ fontFamily: "lato", fontWeight: "900" }}>
+          Selamat datang
         </Typography>
-        <Typography
-          fontSize={26}
-          style={{ width: "60%", fontFamily: "lato", marginTop: "-30px" }}
-        >
-          <p>Silahkan lengkapi form di bawah ini </p>
+        <Typography fontSize={26} sx={{ mt: 2 }} style={{ fontFamily: "lato" }}>
+          Silahkan lengkapi form di bawah ini
         </Typography>
 
-        {/* images */}
         <Stack
           mb={2}
+          mt={4}
           style={{
             alignItems: "center",
             borderRadius: "30%",
-            marginTop: "-40px",
           }}
         >
-          <img
-            src="images/luffy.png"
-            width="110px"
-            style={{
-              position: "relative",
-              marginBottom: "14px",
-              zIndex: 0,
-            }}
-          />
-          <AddAPhotoOutlinedIcon
+          {value.image.previewImage == null ? (
+            <img
+              width="110"
+              height="110"
+              style={{
+                position: "relative",
+                marginBottom: "14px",
+                zIndex: 0,
+                background: "grey",
+                borderRadius: "150px",
+              }}
+              alt=""
+            />
+          ) : (
+            <img
+              src={value.image.previewImage}
+              width="110"
+              height="110"
+              style={{
+                position: "relative",
+                marginBottom: "14px",
+                borderRadius: "50%",
+                zIndex: 0,
+              }}
+              alt=""
+            />
+          )}
+
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
             style={{
               background: "#8BD7EF",
               position: "absolute",
@@ -82,20 +111,59 @@ const RegisterPage = () => {
               borderRadius: "5px",
               color: "white",
             }}
-          />
+          >
+            <input hidden accept="image/*" type="file" onChange={func.onGetImage} />
+            <AddAPhotoOutlinedIcon />
+          </IconButton>
         </Stack>
 
         {/* TextField */}
-        <Stack spacing={2} style={{}}>
-          <TextField label="Email" variant="outlined" size="small" fullWidth />
+        <Stack spacing={2} style={{}} component="form">
           <TextField
-            label="Password"
-            type="password"
+            name="email"
+            label="Email"
             variant="outlined"
             size="small"
+            fullWidth
+            onChange={func.onChange}
           />
-          <TextField label="Nama lengkap" variant="outlined" size="small" />
-          <TextField label="Gender" select fullWidth size="small">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={value.showPassword ? "text" : "password"}
+              name="password"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={func.handleClickShowPassword}
+                    edge="end"
+                  >
+                    {value.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              onChange={func.onChange}
+            />
+          </FormControl>
+
+          <TextField
+            name="nama_lengkap"
+            label="Nama lengkap"
+            variant="outlined"
+            size="small"
+            onChange={func.onChange}
+          />
+          <TextField
+            name="gender"
+            label="Gender"
+            select
+            fullWidth
+            size="small"
+            onChange={func.onChange}
+          >
             <MenuItem value="laki-laki">Laki-laki</MenuItem>
             <MenuItem value="perempuan">Perempuan</MenuItem>
           </TextField>
@@ -108,7 +176,10 @@ const RegisterPage = () => {
             width: "100%",
           }}
         >
-          <Button
+          <LoadingButton
+            loading={value.loading}
+            loadingPosition="end"
+            variant="outlined"
             style={{
               marginLeft: "130px",
               background: "#8BD7EF",
@@ -118,31 +189,30 @@ const RegisterPage = () => {
               fontSize: "20px",
               color: "#FFFFFF",
             }}
+            onClick={func.onRegister}
           >
-            Register
-          </Button>
+            Save
+          </LoadingButton>
         </Stack>
 
         {/* sudah punya akun */}
-        <Stack
-          style={{ alignItems: "center", fontSize: "25px", marginTop: "-10px" }}
-        >
+        <Stack sx={{ alignItems: "center", fontSize: "18px", mt: 4 }}>
           <p
             style={{
               fontFamily: "lato",
             }}
           >
             Sudah punya akun ?{" "}
-            <a
-              href="#"
+            <Button
               style={{
                 color: "#8BD7EF",
                 fontWeight: "900",
                 textDecoration: "none",
               }}
+              onClick={func.onMoveToLogin}
             >
               Login
-            </a>
+            </Button>
           </p>
         </Stack>
       </Grid>
