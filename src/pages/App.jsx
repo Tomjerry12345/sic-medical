@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getLocal, log } from "../values/Utilitas";
 import FirebaseServices from "../services/FirebaseServices";
 
 const App = () => {
@@ -12,18 +11,14 @@ const App = () => {
       try {
         const user = await fs.getCurrentUser();
 
-        log("user", user);
-
         if (user !== null) {
           const res = await fs.getDataQuery("user", "email", user.email);
-          res.forEach((v) => {
-            const type = v.data().type;
-            if (type === "dokter") {
-              navigate("/dokter");
-            } else {
-              navigate("/user");
-            }
-          });
+          const type = res.type;
+          if (type === "dokter") {
+            navigate("/dokter");
+          } else {
+            navigate("/pasien");
+          }
         } else {
           navigate("/login");
         }

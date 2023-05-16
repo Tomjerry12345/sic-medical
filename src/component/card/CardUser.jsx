@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-const CardUser = ({ nama, spesialis }) => {
+const CardUser = ({ image, nama, spesialis }) => {
   return (
     <Card
       sx={{ maxWidth: 345 }}
@@ -19,22 +19,18 @@ const CardUser = ({ nama, spesialis }) => {
         <CardMedia
           component="img"
           height="140"
-          image="https://images.alphacoders.com/164/164903.jpg"
+          image={image}
           alt=""
           style={{
             width: "140px",
             borderRadius: "50%",
             margin: "auto",
             marginTop: "20px",
+            background: image === "" ? "#000" : "#fff",
           }}
         />
         <CardContent style={{ textAlign: "center" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            fontWeight="600"
-            component="div"
-          >
+          <Typography gutterBottom variant="h5" fontWeight="600" component="div">
             {nama}
           </Typography>
           <Typography variant="body2" fontSize="24px" color="text.secondary">

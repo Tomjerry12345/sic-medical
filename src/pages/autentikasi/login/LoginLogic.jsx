@@ -30,19 +30,17 @@ const LoginLogic = () => {
     try {
       setLoading(true);
       await firebaseServices.loginWithEmail(input.email, input.password);
-      const res = await firebaseServices.getDataQuery("user", "email", input.email);
-      res.forEach((v) => {
-        const type = v.data().type;
-        if (type === "dokter") {
-          navigate("/dokter");
-        } else {
-          navigate("/user");
-        }
-      });
-    } catch (e) {
+      const result = await firebaseServices.getDataQuery("user", "email", input.email);
+      const type = result[0].type;
+      if (type === "dokter") {
+        navigate("/dokter");
+      } else {
+        navigate("/pasien");
+      }
+    } catch (error) {
       setLoading(false);
-      log("error", e);
-      alert(e);
+      log({ error });
+      alert(error);
     }
   };
 

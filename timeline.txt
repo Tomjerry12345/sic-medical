@@ -1,32 +1,25 @@
+✅ ❌
+
 14/05/2023
 
-- login
-- register
-
-15/05/2023
-
-- dokter/appointment 
+- login ✅
+- register ✅
 
 16/05/2023
 
+- dokter/appointment 
 - dokter/konsultasi
-- dokter/chat
 
-17/05/2023
-
-- dokter/calling
 
 18/05/2023
 
-- 
+- dokter/chat
+- dokter/calling
 
-19/05/2023
-
-- 
 
 20/05/2023
 
-- 
+-
 
 21/05/2023
 

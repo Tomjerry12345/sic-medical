@@ -1,8 +1,16 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { auth, storage, db } from "../config/FirebaseConfig";
-import { log } from "../values/Utilitas";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const FirebaseServices = () => {
   const createUser = async (email, password) =>
@@ -33,11 +41,32 @@ const FirebaseServices = () => {
 
   const addData = (col, data) => addDoc(collection(db, col), data);
 
-  const getDataQuery = (col, key, value) => {
+  const getDataCollection = async (col) => {
+    const collection_ref = collection(db, col);
+    const docs = await getDocs(collection_ref);
+    const data = [];
+    docs.forEach((v) => {
+      data.push({ ...v.data(), id: v.id });
+    });
+
+    return data;
+  };
+
+  const getDataQuery = async (col, key, value) => {
     const collection_ref = collection(db, col);
     const q = query(collection_ref, where(key, "==", value));
-    return getDocs(q);
+    const docs = await getDocs(q);
+    const data = [];
+    docs.forEach((v) => {
+      data.push({ ...v.data(), id: v.id });
+    });
+
+    return data.sort((a, b) => a.timestamp - b.timestamp);
   };
+
+  const updateDocAll = (col, document, data) => updateDoc(doc(db, col, document), data);
+
+  const deletDoc = (col, document) => deleteDoc(doc(db, col, document));
 
   const loginWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
@@ -59,6 +88,9 @@ const FirebaseServices = () => {
     loginWithEmail,
     getDataQuery,
     getCurrentUser,
+    updateDocAll,
+    deletDoc,
+    getDataCollection,
   };
 };
 

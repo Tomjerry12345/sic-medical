@@ -1,14 +1,12 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
 import { Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
-function UserPage() {
+function PasienPage() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -23,4 +21,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default PasienPage;

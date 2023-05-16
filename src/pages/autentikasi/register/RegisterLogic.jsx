@@ -48,17 +48,16 @@ const RegisterLogic = () => {
       const data = {
         email: input.email,
         nama_lengkap: input.nama_lengkap,
-        gender: input.nama_lengkap,
+        gender: input.gender,
         image: urlImage,
         type: "pasien",
       };
       await firebaseServices.addData("user", data);
-      log("success");
       navigate("/login");
-    } catch (e) {
+    } catch (error) {
       setLoading(false);
-      log("error", e);
-      alert(e);
+      log({ error });
+      alert(error);
     }
   };
 

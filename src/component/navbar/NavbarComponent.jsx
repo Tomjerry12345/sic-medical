@@ -6,31 +6,37 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { Box, Typography, Stack, Button } from "@mui/material";
-import { namedMenu } from "../../values/Constant";
+import { namedMenuPasien } from "../../values/Constant";
+import { useLocation, useNavigate } from "react-router-dom";
+import { log } from "../../values/Utilitas";
 
 const drawerWidth = 240;
 
 const NavbarComponent = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const split = pathname.split("/");
+  const urlpath = `/${split[1]}${split[2] === undefined ? "" : `/${split[2]}`}`;
+
+  log({ urlpath });
+
   const drawer = (
-    <div style={{ backgroundColor: "	#F0F8FF" }}>
+    <div>
       {/* darusullam media center */}
-      <Stack style={{ textAlign: "center", marginTop: "10px" }}>
-        <Typography
-          style={{ fontFamily: "lato", fontSize: "26px", fontWeight: "400" }}
-        >
+      <Stack sx={{ textAlign: "center", p: 2 }}>
+        <Typography sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}>
           Darusallam Media Center
         </Typography>
         {/* images */}
         <img
           src="/images/luffy.png"
-          width="174px"
-          height="164px"
-          style={{ margin: "auto", marginTop: "10px" }}
+          width="150"
+          height="150"
+          alt=""
+          style={{ margin: "auto", marginTop: "14px", marginBottom: "8px" }}
         ></img>
         {/* monkey d luffy */}
-        <Typography
-          style={{ fontFamily: "lato", fontSize: "28px", marginTop: "20px" }}
-        >
+        <Typography style={{ fontFamily: "lato", fontSize: "22px", mt: 6 }}>
           Monkey D Luffy
         </Typography>
         {/* button */}
@@ -52,23 +58,21 @@ const NavbarComponent = () => {
         </Button>
       </Stack>
       <List>
-        {namedMenu.map((val, index) => (
+        {namedMenuPasien.map((val, index) => (
           <ListItem key={val.title} disablePadding>
-            <ListItemButton style={{ fontFamily: "lato" }}>
+            <ListItemButton style={{ fontFamily: "lato" }} onClick={() => navigate(val.router)}>
               <Stack
                 direction="row"
                 style={{
                   width: "200px",
                   padding: "8px",
                   borderRadius: "8px",
+                  background: val.router === urlpath ? "#1ca1ca" : "#fff",
                   boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
               >
                 <ListItemIcon>{val.icon}</ListItemIcon>
-                <ListItemText
-                  style={{ fontFamily: "lato" }}
-                  primary={val.title}
-                />
+                <ListItemText style={{ fontFamily: "lato" }} primary={val.title} />
               </Stack>
             </ListItemButton>
           </ListItem>
@@ -80,7 +84,7 @@ const NavbarComponent = () => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, height: "100%" }}
       aria-label="mailbox folders"
     >
       {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -92,7 +96,7 @@ const NavbarComponent = () => {
         }}
         PaperProps={{
           sx: {
-            backgroundColor: "##F0F8FF",
+            backgroundColor: "#F0F8FF",
             color: "black",
           },
         }}
