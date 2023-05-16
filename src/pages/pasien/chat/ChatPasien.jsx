@@ -13,22 +13,18 @@ import {
 import VideocamIcon from "@mui/icons-material/Videocam";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import SendIcon from "@mui/icons-material/Send";
+import ChatPasienLogic from "./ChatPasienLogic";
 const ChatPasien = () => {
+  const { value, func } = ChatPasienLogic();
   return (
     <div>
       {/* monkey D luffy */}
       <Box>
-        <Typography
-          style={{ marginTop: "-15px", fontStyle: "lato", fontSize: "28px" }}
-        >
-          Monkey D Luffy
+        <Typography style={{ marginTop: "-15px", fontStyle: "lato", fontSize: "28px" }}>
+          {value.displayName}
         </Typography>
         {/* icon */}
-        <Grid
-          container
-          justifyContent="flex-end"
-          style={{ marginTop: "-40px" }}
-        >
+        <Grid container justifyContent="flex-end" style={{ marginTop: "-40px" }}>
           <VideocamIcon
             style={{
               width: "40px",
@@ -50,25 +46,33 @@ const ChatPasien = () => {
           padding: "32px",
         }}
       >
-        <Box display="flex" justifyContent="flex-start" mt={6}>
-          <CardChat nama="Adakah" />
-        </Box>
-        <Box display="flex" justifyContent="flex-end" mt={6}>
-          <CardChat nama="Adakah" background="#F0F8FF" />
-        </Box>
+        {value.messages &&
+          value.messages.map((m) => (
+            <Box
+              display="flex"
+              justifyContent={value.u.email === m.sender ? "flex-start" : "flex-end"}
+              mt={6}
+            >
+              <CardChat
+                nama={m.message}
+                background={value.u.email === m.sender ? "#8BD7EF" : "#fff"}
+              />
+            </Box>
+          ))}
       </div>
 
       {/* tulis pesan */}
       <Stack mt={3}>
         <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Tulis pesan...
-          </InputLabel>
+          <InputLabel htmlFor="message">Tulis pesan...</InputLabel>
           <OutlinedInput
-            id="outlined-adornment-password"
+            id="message"
+            name="message"
+            value={value.input.message}
+            onChange={func.onChange}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton edge="end">
+                <IconButton edge="end" onClick={func.sendMessage}>
                   <SendIcon />
                 </IconButton>
               </InputAdornment>

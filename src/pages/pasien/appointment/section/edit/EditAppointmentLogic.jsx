@@ -13,7 +13,6 @@ const EditAppointmentLogic = () => {
     gender: "",
     type_diseases: "",
     message: "",
-    timestamp: new Date().getTime(),
   });
 
   const [loading, setLoading] = useState(false);
@@ -23,20 +22,6 @@ const EditAppointmentLogic = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // const getData = async () => {
-    //   const user = await fs.getCurrentUser();
-    //   const data = await fs.getDataQuery("user", "email", user.email);
-
-    //   setInput({
-    //     ...input,
-    //     nama_lengkap: data[0]["nama_lengkap"],
-    //     email: data[0]["email"],
-    //     gender: data[0]["gender"],
-    //   });
-    // };
-
-    // getData();
-
     const state = location.state;
 
     log({ state });

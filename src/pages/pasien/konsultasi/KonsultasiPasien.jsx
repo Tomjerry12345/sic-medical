@@ -13,7 +13,12 @@ const KonsultasiPasien = () => {
         {value.data &&
           value.data.map((item) => (
             <Grid item xs={4}>
-              <CardUser image={item.image} nama={item.nama_dokter} spesialis={item.spesialis} />
+              <CardUser
+                image={item.image}
+                nama={item.nama_dokter}
+                spesialis={item.spesialis}
+                onClick={() => func.onMoveToChat(item.email, item.nama_dokter)}
+              />
             </Grid>
           ))}
       </Grid>

@@ -20,12 +20,22 @@ const KonsultasiPasienLogic = () => {
     setData(result);
   };
 
+  const onMoveToChat = (email, nama) => {
+    navigate("/pasien/konsultasi/chat", {
+      state: {
+        email: email,
+        nama: nama,
+      },
+    });
+  };
+
   return {
     value: {
       data,
     },
     func: {
       onGetData,
+      onMoveToChat,
     },
   };
 };

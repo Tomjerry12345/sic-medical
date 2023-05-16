@@ -7,19 +7,24 @@
 
 16/05/2023
 
-- dokter/appointment 
-- dokter/konsultasi
+- dokter/konsultasi ✅
+- pasien/konsultasi ✅
+- pasien/appointment ✅
 
 
 18/05/2023
 
-- dokter/chat
+- dokter/chat ✅
+- pasien/chat ✅
+- dokter/appointment
 - dokter/calling
+- pasien/calling
 
 
 20/05/2023
 
--
+- dokter/buat-resep
+- pasien/lihat-resep
 
 21/05/2023
 

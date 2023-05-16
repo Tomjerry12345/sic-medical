@@ -3,7 +3,25 @@ import ChatIcon from "@mui/icons-material/Chat";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
-export const namedMenuPasien = [
+export const menuDokter = [
+  {
+    title: "Appointment",
+    router: "/dokter/appointment",
+    icon: <MeetingRoomIcon style={{ fontSize: "2em", color: "black" }} />,
+  },
+  {
+    title: "Konsultasi",
+    router: "/dokter/konsultasi",
+    icon: <ChatIcon style={{ fontSize: "2em", color: "black" }} />,
+  },
+  {
+    title: "Sign out",
+    router: "",
+    icon: <LogoutIcon style={{ fontSize: "2em", color: "black" }} />,
+  },
+];
+
+export const menuPasien = [
   {
     title: "Dashboard",
     router: "/pasien",

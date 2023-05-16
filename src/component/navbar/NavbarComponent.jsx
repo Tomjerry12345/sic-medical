@@ -9,16 +9,16 @@ import { Box, Typography, Stack, Button } from "@mui/material";
 import { namedMenuPasien } from "../../values/Constant";
 import { useLocation, useNavigate } from "react-router-dom";
 import { log } from "../../values/Utilitas";
+import FirebaseServices from "../../services/FirebaseServices";
 
 const drawerWidth = 240;
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ menu }) => {
+  const fs = FirebaseServices();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const split = pathname.split("/");
   const urlpath = `/${split[1]}${split[2] === undefined ? "" : `/${split[2]}`}`;
-
-  log({ urlpath });
 
   const drawer = (
     <div>
@@ -58,9 +58,23 @@ const NavbarComponent = () => {
         </Button>
       </Stack>
       <List>
-        {namedMenuPasien.map((val, index) => (
+        {menu.map((val, index) => (
           <ListItem key={val.title} disablePadding>
-            <ListItemButton style={{ fontFamily: "lato" }} onClick={() => navigate(val.router)}>
+            <ListItemButton
+              style={{ fontFamily: "lato" }}
+              onClick={async () => {
+                if (val.router !== "") {
+                  navigate(val.router);
+                } else {
+                  try {
+                    await fs.onSignOut();
+                    navigate("/");
+                  } catch (error) {
+                    alert(error);
+                  }
+                }
+              }}
+            >
               <Stack
                 direction="row"
                 style={{

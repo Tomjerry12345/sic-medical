@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-const CardUser = ({ image, nama, spesialis }) => {
+const CardUser = ({ image, nama, spesialis, onClick }) => {
   return (
     <Card
       sx={{ maxWidth: 345 }}
@@ -13,6 +13,7 @@ const CardUser = ({ image, nama, spesialis }) => {
         boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
         width: "300px",
       }}
+      onClick={onClick}
     >
       <CardActionArea>
         {/* image */}

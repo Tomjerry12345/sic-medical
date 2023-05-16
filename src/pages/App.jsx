@@ -12,9 +12,9 @@ const App = () => {
         const user = await fs.getCurrentUser();
 
         if (user !== null) {
-          const res = await fs.getDataQuery("user", "email", user.email);
-          const type = res.type;
-          if (type === "dokter") {
+          const result = await fs.getDataQuery("user", "email", user.email);
+          const length = result.length;
+          if (length === 0) {
             navigate("/dokter");
           } else {
             navigate("/pasien");

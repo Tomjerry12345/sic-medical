@@ -22,3 +22,5 @@ export const getSizeScreen = (set) => {
     y: window.innerHeight,
   });
 };
+
+export const timestamp = () => new Date().getTime();

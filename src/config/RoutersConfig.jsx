@@ -49,15 +49,15 @@ const RoutersConfig = () => {
           </Route>
         </Route>
         <Route path="/dokter" element={<DokterPage />}>
-          <Route index element={<DashboardPageDokter />} />
           <Route path="appointment" element={<AppointmentPageDokter />} />
-          <Route path="add-appointment" element={<AddAppointmentDokter />} />
-          <Route path="konsultasi" element={<KonsultasiDokter />} />
-          <Route path="chat" element={<ChatDokter />} />
-          <Route path="calling" element={<CallingDokter />} />
-          <Route path="connect" element={<ConnectDokter />} />
-          <Route path="notif" element={<NotifCallingDokter />} />
-          <Route path="resep" element={<ResepDokter />} />
+          <Route path="konsultasi">
+            <Route index element={<KonsultasiDokter />} />
+            <Route path="chat" element={<ChatDokter />} />
+            <Route path="calling" element={<CallingDokter />} />
+            <Route path="connect" element={<ConnectDokter />} />
+            <Route path="notif" element={<NotifCallingDokter />} />
+            <Route path="resep" element={<ResepDokter />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

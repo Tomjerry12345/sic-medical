@@ -31,12 +31,13 @@ const LoginLogic = () => {
       setLoading(true);
       await firebaseServices.loginWithEmail(input.email, input.password);
       const result = await firebaseServices.getDataQuery("user", "email", input.email);
-      const type = result[0].type;
-      if (type === "dokter") {
+      const length = result.length;
+      if (length === 0) {
         navigate("/dokter");
       } else {
         navigate("/pasien");
       }
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       log({ error });

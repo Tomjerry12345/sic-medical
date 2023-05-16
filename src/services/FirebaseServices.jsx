@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { auth, storage, db } from "../config/FirebaseConfig";
 import {
@@ -10,7 +14,14 @@ import {
   updateDoc,
   doc,
   deleteDoc,
+  setDoc,
+  serverTimestamp,
+  orderBy,
+  limit,
+  onSnapshot,
+  getDoc,
 } from "firebase/firestore";
+import { log, timestamp } from "../values/Utilitas";
 
 const FirebaseServices = () => {
   const createUser = async (email, password) =>
@@ -39,7 +50,55 @@ const FirebaseServices = () => {
     });
   };
 
-  const addData = (col, data) => addDoc(collection(db, col), data);
+  const addData = (col, data) =>
+    addDoc(collection(db, col), { ...data, timestamp: serverTimestamp() });
+
+  const sendMessage = (dokter, pasien, data) => {
+    const colRef = collection(db, `chat`, dokter, "message", pasien, "message");
+    const colUser = doc(db, `chat`, dokter, "message", pasien);
+    addDoc(colRef, data);
+    setDoc(colUser, { generate: timestamp() });
+  };
+
+  const getMessage = (setMessages, dokter, pasien) => {
+    const colRef = collection(db, `chat`, dokter, "message", pasien, "message");
+    const q = query(colRef, orderBy("timestamp"), limit(50));
+
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      let messages = [];
+      QuerySnapshot.forEach((doc) => {
+        const data = doc.data();
+        log({ data });
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      // messages = messages.sort((a, b) => a.timestamp - b.timestamp);
+      setMessages(messages);
+    });
+
+    return unsubscribe;
+  };
+
+  const getGrupMessage = async (dokter) => {
+    try {
+      // const docRef = doc(db, "chat", dokter);
+      log({ dokter });
+      const colRef = collection(db, `chat`, dokter, "message");
+
+      const docs = await getDocs(colRef);
+
+      log({ docs });
+
+      const userGroup = [];
+      docs.forEach(async (v) => {
+        const id = v.id;
+        userGroup.push(id);
+      });
+
+      return userGroup;
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   const getDataCollection = async (col) => {
     const collection_ref = collection(db, col);
@@ -61,7 +120,8 @@ const FirebaseServices = () => {
       data.push({ ...v.data(), id: v.id });
     });
 
-    return data.sort((a, b) => a.timestamp - b.timestamp);
+    // return data.sort((a, b) => a.timestamp - b.timestamp);
+    return data;
   };
 
   const updateDocAll = (col, document, data) => updateDoc(doc(db, col, document), data);
@@ -81,6 +141,8 @@ const FirebaseServices = () => {
       });
     });
 
+  const onSignOut = async () => await signOut(auth);
+
   return {
     createUser,
     uploadImage,
@@ -91,6 +153,10 @@ const FirebaseServices = () => {
     updateDocAll,
     deletDoc,
     getDataCollection,
+    sendMessage,
+    getMessage,
+    getGrupMessage,
+    onSignOut,
   };
 };
 

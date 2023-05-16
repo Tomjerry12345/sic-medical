@@ -1,18 +1,22 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { menuDokter } from "../../values/Constant";
 
 const drawerWidth = 240;
 
 function DokterPage() {
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    navigate("/dokter/appointment")
+  }, [])
+  
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <NavbarComponent />
+      <NavbarComponent menu={menuDokter} />
       <Box
         component="main"
         sx={{
