@@ -1,6 +1,12 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import VideoCameraFrontOutlinedIcon from "@mui/icons-material/VideoCameraFrontOutlined";
+import CarditemDashboard from "../../../component/card/CardItemDashboard";
 const DashboardPage = () => {
+  const styleIcon = {
+    width: "100px",
+    height: "calc(100vh - 635px)",
+    margin: "auto",
+  };
   return (
     <>
       {/* <Toolbar /> */}
@@ -8,56 +14,74 @@ const DashboardPage = () => {
       {/* tulisan dashboard */}
       <Stack>
         <Typography
-          style={{
+          sx={{
             fontFamily: "lato",
-            lineHeight: "43px",
-            fontSize: "35px",
+            fontSize: "24px",
           }}
         >
           Dashboard
         </Typography>
       </Stack>
 
-      <Stack
-        style={{
-          display: "flex",
-        }}
-        direction="row"
-      >
+      <Grid container spacing={2} direction="row">
         {/* images */}
-        <Grid
-          style={{
-            margin: "auto",
-          }}
-        >
-          <img src="images/gambar.png" width="350px" height="350px" alt="" />
+        <Grid item sm={12} md={6}>
+          <Stack display="flex">
+            <Box
+              component="img"
+              src="images/gambar.png"
+              sx={{
+                width: {
+                  sm: "344px",
+                  md: "380px",
+                },
+                margin: "auto",
+              }}
+              alt=""
+            />
+          </Stack>
         </Grid>
         {/* lorem */}
-        <Grid
-          style={{
-            width: "405px",
-            margin: "auto",
-          }}
-        >
-          <Typography
-            style={{
-              fontFamily: "lato",
-              fontSize: "24px",
+        <Grid item sm={12} md={6}>
+          <Stack
+            display="flex"
+            sx={{
+              height: "100%",
             }}
           >
-            Lorem Ipsum has been the industry's standard dummy text ever since
-            the 1500s when an unknown printer took a galley of type and
-            scrambled it to make a type
-          </Typography>
+            <Typography
+              sx={{
+                fontFamily: "lato",
+                fontSize: {
+                  sm: "14px",
+                  md: "24px",
+                },
+                margin: "auto",
+              }}
+            >
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when
+              an unknown printer took a galley of type and scrambled it to make a type
+            </Typography>
+          </Stack>
         </Grid>
-      </Stack>
+      </Grid>
 
-      <Stack>
+      <Stack
+        sx={{
+          marginTop: {
+            sm: "36px",
+            md: "16px",
+          },
+        }}
+      >
         {/* Feature */}
         <Typography
-          style={{
+          sx={{
             fontFamily: "lato",
-            fontSize: "32px",
+            fontSize: {
+              sm: "24px",
+              md: "32px",
+            },
             marginTop: "-20px",
           }}
           mb={4}
@@ -72,86 +96,19 @@ const DashboardPage = () => {
             justifyContent: "space-around",
           }}
         >
-          {/* icon */}
-          <Stack
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              width: "180px",
-              height: "140px",
-            }}
-          >
-            <VideoCameraFrontOutlinedIcon
-              style={{
-                width: "100px",
-                height: "70px",
-                margin: "auto",
-              }}
-            />
-            <h3
-              style={{
-                textAlign: "center",
-                marginTop: "-10px",
-                fontFamily: "lato",
-                margin: "auto",
-              }}
-            >
-              Lorem Ipsum
-            </h3>
-          </Stack>
+          <CarditemDashboard
+            text={"Video Call"}
+            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
+          />
 
-          {/* icon 2 */}
-          <Stack
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              width: "180px",
-              height: "140px",
-            }}
-          >
-            <VideoCameraFrontOutlinedIcon
-              style={{
-                width: "100px",
-                height: "70px",
-                margin: "auto",
-              }}
-            />
-            <h3
-              style={{
-                textAlign: "center",
-                marginTop: "-10px",
-                fontFamily: "lato",
-                margin: "auto",
-              }}
-            >
-              Lorem Ipsum
-            </h3>
-          </Stack>
-
-          {/* icon 3 */}
-          <Stack
-            style={{
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              width: "180px",
-              height: "140px",
-            }}
-          >
-            <VideoCameraFrontOutlinedIcon
-              style={{
-                width: "100px",
-                height: "70px",
-                margin: "auto",
-              }}
-            />
-            <h3
-              style={{
-                textAlign: "center",
-                marginTop: "-10px",
-                fontFamily: "lato",
-                margin: "auto",
-              }}
-            >
-              Lorem Ipsum
-            </h3>
-          </Stack>
+          <CarditemDashboard
+            text={"Konsultasi"}
+            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
+          />
+          <CarditemDashboard
+            text={"Rumah sakit"}
+            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
+          />
         </Stack>
       </Stack>
     </>
