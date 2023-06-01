@@ -136,6 +136,16 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
+                Nama Dokter
+              </TableCell>
+              <TableCell
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                  fontFamily: "lato",
+                  fontSize: "18px",
+                }}
+              >
                 Action
               </TableCell>
             </TableRow>
@@ -171,6 +181,9 @@ const AppointmentPage = () => {
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.message}
+                  </TableCell>
+                  <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
+                    {row.nama_dokter}
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {

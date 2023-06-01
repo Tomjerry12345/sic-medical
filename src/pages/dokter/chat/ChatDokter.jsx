@@ -37,7 +37,7 @@ const ChatDokter = () => {
             <VideocamIcon />
           </IconButton>
 
-          <IconButton style={{ width: "50px", height: "30px" }}>
+          <IconButton style={{ width: "50px", height: "30px" }} onClick={func.onClickResep}>
             <StickyNote2Icon />
           </IconButton>
         </Grid>

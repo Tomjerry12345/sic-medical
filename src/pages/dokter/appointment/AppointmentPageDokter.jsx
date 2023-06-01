@@ -11,6 +11,8 @@ import {
   Stack,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import AppointmentLogic from "../../pasien/appointment/AppointmentLogic";
+import AppointmentLogicDokter from "./AppointmentLogic";
 
 const useStyles = makeStyles({
   table: {
@@ -53,13 +55,14 @@ const rows = [
 
 const AppointmentPageDokter = () => {
   const classes = useStyles();
+  const {value} = AppointmentLogicDokter();
   return (
     <>
       <Stack spacing={6} style={{ fontFamily: "lato", marginTop: "-12px" }}>
         {/* appointment */}
         <p style={{ fontSize: "26px", fontWeight: "400" }}>Appointment</p>
         {/* button */}
-        <Button
+        {/* <Button
           variant="contained"
           style={{
             width: "210px",
@@ -72,7 +75,7 @@ const AppointmentPageDokter = () => {
           }}
         >
           Make an appointment
-        </Button>
+        </Button> */}
       </Stack>
       <TableContainer component={Paper} style={{ marginTop: "50px" }}>
         <Table className={classes.table} aria-label="simple table">
@@ -158,7 +161,7 @@ const AppointmentPageDokter = () => {
               >
                 Message
               </TableCell>
-              <TableCell
+              {/* <TableCell
                 style={{
                   color: "white",
                   fontWeight: "600",
@@ -167,27 +170,27 @@ const AppointmentPageDokter = () => {
                 }}
               >
                 Action
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            { value.data && value.data.map((row, i) => (
               <TableRow key={row.id}>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
-                  {row.id}
+                  {i + 1}
                 </TableCell>
                 <TableCell
                   component="th"
                   scope="row"
                   style={{ fontWeight: "600", fontFamily: "lato" }}
                 >
-                  {row.name}
+                  {row.name_lengkap}
                 </TableCell>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                   {row.email}
                 </TableCell>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
-                  {row.phone}
+                  {row.no_hp}
                 </TableCell>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                   {row.date}
@@ -196,12 +199,12 @@ const AppointmentPageDokter = () => {
                   {row.gender}
                 </TableCell>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
-                  {row.type}
+                  {row.type_diseases}
                 </TableCell>
                 <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                   {row.message}
                 </TableCell>
-                <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
+                {/* <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                   {
                     <Button
                       variant="contained"
@@ -238,7 +241,7 @@ const AppointmentPageDokter = () => {
                       Delete
                     </Button>
                   }
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>

@@ -7,8 +7,10 @@
 - pasien/appointment ✅
 - dokter/chat ✅
 - pasien/chat ✅
-- dokter/calling
-- pasien/calling
-- dokter/buat-resep
-- pasien/lihat-resep
-- dokter/appointment
+- dokter/calling ❌
+- pasien/calling ❌
+- dokter/buat-resep ❌
+- pasien/lihat-resep ❌
+- dokter/profil✅
+- pasien/profil✅
+- dokter/appointment✅

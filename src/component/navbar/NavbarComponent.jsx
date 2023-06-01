@@ -4,40 +4,71 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import React from "react";
-import { Box, Typography, Stack, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Stack, Button, Modal } from "@mui/material";
 import { namedMenuPasien } from "../../values/Constant";
 import { useLocation, useNavigate } from "react-router-dom";
 import { log } from "../../values/Utilitas";
 import FirebaseServices from "../../services/FirebaseServices";
+import ModalComponent from "../modal/Modal";
 
 const drawerWidth = 240;
 
-const NavbarComponent = ({ menu }) => {
+const NavbarComponent = ({ menu, type }) => {
   const fs = FirebaseServices();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const split = pathname.split("/");
   const urlpath = `/${split[1]}${split[2] === undefined ? "" : `/${split[2]}`}`;
 
+  const [value, setValue] = useState({
+    nama: "",
+    image: "",
+  });
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const user = await fs.getCurrentUser();
+
+    const data = await fs.getDataQuery(type, "email", user.email);
+    setValue({
+      ...value,
+      nama: type === "dokter" ? data[0].nama_dokter : data[0].nama_lengkap,
+      tipe:
+        type === "dokter" ? `Spesialis : ${data[0].spesialis}` :  data[0].type,
+      image: data[0].image,
+    });
+  };
+
   const drawer = (
     <div>
       {/* darusullam media center */}
       <Stack sx={{ textAlign: "center", p: 2 }}>
-        <Typography sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}>
+        <Typography
+          sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}
+        >
           Darusallam Media Center
         </Typography>
         {/* images */}
         <img
-          src="/images/luffy.png"
+          src={value.image}
           width="150"
           height="150"
           alt=""
-          style={{ margin: "auto", marginTop: "14px", marginBottom: "8px" }}
+          style={{
+            margin: "auto",
+            marginTop: "14px",
+            marginBottom: "8px",
+            borderRadius: "50%",
+          }}
         ></img>
         {/* monkey d luffy */}
         <Typography style={{ fontFamily: "lato", fontSize: "22px", mt: 6 }}>
-          Monkey D Luffy
+          {value.nama}
         </Typography>
         {/* button */}
         <Button
@@ -54,7 +85,12 @@ const NavbarComponent = ({ menu }) => {
           }}
           size="small"
         >
-          Detail
+          <ModalComponent
+            modal="Detail"
+            nama={value.nama}
+            image={value.image}
+            tipe={value.tipe}
+          />
         </Button>
       </Stack>
       <List>
@@ -86,7 +122,10 @@ const NavbarComponent = ({ menu }) => {
                 }}
               >
                 <ListItemIcon>{val.icon}</ListItemIcon>
-                <ListItemText style={{ fontFamily: "lato" }} primary={val.title} />
+                <ListItemText
+                  style={{ fontFamily: "lato" }}
+                  primary={val.title}
+                />
               </Stack>
             </ListItemButton>
           </ListItem>

@@ -13,9 +13,12 @@ const AddAppointmentLogic = () => {
     type_diseases: "",
     message: "",
     timestamp: new Date().getTime(),
+    nama_dokter: '',
+    email_dokter: ''
   });
 
   const [loading, setLoading] = useState(false);
+  const [dokter, setDokter] = useState([]);
 
   const fs = FirebaseServices();
   const navigate = useNavigate();
@@ -34,7 +37,15 @@ const AddAppointmentLogic = () => {
     };
 
     getData();
+    getDokter();
   }, []);
+
+  const getDokter = async () => {
+    const data = await fs.getDataCollection("dokter","nama_dokter", dokter.email);
+    
+    setDokter(data)
+    
+  }
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -43,6 +54,16 @@ const AddAppointmentLogic = () => {
     setInput({
       ...input,
       [name]: value,
+    });
+  };
+  const onChangeDokter = (e) => {
+    const value = e.target.value;
+    const array = value.split("-")
+
+    setInput({
+      ...input,
+      email_dokter: array[0],
+      nama_dokter: array[1],
     });
   };
 
@@ -69,11 +90,13 @@ const AddAppointmentLogic = () => {
     value: {
       input,
       loading,
+      dokter
     },
     func: {
       onChange,
       onChangeDate,
       onMake,
+      onChangeDokter
     },
   };
 };

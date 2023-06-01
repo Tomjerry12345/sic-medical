@@ -80,9 +80,13 @@ const ChatDokterLogic = () => {
     });
   };
 
+  const onClickResep = () => {
+    navigate("/dokter/konsultasi/resep")
+  }
+
   return {
     value: { input, messages, u, dislayName },
-    func: { sendMessage, onChange, onClickVideoCall },
+    func: { sendMessage, onChange, onClickVideoCall, onClickResep },
   };
 };
 

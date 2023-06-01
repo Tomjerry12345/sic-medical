@@ -8,15 +8,15 @@ import { menuDokter } from "../../values/Constant";
 const drawerWidth = 240;
 
 function DokterPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   React.useEffect(() => {
-    navigate("/dokter/appointment")
-  }, [])
-  
+    navigate("/dokter/appointment");
+  }, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <NavbarComponent menu={menuDokter} />
+      <NavbarComponent menu={menuDokter} type="dokter" />
       <Box
         component="main"
         sx={{
