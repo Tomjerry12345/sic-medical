@@ -13,9 +13,7 @@ const ChatDokterLogic = () => {
   });
 
   const [dislayName, setDisplayName] = useState("");
-
   const [u, setU] = useState();
-
   const [messages, setMessages] = useState();
 
   useEffect(() => {
@@ -33,9 +31,6 @@ const ChatDokterLogic = () => {
     try {
       const pasien = location.state.email;
       const dokter = user.email;
-
-      log({ pasien });
-      log({ dokter });
 
       return fs.getMessage(setMessages, dokter, pasien);
     } catch (error) {
@@ -66,7 +61,7 @@ const ChatDokterLogic = () => {
         timestamp: timestamp(),
       };
 
-      await fs.sendMessage(dokter, pasien, i);
+      fs.sendMessage(dokter, pasien, i);
       setInput({
         message: "",
       });
@@ -75,9 +70,19 @@ const ChatDokterLogic = () => {
     }
   };
 
+  const onClickVideoCall = () => {
+    navigate("/dokter/konsultasi/calling", {
+      state: {
+        nama: location.state.nama,
+        email: location.state.email,
+        image: location.state.image,
+      },
+    });
+  };
+
   return {
     value: { input, messages, u, dislayName },
-    func: { sendMessage, onChange },
+    func: { sendMessage, onChange, onClickVideoCall },
   };
 };
 

@@ -45,11 +45,12 @@ const KonsultasiDokterLogic = () => {
     }
   };
 
-  const onMoveToChat = (email, nama) => {
+  const onMoveToChat = (email, nama, image) => {
     navigate("/dokter/konsultasi/chat", {
       state: {
         email: email,
         nama: nama,
+        image: image,
       },
     });
   };

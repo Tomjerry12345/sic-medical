@@ -1,6 +1,8 @@
 import { Stack, Typography, Card, CardContent } from "@mui/material";
+import CallingDokterLogic from "./CallingDokterLogic";
 
 const CallingDokter = () => {
+  const { value, func } = CallingDokterLogic();
   return (
     <Stack
       width="1080px"
@@ -11,7 +13,7 @@ const CallingDokter = () => {
       }}
     >
       <img
-        src="https://images.alphacoders.com/164/164903.jpg"
+        src={value.state.image}
         alt=""
         width="957px"
         height="450px"

@@ -25,15 +25,21 @@ const ChatDokter = () => {
         </Typography>
         {/* icon */}
         <Grid container justifyContent="flex-end" style={{ marginTop: "-40px" }}>
-          <VideocamIcon
+          <IconButton
             style={{
               width: "40px",
               height: "55px",
               marginTop: "-12px",
               marginRight: "10px",
             }}
-          />
-          <StickyNote2Icon style={{ width: "50px", height: "30px" }} />
+            onClick={func.onClickVideoCall}
+          >
+            <VideocamIcon />
+          </IconButton>
+
+          <IconButton style={{ width: "50px", height: "30px" }}>
+            <StickyNote2Icon />
+          </IconButton>
         </Grid>
       </Box>
       {/* chat */}

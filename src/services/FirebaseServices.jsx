@@ -81,12 +81,9 @@ const FirebaseServices = () => {
   const getGrupMessage = async (dokter) => {
     try {
       // const docRef = doc(db, "chat", dokter);
-      log({ dokter });
       const colRef = collection(db, `chat`, dokter, "message");
 
       const docs = await getDocs(colRef);
-
-      log({ docs });
 
       const userGroup = [];
       docs.forEach(async (v) => {
