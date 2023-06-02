@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { log } from "../../../values/Utilitas";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
 
@@ -19,15 +18,11 @@ const KonsultasiDokterLogic = () => {
     try {
       const user = await getUser();
       const userGroup = await fs.getGrupMessage(user.email);
-      log({ userGroup });
+
       const promises = [];
-      userGroup.map((email) => {
-        promises.push(getU(email));
-      });
+      userGroup.map((email) => promises.push(getU(email)));
 
       const result = await Promise.all(promises);
-
-      log({ result });
 
       setData(result);
     } catch (error) {
@@ -37,7 +32,6 @@ const KonsultasiDokterLogic = () => {
 
   const getU = async (email) => {
     try {
-      log({ email });
       const result = await fs.getDataQuery("user", "email", email);
       return result[0];
     } catch (err) {
@@ -45,12 +39,13 @@ const KonsultasiDokterLogic = () => {
     }
   };
 
-  const onMoveToChat = (email, nama, image) => {
+  const onMoveToChat = (email, nama, image, idCall) => {
     navigate("/dokter/konsultasi/chat", {
       state: {
         email: email,
         nama: nama,
         image: image,
+        idCall: idCall,
       },
     });
   };

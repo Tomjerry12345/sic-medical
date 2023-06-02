@@ -38,8 +38,7 @@ const NavbarComponent = ({ menu, type }) => {
     setValue({
       ...value,
       nama: type === "dokter" ? data[0].nama_dokter : data[0].nama_lengkap,
-      tipe:
-        type === "dokter" ? `Spesialis : ${data[0].spesialis}` :  data[0].type,
+      tipe: type === "dokter" ? `Spesialis : ${data[0].spesialis}` : data[0].type,
       image: data[0].image,
     });
   };
@@ -48,12 +47,11 @@ const NavbarComponent = ({ menu, type }) => {
     <div>
       {/* darusullam media center */}
       <Stack sx={{ textAlign: "center", p: 2 }}>
-        <Typography
-          sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}
-        >
+        <Typography sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}>
           Darusallam Media Center
         </Typography>
         {/* images */}
+
         <img
           src={value.image}
           width="150"
@@ -65,7 +63,8 @@ const NavbarComponent = ({ menu, type }) => {
             marginBottom: "8px",
             borderRadius: "50%",
           }}
-        ></img>
+        />
+
         {/* monkey d luffy */}
         <Typography style={{ fontFamily: "lato", fontSize: "22px", mt: 6 }}>
           {value.nama}
@@ -122,10 +121,7 @@ const NavbarComponent = ({ menu, type }) => {
                 }}
               >
                 <ListItemIcon>{val.icon}</ListItemIcon>
-                <ListItemText
-                  style={{ fontFamily: "lato" }}
-                  primary={val.title}
-                />
+                <ListItemText style={{ fontFamily: "lato" }} primary={val.title} />
               </Stack>
             </ListItemButton>
           </ListItem>

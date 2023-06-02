@@ -14,7 +14,7 @@ import ResepPasien from "../pages/pasien/resep/ResepPasien";
 import DokterPage from "../pages/dokter/DokterPage";
 import KonsultasiDokter from "../pages/dokter/konsultasi/KonsultasiDokter";
 import ChatDokter from "../pages/dokter/chat/ChatDokter";
-import CallingDokter from "../pages/dokter/calling/CallingDokter";
+import CallingDokter from "../pages/global/calling/CallingPage";
 import ConnectDokter from "../pages/dokter/connect/ConnectDokter";
 import NotifCallingDokter from "../pages/dokter/notif/NotifCallingDokter";
 import ResepDokter from "../pages/dokter/resep/ResepDokter";
@@ -23,6 +23,7 @@ import AddAppointmentDokter from "../pages/dokter/appointment/section/AddAppoint
 import DashboardPageDokter from "../pages/dokter/dashboard/DashboardPageDokter";
 import PasienPage from "../pages/pasien/PasienPage";
 import EditAppointment from "../pages/pasien/appointment/section/edit/EditAppointmentPage";
+import CallingPage from "../pages/global/calling/CallingPage";
 
 const RoutersConfig = () => {
   return (
@@ -42,7 +43,7 @@ const RoutersConfig = () => {
           <Route path="konsultasi">
             <Route index element={<KonsultasiPasien />} />
             <Route path="chat" element={<ChatPasien />} />
-            <Route path="calling" element={<CallingPasien />} />
+            <Route path="calling" element={<CallingPage />} />
             <Route path="connect" element={<ConnectPasien />} />
             <Route path="notif" element={<NotifCallingPasien />} />
             <Route path="resep" element={<ResepPasien />} />
@@ -53,7 +54,7 @@ const RoutersConfig = () => {
           <Route path="konsultasi">
             <Route index element={<KonsultasiDokter />} />
             <Route path="chat" element={<ChatDokter />} />
-            <Route path="calling" element={<CallingDokter />} />
+            <Route path="calling" element={<CallingPage />} />
             <Route path="connect" element={<ConnectDokter />} />
             <Route path="notif" element={<NotifCallingDokter />} />
             <Route path="resep" element={<ResepDokter />} />

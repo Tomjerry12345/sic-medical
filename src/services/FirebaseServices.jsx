@@ -19,9 +19,8 @@ import {
   orderBy,
   limit,
   onSnapshot,
-  getDoc,
 } from "firebase/firestore";
-import { log, timestamp } from "../values/Utilitas";
+import { timestamp } from "../values/Utilitas";
 
 const FirebaseServices = () => {
   const createUser = async (email, password) =>
@@ -67,8 +66,6 @@ const FirebaseServices = () => {
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
       let messages = [];
       QuerySnapshot.forEach((doc) => {
-        const data = doc.data();
-        log({ data });
         messages.push({ ...doc.data(), id: doc.id });
       });
       // messages = messages.sort((a, b) => a.timestamp - b.timestamp);
@@ -121,7 +118,7 @@ const FirebaseServices = () => {
     return data;
   };
 
-  const updateDocAll = (col, document, data) => updateDoc(doc(db, col, document), data);
+  const updateDocX = (col, document, data) => updateDoc(doc(db, col, document), data);
 
   const deletDoc = (col, document) => deleteDoc(doc(db, col, document));
 
@@ -147,7 +144,7 @@ const FirebaseServices = () => {
     loginWithEmail,
     getDataQuery,
     getCurrentUser,
-    updateDocAll,
+    updateDocX,
     deletDoc,
     getDataCollection,
     sendMessage,

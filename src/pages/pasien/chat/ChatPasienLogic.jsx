@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { log, timestamp } from "../../../values/Utilitas";
+import { timestamp } from "../../../values/Utilitas";
 
 const ChatPasienLogic = () => {
   const navigate = useNavigate();

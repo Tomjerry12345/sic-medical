@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
 import { log } from "../../../values/Utilitas";
+import { SocketContext } from "../../../services/Context";
 
 const LoginLogic = () => {
   const [input, setInput] = useState({
@@ -15,6 +16,8 @@ const LoginLogic = () => {
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const { onGetId } = useContext(SocketContext);
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -37,6 +40,7 @@ const LoginLogic = () => {
       } else {
         navigate("/pasien");
       }
+      onGetId();
       setLoading(false);
     } catch (error) {
       setLoading(false);

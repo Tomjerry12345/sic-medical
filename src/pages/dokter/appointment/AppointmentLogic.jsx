@@ -20,7 +20,6 @@ const AppointmentLogicDokter = () => {
       "email_dokter",
       user.email
     );
-    log({ result });
     setData(result);
   };
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { log, timestamp } from "../../../values/Utilitas";
+import { timestamp } from "../../../values/Utilitas";
 
-const ChatDokterLogic = () => {
+const Logic = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const fs = FirebaseServices();
@@ -76,13 +76,14 @@ const ChatDokterLogic = () => {
         nama: location.state.nama,
         email: location.state.email,
         image: location.state.image,
+        idCall: location.state.idCall,
       },
     });
   };
 
   const onClickResep = () => {
-    navigate("/dokter/konsultasi/resep")
-  }
+    navigate("/dokter/konsultasi/resep");
+  };
 
   return {
     value: { input, messages, u, dislayName },
@@ -90,4 +91,4 @@ const ChatDokterLogic = () => {
   };
 };
 
-export default ChatDokterLogic;
+export default Logic;
