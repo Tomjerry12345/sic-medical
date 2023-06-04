@@ -77,6 +77,7 @@ const Logic = () => {
         email: location.state.email,
         image: location.state.image,
         idCall: location.state.idCall,
+        type: "calling",
       },
     });
   };

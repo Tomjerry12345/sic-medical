@@ -2,7 +2,7 @@ import React, { createContext, useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import Peer from "simple-peer";
 import { log } from "../values/Utilitas";
-import FirebaseServices from "./FirebaseServices";
+import FirebaseServices from "services/FirebaseServices";
 
 const SocketContext = createContext();
 
@@ -33,6 +33,7 @@ const ContextProvider = ({ children }) => {
   const onGetId = () => {
     socket.on("me", (id) => {
       setMe(id);
+      log({ id });
       updateCallId(id);
     });
   };
@@ -46,10 +47,12 @@ const ContextProvider = ({ children }) => {
       await fs.updateDocX("user", resultPasien[0].id, {
         id_call: id,
       });
+      setName(resultPasien[0].nama_lengkap);
     } else {
       await fs.updateDocX("dokter", resultDokter[0].id, {
         id_call: id,
       });
+      setName(resultDokter[0].nama_dokter);
     }
   };
 
@@ -72,6 +75,8 @@ const ContextProvider = ({ children }) => {
   const answerCall = () => {
     setCallAccepted(true);
 
+    log("stream-answer", stream);
+
     const peer = new Peer({ initiator: false, trickle: false, stream });
 
     peer.on("signal", (data) => {
@@ -79,6 +84,7 @@ const ContextProvider = ({ children }) => {
     });
 
     peer.on("stream", (currentStream) => {
+      log("answer-call", currentStream);
       if (userVideo.current) {
         userVideo.current.srcObject = currentStream;
       }
@@ -86,12 +92,11 @@ const ContextProvider = ({ children }) => {
 
     peer.signal(call.signal);
 
-    if (connectionRef.current) {
-      connectionRef.current = peer;
-    }
+    connectionRef.current = peer;
   };
 
   const callUser = (id) => {
+    log("stream-call", stream);
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on("signal", (data) => {
@@ -99,8 +104,8 @@ const ContextProvider = ({ children }) => {
     });
 
     peer.on("stream", (currentStream) => {
+      log("call-user-stream", currentStream);
       if (userVideo.current) {
-        log({ currentStream });
         userVideo.current.srcObject = currentStream;
       }
     });
@@ -111,9 +116,7 @@ const ContextProvider = ({ children }) => {
       peer.signal(signal);
     });
 
-    if (connectionRef.current) {
-      connectionRef.current = peer;
-    }
+    connectionRef.current = peer;
   };
 
   const leaveCall = () => {

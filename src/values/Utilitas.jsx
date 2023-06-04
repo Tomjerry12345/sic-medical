@@ -6,7 +6,7 @@ export const getLocal = (key) => localStorage.getItem(key);
 
 export const log = (v, m) => {
   if (m !== undefined) {
-    console.log("v", m);
+    console.log(`[d] ${v}`, m);
   } else {
     let name, value;
     for (let varName in v) {

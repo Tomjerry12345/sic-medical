@@ -3,18 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import RoutersConfig from "./config/RoutersConfig";
-import { Provider } from "react-redux";
-import ReduxConfig from "./config/ReduxConfig";
 import { ContextProvider } from "./services/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={ReduxConfig()}> */}
     <ContextProvider>
       <RoutersConfig />
     </ContextProvider>
-    {/* </Provider> */}
   </React.StrictMode>
 );
 

@@ -22,7 +22,7 @@ function DokterPage() {
   const navigate = useNavigate();
   const { call, callAccepted } = React.useContext(SocketContext);
   React.useEffect(() => {
-    navigate("/dokter/appointment");
+    // navigate("/dokter/appointment");
   }, []);
 
   return (

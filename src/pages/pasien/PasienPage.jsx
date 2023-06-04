@@ -12,6 +12,17 @@ const drawerWidth = 240;
 function PasienPage() {
   const { call, callAccepted, answerCall } = React.useContext(SocketContext);
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(true);
+
+  // React.useEffect(() => {
+  //   if (!open) {
+  //     navigate("/pasien/konsultasi/calling", {
+  //       state: {
+  //         type: "answer",
+  //       },
+  //     });
+  //   }
+  // }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -29,7 +40,7 @@ function PasienPage() {
       </Box>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={call.isReceivingCall && !callAccepted}
+        open={call.isReceivingCall && !callAccepted && open}
         message="I love snacks"
         autoHideDuration={6000}
         key={1}
@@ -37,15 +48,23 @@ function PasienPage() {
           <Card sx={{ maxWidth: 345 }}>
             <CardContent>
               <Typography variant="h6" color="text.secondary">
-                Deceng menelpon....
+                {call.name} memanggil....
               </Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "space-evenly" }}>
               <Button
                 color="success"
                 size="small"
-                // onClick={() => navigate("/pasien/konsultasi/calling")}
-                onClick={answerCall}
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/pasien/konsultasi/calling", {
+                    state: {
+                      type: "answer",
+                    },
+                  });
+                }}
+
+                // onClick={answerCall}
               >
                 Answer
               </Button>
