@@ -40,19 +40,21 @@ const ContextProvider = ({ children }) => {
 
   const updateCallId = async (id) => {
     const user = await fs.getCurrentUser();
-    const resultPasien = await fs.getDataQuery("user", "email", user.email);
-    const resultDokter = await fs.getDataQuery("dokter", "email", user.email);
+    if (user !== null) {
+      const resultPasien = await fs.getDataQuery("user", "email", user.email);
+      const resultDokter = await fs.getDataQuery("dokter", "email", user.email);
 
-    if (resultPasien.length > 0) {
-      await fs.updateDocX("user", resultPasien[0].id, {
-        id_call: id,
-      });
-      setName(resultPasien[0].nama_lengkap);
-    } else {
-      await fs.updateDocX("dokter", resultDokter[0].id, {
-        id_call: id,
-      });
-      setName(resultDokter[0].nama_dokter);
+      if (resultPasien.length > 0) {
+        await fs.updateDocX("user", resultPasien[0].id, {
+          id_call: id,
+        });
+        setName(resultPasien[0].nama_lengkap);
+      } else {
+        await fs.updateDocX("dokter", resultDokter[0].id, {
+          id_call: id,
+        });
+        setName(resultDokter[0].nama_dokter);
+      }
     }
   };
 

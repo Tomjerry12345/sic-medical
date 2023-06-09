@@ -22,7 +22,8 @@ function DokterPage() {
   const navigate = useNavigate();
   const { call, callAccepted } = React.useContext(SocketContext);
   React.useEffect(() => {
-    // navigate("/dokter/appointment");
+    const path = window.location.href;
+    if (path === "http://localhost:3000/dokter") navigate("/dokter/appointment");
   }, []);
 
   return (

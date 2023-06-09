@@ -8,6 +8,7 @@ import { SocketContext } from "services/Context";
 import { log } from "values/Utilitas";
 import { useLocation } from "react-router-dom";
 import FirebaseServices from "services/FirebaseServices";
+import { Box, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const VideoCallPage = () => {
   const classes = useStyles();
-  const { startStream, callUser, answerCall, stream } = useContext(SocketContext);
+  const { startStream, callUser, answerCall, stream, leaveCall } = useContext(SocketContext);
 
   const [data, setData] = useState();
 
@@ -48,6 +49,15 @@ const VideoCallPage = () => {
 
   useEffect(() => {
     startStream();
+  }, []);
+
+  useEffect(() => {
+    window.history.pushState(null, null, document.URL);
+    window.addEventListener("popstate", function (event) {
+      //  window.location.replace(`YOUR URL`);
+      leaveCall();
+      window.location.replace("http://localhost:3000/");
+    });
   }, []);
 
   useEffect(() => {
@@ -68,6 +78,11 @@ const VideoCallPage = () => {
   return (
     <div className={classes.wrapper}>
       <VideoPlayer data={data} />
+      <Box display="flex">
+        <Button variant="outlined" color="error">
+          Matikan
+        </Button>
+      </Box>
     </div>
   );
 };
