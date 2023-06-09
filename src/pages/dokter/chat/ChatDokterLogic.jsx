@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { timestamp } from "../../../values/Utilitas";
+import { log, timestamp } from "../../../values/Utilitas";
 
 const Logic = () => {
   const navigate = useNavigate();
@@ -17,24 +17,31 @@ const Logic = () => {
   const [messages, setMessages] = useState();
 
   useEffect(() => {
-    return async () => {
-      const user = await getUser();
-      setU(user);
-      setDisplayName(location.state.nama);
-      getMessages(user);
+    const unsubcribe = async () => {
+      try {
+        const user = await getUser();
+        setU(user);
+        setDisplayName(location.state.nama);
+
+        return await getMessages(user);
+      } catch (e) {
+        log({ e });
+      }
     };
+    return async () => await unsubcribe();
   }, []);
 
   const getUser = async () => await fs.getCurrentUser();
 
   const getMessages = async (user) => {
     try {
-      const pasien = location.state.email;
+      let pasien;
+      pasien = location.state.email;
+
       const dokter = user.email;
 
       return fs.getMessage(setMessages, dokter, pasien);
     } catch (error) {
-      alert(error);
       return null;
     }
   };
@@ -83,7 +90,9 @@ const Logic = () => {
   };
 
   const onClickResep = () => {
-    navigate("/dokter/konsultasi/resep");
+    navigate("/dokter/konsultasi/resep", {
+      state: location.state,
+    });
   };
 
   return {

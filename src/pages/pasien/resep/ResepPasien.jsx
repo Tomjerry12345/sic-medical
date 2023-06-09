@@ -1,7 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CardResep from "../../../component/card/CardResep";
+import Logic from "./Logic";
+import { log } from "values/Utilitas";
 
 const ResepPasien = () => {
+  const { value, func } = Logic();
   return (
     <Stack>
       <Typography fontSize="26px" marginTop="-12px">
@@ -9,8 +12,13 @@ const ResepPasien = () => {
       </Typography>
 
       <Box mt={3}>
-        <CardResep nama="19/07/2023" />
-        <CardResep nama="19/07/2023" />
+        {value.data &&
+          value.data.map((v) => {
+            const output = new Date(v.timestamp.seconds * 1000);
+            const date = `${output.getDate()}/${output.getMonth()}/${output.getFullYear()}`;
+            log({ date });
+            return <CardResep nama={date} onPreview={() => func.previewResep(v)} />;
+          })}
       </Box>
     </Stack>
   );

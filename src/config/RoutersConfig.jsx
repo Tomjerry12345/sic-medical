@@ -20,6 +20,7 @@ import AppointmentPageDokter from "pages/dokter/appointment/AppointmentPageDokte
 import PasienPage from "pages/pasien/PasienPage";
 import EditAppointment from "pages/pasien/appointment/section/edit/EditAppointmentPage";
 import VideoCallPage from "pages/global/calling/VideoCallPage";
+import ViewerResep from "pages/global/viewerResep/ViewerResep";
 
 const RoutersConfig = () => {
   return (
@@ -43,6 +44,7 @@ const RoutersConfig = () => {
             <Route path="connect" element={<ConnectPasien />} />
             <Route path="notif" element={<NotifCallingPasien />} />
             <Route path="resep" element={<ResepPasien />} />
+            <Route path="viewer-resep" element={<ViewerResep />} />
           </Route>
         </Route>
         <Route path="/dokter" element={<DokterPage />}>
@@ -55,6 +57,7 @@ const RoutersConfig = () => {
             <Route path="connect" element={<ConnectDokter />} />
             <Route path="notif" element={<NotifCallingDokter />} />
             <Route path="resep" element={<ResepDokter />} />
+            {/* <Route path="viewer-resep" element={<ViewerResep />} /> */}
           </Route>
         </Route>
       </Routes>

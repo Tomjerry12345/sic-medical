@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography } from "@mui/material";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import PreviewIcon from "@mui/icons-material/Preview";
 
-const CardResep = ({ nama }) => {
+const CardResep = ({ nama, onPreview }) => {
   return (
     <Card
       style={{
@@ -11,13 +11,9 @@ const CardResep = ({ nama }) => {
       }}
     >
       <CardContent>
-        <Typography
-          display="flex"
-          justifyContent="space-between"
-          fontWeight="600"
-        >
+        <Typography display="flex" justifyContent="space-between" fontWeight="600">
           {nama}
-          <FileDownloadIcon />
+          <PreviewIcon onClick={onPreview} />
         </Typography>
       </CardContent>
     </Card>

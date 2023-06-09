@@ -1,6 +1,8 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
+import Logic from "./Logic";
 
 const ResepDokter = () => {
+  const { value, func } = Logic();
   return (
     <Stack spacing={4}>
       {/* Make Appointment */}
@@ -21,6 +23,7 @@ const ResepDokter = () => {
         placeholder="Silahkan mengisi resep pasien..."
         multiline
         rows={8}
+        value={value.input.resep}
         onChange={func.onChange}
       />
 
@@ -37,6 +40,7 @@ const ResepDokter = () => {
             textTransform: "none",
             fontSize: "20px",
           }}
+          onClick={func.sendRecipe}
         >
           Make recipe
         </Button>

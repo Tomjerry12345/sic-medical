@@ -82,9 +82,15 @@ const ChatPasienLogic = () => {
     });
   };
 
+  const onClickResep = () => {
+    navigate("/pasien/konsultasi/resep", {
+      state: location.state,
+    });
+  };
+
   return {
     value: { input, messages, u, displayName },
-    func: { sendMessage, onChange, onClickVideoCall },
+    func: { sendMessage, onChange, onClickVideoCall, onClickResep },
   };
 };
 
