@@ -38,13 +38,15 @@ const useStyles = makeStyles((theme) => ({
 
 const VideoCallPage = () => {
   const classes = useStyles();
-  const { startStream, callUser, answerCall, stream, leaveCall } = useContext(SocketContext);
+  const { startStream, callUser, answerCall, stream, leaveCall } =
+    useContext(SocketContext);
 
   const [data, setData] = useState();
 
   const location = useLocation();
 
   const [i, setI] = useState(0);
+  const [j, setJ] = useState(0);
   const fs = FirebaseServices();
 
   useEffect(() => {
@@ -79,7 +81,14 @@ const VideoCallPage = () => {
     <div className={classes.wrapper}>
       <VideoPlayer data={data} />
       <Box display="flex">
-        <Button variant="outlined" color="error">
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => {
+            leaveCall();
+            window.location.replace("http://localhost:3000/");
+          }}
+        >
           Matikan
         </Button>
       </Box>

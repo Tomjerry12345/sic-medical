@@ -20,10 +20,12 @@ const drawerWidth = 240;
 
 function DokterPage() {
   const navigate = useNavigate();
-  const { call, callAccepted } = React.useContext(SocketContext);
+  const { call, callAccepted, leaveCall } = React.useContext(SocketContext);
+  const [open, setOpen] = React.useState(true);
   React.useEffect(() => {
     const path = window.location.href;
-    if (path === "http://localhost:3000/dokter") navigate("/dokter/appointment");
+    if (path === "http://localhost:3000/dokter")
+      navigate("/dokter/appointment");
   }, []);
 
   return (
@@ -43,7 +45,7 @@ function DokterPage() {
 
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={call.isReceivingCall && !callAccepted}
+        open={call.isReceivingCall && !callAccepted && open}
         message="I love snacks"
         autoHideDuration={6000}
         key={1}
@@ -51,18 +53,34 @@ function DokterPage() {
           <Card sx={{ maxWidth: 345 }}>
             <CardContent>
               <Typography variant="h6" color="text.secondary">
-                Deceng menelpon....
+                {call.name} memanggil....
               </Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "space-evenly" }}>
               <Button
                 color="success"
                 size="small"
-                onClick={() => navigate("/dokter/konsultasi/chat")}
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/dokter/konsultasi/calling", {
+                    state: {
+                      type: "answer",
+                    },
+                  });
+                }}
+
+                // onClick={answerCall}
               >
                 Answer
               </Button>
-              <Button color="error" size="small">
+              <Button
+                color="error"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                  window.location.replace("http://localhost:3000/");
+                }}
+              >
                 Reject
               </Button>
             </CardActions>

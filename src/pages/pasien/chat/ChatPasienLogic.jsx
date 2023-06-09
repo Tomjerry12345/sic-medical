@@ -70,9 +70,21 @@ const ChatPasienLogic = () => {
     }
   };
 
+  const onClickVideoCall = () => {
+    navigate("/dokter/konsultasi/calling", {
+      state: {
+        nama: location.state.nama,
+        email: location.state.email,
+        image: location.state.image,
+        idCall: location.state.idCall,
+        type: "calling",
+      },
+    });
+  };
+
   return {
     value: { input, messages, u, displayName },
-    func: { sendMessage, onChange },
+    func: { sendMessage, onChange, onClickVideoCall },
   };
 };
 

@@ -4,13 +4,20 @@ import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuPasien } from "../../values/Constant";
-import { Button, Card, CardActions, CardContent, Snackbar, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { SocketContext } from "../../services/Context";
 
 const drawerWidth = 240;
 
 function PasienPage() {
-  const { call, callAccepted, answerCall } = React.useContext(SocketContext);
+  const { call, callAccepted } = React.useContext(SocketContext);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
 
@@ -68,7 +75,14 @@ function PasienPage() {
               >
                 Answer
               </Button>
-              <Button color="error" size="small">
+              <Button
+                color="error"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                  window.location.replace("http://localhost:3000/");
+                }}
+              >
                 Reject
               </Button>
             </CardActions>
