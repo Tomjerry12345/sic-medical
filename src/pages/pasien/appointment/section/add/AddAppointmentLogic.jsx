@@ -13,8 +13,8 @@ const AddAppointmentLogic = () => {
     type_diseases: "",
     message: "",
     timestamp: new Date().getTime(),
-    nama_dokter: '',
-    email_dokter: ''
+    nama_dokter: "",
+    email_dokter: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,11 +41,14 @@ const AddAppointmentLogic = () => {
   }, []);
 
   const getDokter = async () => {
-    const data = await fs.getDataCollection("dokter","nama_dokter", dokter.email);
-    
-    setDokter(data)
-    
-  }
+    const data = await fs.getDataCollection(
+      "dokter",
+      "nama_dokter",
+      dokter.email
+    );
+
+    setDokter(data);
+  };
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -56,9 +59,10 @@ const AddAppointmentLogic = () => {
       [name]: value,
     });
   };
+
   const onChangeDokter = (e) => {
     const value = e.target.value;
-    const array = value.split("-")
+    const array = value.split("-");
 
     setInput({
       ...input,
@@ -77,6 +81,7 @@ const AddAppointmentLogic = () => {
   const onMake = async () => {
     try {
       setLoading(true);
+      log({ input });
       await fs.addData("appointment", input);
       navigate("/pasien/appointment");
     } catch (error) {
@@ -90,13 +95,13 @@ const AddAppointmentLogic = () => {
     value: {
       input,
       loading,
-      dokter
+      dokter,
     },
     func: {
       onChange,
       onChangeDate,
       onMake,
-      onChangeDokter
+      onChangeDokter,
     },
   };
 };

@@ -28,21 +28,6 @@ const AppointmentPageDokter = () => {
       <Stack spacing={6} style={{ fontFamily: "lato", marginTop: "-12px" }}>
         {/* appointment */}
         <p style={{ fontSize: "26px", fontWeight: "400" }}>Appointment</p>
-        {/* button */}
-        {/* <Button
-          variant="contained"
-          style={{
-            width: "210px",
-            height: "42px",
-            backgroundColor: "#8BD7EF",
-            borderRadius: "8px",
-            fontFamily: "lato",
-            textTransform: "none",
-            fontSize: "17px",
-          }}
-        >
-          Make an appointment
-        </Button> */}
       </Stack>
       <TableContainer component={Paper} style={{ marginTop: "50px" }}>
         <Table className={classes.table} aria-label="simple table">
@@ -66,7 +51,7 @@ const AppointmentPageDokter = () => {
                   fontSize: "18px",
                 }}
               >
-                Name
+                Nama
               </TableCell>
               <TableCell
                 style={{
@@ -86,7 +71,7 @@ const AppointmentPageDokter = () => {
                   fontSize: "18px",
                 }}
               >
-                Phone
+                Telpon
               </TableCell>
               <TableCell
                 style={{
@@ -96,7 +81,7 @@ const AppointmentPageDokter = () => {
                   fontSize: "18px",
                 }}
               >
-                Date
+                Tanggal Perjanjian
               </TableCell>
               <TableCell
                 style={{
@@ -108,6 +93,7 @@ const AppointmentPageDokter = () => {
               >
                 Gender
               </TableCell>
+
               <TableCell
                 style={{
                   color: "white",
@@ -116,17 +102,7 @@ const AppointmentPageDokter = () => {
                   fontSize: "18px",
                 }}
               >
-                Type
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "white",
-                  fontWeight: "600",
-                  fontFamily: "lato",
-                  fontSize: "18px",
-                }}
-              >
-                Message
+                Keluhan
               </TableCell>
               {/* <TableCell
                 style={{
@@ -152,7 +128,7 @@ const AppointmentPageDokter = () => {
                     scope="row"
                     style={{ fontWeight: "600", fontFamily: "lato" }}
                   >
-                    {row.name_lengkap}
+                    {row.nama_lengkap}
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.email}
@@ -165,9 +141,6 @@ const AppointmentPageDokter = () => {
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.gender}
-                  </TableCell>
-                  <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
-                    {row.type_diseases}
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.message}

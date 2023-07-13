@@ -55,9 +55,7 @@ const ModalComponent = (props) => {
           >
             {props.nama}
           </Typography>
-          <Typography id="modal-modal-description" >
-            {props.tipe}
-          </Typography>
+          <Typography id="modal-modal-description">{props.tipe}</Typography>
         </Card>
       </Modal>
     </div>

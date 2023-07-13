@@ -16,10 +16,14 @@ const DashboardPage = () => {
         <Typography
           sx={{
             fontFamily: "lato",
-            fontSize: "24px",
+            fontSize: {
+              sm: "24px",
+              md: "30px",
+            },
+            marginTop: "-20px",
           }}
         >
-          Dashboard
+          Selamat datang di Klinik Hikmah versi Telemedicine
         </Typography>
       </Stack>
 
@@ -32,7 +36,7 @@ const DashboardPage = () => {
               src="images/gambar.png"
               sx={{
                 width: {
-                  sm: "344px",
+                  sm: "300px",
                   md: "380px",
                 },
                 margin: "auto",
@@ -54,13 +58,14 @@ const DashboardPage = () => {
                 fontFamily: "lato",
                 fontSize: {
                   sm: "14px",
-                  md: "24px",
+                  md: "20px",
                 },
                 margin: "auto",
               }}
             >
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when
-              an unknown printer took a galley of type and scrambled it to make a type
+              Klinik Hikmah merupakan salah satu fasilitas kesehatan yang ada di
+              Kabupaten Wajo. Saat ini kami hadir dengan versi telemedicine
+              dimana pasien dapat berkonsultasi secara jarak jauh.
             </Typography>
           </Stack>
         </Grid>
@@ -80,13 +85,13 @@ const DashboardPage = () => {
             fontFamily: "lato",
             fontSize: {
               sm: "24px",
-              md: "32px",
+              md: "25px",
             },
             marginTop: "-20px",
           }}
           mb={4}
         >
-          Feature
+          Fitur
         </Typography>
 
         <Stack
@@ -97,7 +102,7 @@ const DashboardPage = () => {
           }}
         >
           <CarditemDashboard
-            text={"Video Call"}
+            text={"Appointment"}
             icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
           />
 
@@ -106,7 +111,7 @@ const DashboardPage = () => {
             icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
           />
           <CarditemDashboard
-            text={"Rumah sakit"}
+            text={"Resep Obat"}
             icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
           />
         </Stack>

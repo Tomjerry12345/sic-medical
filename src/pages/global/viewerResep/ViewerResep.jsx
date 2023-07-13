@@ -1,4 +1,12 @@
-import { Page, Text, View, Document, StyleSheet, PDFViewer, Font } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFViewer,
+  Font,
+} from "@react-pdf/renderer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { log } from "values/Utilitas";
@@ -7,9 +15,11 @@ import { log } from "values/Utilitas";
 const MyDocument = ({ data }) => (
   <Document>
     <Page style={styles.body}>
-      <Text style={styles.title}>Apotek Sakinah</Text>
-      <Text style={styles.headerText}>Jl.blaaaa</Text>
-      <Text style={styles.headerText}>Miguel de Cervantes</Text>
+      <Text style={styles.title}>Klinik Hikmah Farma</Text>
+      <Text style={styles.headerText}>Jl. Andi Mori No. 14-15 Sengkang</Text>
+      <Text style={styles.headerText}>Telp: 0822911009690</Text>
+      <Text style={styles.headerText}>No. Izin: 0004/ IK / DPMPTSP / 2017</Text>
+
       <View style={{ flexDirection: "row", display: "flex", marginTop: 24 }}>
         <Text
           style={{
@@ -79,7 +89,9 @@ const ViewerResep = () => {
   }, []);
 
   return (
-    <PDFViewer style={{ position: "absolute", border: 0, height: "100%", width: "83%" }}>
+    <PDFViewer
+      style={{ position: "absolute", border: 0, height: "100%", width: "83%" }}
+    >
       <MyDocument data={location.state} />
     </PDFViewer>
   );

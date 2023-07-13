@@ -21,7 +21,7 @@ const AddAppointment = () => {
           marginTop: "-14px",
         }}
       >
-        Make Appointment
+        Buat Perjanjian
       </Typography>
 
       {/* TextField 1*/}
@@ -123,35 +123,6 @@ const AddAppointment = () => {
         </TextField>
 
         <TextField
-          name="type_diseases"
-          onChange={func.onChange}
-          label={
-            <Typography
-              style={{
-                fontFamily: "lato",
-                fontSize: "18px",
-              }}
-            >
-              type of diseases
-            </Typography>
-          }
-          InputProps={{
-            style: { height: 56 },
-          }}
-          select
-          fullWidth
-          size="small"
-          variant="outlined"
-          sx={{ width: "333px" }}
-          // onChange={func.onChange}
-        >
-          <MenuItem value="penyakit-1">Penyakit 1</MenuItem>
-          <MenuItem value="penyakit-2">Penyakit 2</MenuItem>
-          <MenuItem value="penyakit-3">Penyakit 3</MenuItem>
-        </TextField>
-      </Box>
-      <Box>
-        <TextField
           onChange={func.onChangeDokter}
           label={
             <Typography
@@ -187,7 +158,7 @@ const AddAppointment = () => {
         onChange={func.onChange}
         label={
           <Typography style={{ fontFamily: "lato", fontSize: "21px" }}>
-            messages (optional)
+            silahkan isi keluhan anda
           </Typography>
         }
         multiline
@@ -210,7 +181,7 @@ const AddAppointment = () => {
           }}
           onClick={func.onMake}
         >
-          Make an appointment
+          buat temu janji
         </LoadingButton>
       </Stack>
     </Stack>

@@ -26,7 +26,7 @@ const AppointmentPage = () => {
     <>
       <Stack spacing={6} style={{ fontFamily: "lato", marginTop: "-12px" }}>
         {/* appointment */}
-        <p style={{ fontSize: "26px", fontWeight: "400" }}>Appointment</p>
+        <p style={{ fontSize: "30px", fontWeight: "400" }}>Appointment</p>
         {/* button */}
         <Button
           variant="contained"
@@ -41,7 +41,7 @@ const AppointmentPage = () => {
           }}
           onClick={func.onMakeAppointment}
         >
-          Make an appointment
+          Buat Perjanjian
         </Button>
       </Stack>
       <TableContainer component={Paper} style={{ marginTop: "50px" }}>
@@ -66,7 +66,7 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Name
+                Nama
               </TableCell>
               <TableCell
                 style={{
@@ -86,7 +86,7 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Phone
+                Telepon
               </TableCell>
               <TableCell
                 style={{
@@ -96,7 +96,7 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Date
+                Tanggal Perjanjian
               </TableCell>
               <TableCell
                 style={{
@@ -116,7 +116,7 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Type
+                Jenis Penyakit
               </TableCell>
               <TableCell
                 style={{

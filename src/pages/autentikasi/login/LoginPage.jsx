@@ -73,7 +73,9 @@ const LoginPage = () => {
             onChange={func.onChange}
           />
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
               type={value.showPassword ? "text" : "password"}
@@ -117,7 +119,7 @@ const LoginPage = () => {
             }}
             onClick={func.onLogin}
           >
-            Save
+            Login
           </LoadingButton>
         </Stack>
 
@@ -128,7 +130,7 @@ const LoginPage = () => {
               fontFamily: "lato",
             }}
           >
-            Sudah punya akun ?{" "}
+            belum punya akun ?{" "}
             <Button
               style={{
                 color: "#8BD7EF",
@@ -137,7 +139,7 @@ const LoginPage = () => {
               }}
               onClick={func.onMoveToRegister}
             >
-              Login
+              sign up
             </Button>
           </p>
         </Stack>

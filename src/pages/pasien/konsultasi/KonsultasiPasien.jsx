@@ -9,7 +9,13 @@ const KonsultasiPasien = () => {
       <Typography variant="h4" style={{ marginTop: "-15px" }}>
         Konsultasi
       </Typography>
-      <Grid spacing={4} container my={2} display="flex" justifyContent="space-between">
+      <Grid
+        spacing={4}
+        container
+        my={2}
+        display="flex"
+        justifyContent="space-between"
+      >
         {value.data &&
           value.data.map((item) => (
             <Grid item xs={4}>

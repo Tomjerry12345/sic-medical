@@ -21,6 +21,9 @@ import PasienPage from "pages/pasien/PasienPage";
 import EditAppointment from "pages/pasien/appointment/section/edit/EditAppointmentPage";
 import VideoCallPage from "pages/global/calling/VideoCallPage";
 import ViewerResep from "pages/global/viewerResep/ViewerResep";
+import RekamMedisPage from "pages/dokter/rekam-medis/RekamMedisPage";
+import DetailRekamMedis from "pages/dokter/rekam-medis/section/detail/DetailRekamMedis";
+import AddRekamMedisPage from "pages/dokter/rekam-medis/section/add/AddRekamMedisPage";
 
 const RoutersConfig = () => {
   return (
@@ -49,6 +52,11 @@ const RoutersConfig = () => {
         </Route>
         <Route path="/dokter" element={<DokterPage />}>
           <Route index path="appointment" element={<AppointmentPageDokter />} />
+          <Route path="rekam-medis">
+            <Route index element={<RekamMedisPage />} />
+            <Route path="add" element={<AddRekamMedisPage />} />
+            <Route path="detail" element={<DetailRekamMedis />} />
+          </Route>
           <Route path="konsultasi">
             <Route index element={<KonsultasiDokter />} />
             <Route path="chat" element={<ChatDokter />} />

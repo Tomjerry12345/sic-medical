@@ -17,7 +17,15 @@ const Logic = () => {
   const getResep = async () => {
     try {
       const user = await fs.getCurrentUser();
-      const res = await fs.getDataQuery("resep", "pasienEmail", user.email);
+      const dokter = location.state;
+      log({ dokter });
+      const res = await fs.getDataQuery2(
+        "resep",
+        "pasienEmail",
+        user.email,
+        "dokterEmail",
+        dokter.email
+      );
       //   const output = new Date(res[0].timestamp.seconds * 1000);
       log({ res });
       setData(res);

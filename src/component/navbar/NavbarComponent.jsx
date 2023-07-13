@@ -38,17 +38,19 @@ const NavbarComponent = ({ menu, type }) => {
     setValue({
       ...value,
       nama: type === "dokter" ? data[0].nama_dokter : data[0].nama_lengkap,
-      tipe: type === "dokter" ? `Spesialis : ${data[0].spesialis}` : data[0].type,
+      tipe: type === "dokter" ? `Dokter : ${data[0].spesialis}` : data[0].type,
       image: data[0].image,
     });
   };
 
   const drawer = (
     <div>
-      {/* darusullam media center */}
+      {/* RSUD Siwa */}
       <Stack sx={{ textAlign: "center", p: 2 }}>
-        <Typography sx={{ fontFamily: "lato", fontSize: "24px", fontWeight: "400" }}>
-          Darusallam Media Center
+        <Typography
+          sx={{ fontFamily: "lato", fontSize: "25px", fontWeight: "500" }}
+        >
+          Klinik Hikmah
         </Typography>
         {/* images */}
 
@@ -121,7 +123,10 @@ const NavbarComponent = ({ menu, type }) => {
                 }}
               >
                 <ListItemIcon>{val.icon}</ListItemIcon>
-                <ListItemText style={{ fontFamily: "lato" }} primary={val.title} />
+                <ListItemText
+                  style={{ fontFamily: "lato" }}
+                  primary={val.title}
+                />
               </Stack>
             </ListItemButton>
           </ListItem>

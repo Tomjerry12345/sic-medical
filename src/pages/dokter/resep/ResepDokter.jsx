@@ -14,7 +14,7 @@ const ResepDokter = () => {
           marginTop: "-14px",
         }}
       >
-        Make Appointment
+        Resep Pasien
       </Typography>
 
       {/* Message optional */}
@@ -42,7 +42,7 @@ const ResepDokter = () => {
           }}
           onClick={func.sendRecipe}
         >
-          Make recipe
+          Kirim Resep
         </Button>
       </Stack>
     </Stack>

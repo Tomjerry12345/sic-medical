@@ -1,11 +1,10 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import NavbarComponent from "../../component/navbar/NavbarComponent";
+import NavbarComponent from "component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
-import { menuDokter } from "../../values/Constant";
-import { log } from "../../values/Utilitas";
-import { SocketContext } from "../../services/Context";
+import { menuDokter } from "values/Constant";
+import { SocketContext } from "services/Context";
 import {
   Button,
   Card,
@@ -71,7 +70,7 @@ function DokterPage() {
 
                 // onClick={answerCall}
               >
-                Answer
+                Terima
               </Button>
               <Button
                 color="error"
@@ -81,7 +80,7 @@ function DokterPage() {
                   window.location.replace("http://localhost:3000/");
                 }}
               >
-                Reject
+                Tolak
               </Button>
             </CardActions>
           </Card>
