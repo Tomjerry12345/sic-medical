@@ -126,7 +126,7 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Message
+                Keluhan
               </TableCell>
               <TableCell
                 style={{
