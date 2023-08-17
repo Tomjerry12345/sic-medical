@@ -4,14 +4,24 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBas2FP-nT0UqlHS7CSQkB-APGeuHQ0ouo",
+//   authDomain: "sic-medical-11a53.firebaseapp.com",
+//   projectId: "sic-medical-11a53",
+//   storageBucket: "sic-medical-11a53.appspot.com",
+//   messagingSenderId: "225389562879",
+//   appId: "1:225389562879:web:49b24fa113e581198135ca",
+//   measurementId: "G-W4JYM4WQ36",
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBas2FP-nT0UqlHS7CSQkB-APGeuHQ0ouo",
-  authDomain: "sic-medical-11a53.firebaseapp.com",
-  projectId: "sic-medical-11a53",
-  storageBucket: "sic-medical-11a53.appspot.com",
-  messagingSenderId: "225389562879",
-  appId: "1:225389562879:web:49b24fa113e581198135ca",
-  measurementId: "G-W4JYM4WQ36",
+  apiKey: "AIzaSyCAUPZ6Q0jrhZI8DrlSMN8AD890cahTjgg",
+  authDomain: "sic-medical.firebaseapp.com",
+  projectId: "sic-medical",
+  storageBucket: "sic-medical.appspot.com",
+  messagingSenderId: "116397823864",
+  appId: "1:116397823864:web:0e2dcf4e1631c7a7cc5a8d",
+  measurementId: "G-H6ZX2LETR8",
 };
 
 const app = initializeApp(firebaseConfig);

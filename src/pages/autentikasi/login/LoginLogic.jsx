@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { log } from "../../../values/Utilitas";
+import { log, setLocal } from "../../../values/Utilitas";
 import { SocketContext } from "../../../services/Context";
 
 const LoginLogic = () => {
@@ -35,6 +35,8 @@ const LoginLogic = () => {
       await firebaseServices.loginWithEmail(input.email, input.password);
       const result = await firebaseServices.getDataQuery("user", "email", input.email);
       const length = result.length;
+
+      setLocal("email", input.email);
       if (length === 0) {
         navigate("/dokter");
       } else {

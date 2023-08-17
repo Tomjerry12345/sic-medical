@@ -11,7 +11,7 @@ import {
   Stack,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import AppointmentLogic from "../../pasien/appointment/AppointmentLogic";
+import AppointmentLogic from "../../pasien/appointment/Logic";
 import AppointmentLogicDokter from "./AppointmentLogic";
 
 const useStyles = makeStyles({

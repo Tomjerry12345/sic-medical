@@ -13,7 +13,7 @@
     "@mui/x-data-grid": "^6.9.0",
     "@mui/x-date-pickers": "^6.4.0",
     "@react-pdf/font": "2.2.0",
-    "@react-pdf/renderer": "2.1.1",
+    "@react-pdf/renderer": "2.1.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -39,6 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

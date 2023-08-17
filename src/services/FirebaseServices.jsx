@@ -20,7 +20,7 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { timestamp } from "../values/Utilitas";
+import { log, timestamp } from "../values/Utilitas";
 
 const FirebaseServices = () => {
   const createUser = async (email, password) =>
@@ -34,8 +34,7 @@ const FirebaseServices = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
         },
         (error) => {
@@ -109,6 +108,22 @@ const FirebaseServices = () => {
     return data;
   };
 
+  const getNotif = async (col, setData) => {
+    const user = await getCurrentUser();
+    const collection_ref = collection(db, col);
+
+    const q = query(collection_ref, where("email", "==", user.email), where("new", "==", true));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const newData = [];
+      querySnapshot.forEach((doc) => {
+        newData.push({ id: doc.id, ...doc.data() });
+      });
+      console.log(newData);
+      // Lakukan sesuatu dengan data newData
+    });
+  };
+
   const getDataSpecifict = async (col) => {
     const collection_ref = col;
     const docs = await getDocs(collection_ref);
@@ -135,11 +150,7 @@ const FirebaseServices = () => {
 
   const getDataQuery2 = async (col, key, value, key1, value1) => {
     const collection_ref = collection(db, col);
-    const q = query(
-      collection_ref,
-      where(key, "==", value),
-      where(key1, "==", value1)
-    );
+    const q = query(collection_ref, where(key, "==", value), where(key1, "==", value1));
     const docs = await getDocs(q);
     const data = [];
     docs.forEach((v) => {
@@ -150,13 +161,11 @@ const FirebaseServices = () => {
     return data;
   };
 
-  const updateDocX = (col, document, data) =>
-    updateDoc(doc(db, col, document), data);
+  const updateDocX = (col, document, data) => updateDoc(doc(db, col, document), data);
 
   const deletDoc = (col, document) => deleteDoc(doc(db, col, document));
 
-  const loginWithEmail = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
+  const loginWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
   const getCurrentUser = () =>
     new Promise((resolve, reject) => {
@@ -183,6 +192,7 @@ const FirebaseServices = () => {
     updateDocX,
     deletDoc,
     getDataCollection,
+    getNotif,
     getDataSpecifict,
     sendMessage,
     getMessage,

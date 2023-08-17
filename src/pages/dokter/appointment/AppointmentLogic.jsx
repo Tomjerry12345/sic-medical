@@ -15,11 +15,7 @@ const AppointmentLogicDokter = () => {
 
   const onGetData = async () => {
     const user = await fs.getCurrentUser();
-    const result = await fs.getDataQuery(
-      "appointment",
-      "email_dokter",
-      user.email
-    );
+    const result = await fs.getDataQuery("appointment", "email_dokter", user.email);
     setData(result);
   };
 

@@ -3,7 +3,7 @@ import FirebaseServices from "../../../services/FirebaseServices";
 import { log } from "../../../values/Utilitas";
 import { useEffect, useState } from "react";
 
-const AppointmentLogic = () => {
+const Logic = () => {
   const [data, setData] = useState();
 
   const navigate = useNavigate();
@@ -52,4 +52,4 @@ const AppointmentLogic = () => {
   };
 };
 
-export default AppointmentLogic;
+export default Logic;

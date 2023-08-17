@@ -1,31 +1,130 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuDokter } from "values/Constant";
 import { SocketContext } from "services/Context";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Snackbar,
-  Typography,
-} from "@mui/material";
-
-const drawerWidth = 240;
+import { Button, Card, CardActions, CardContent, Snackbar, Typography } from "@mui/material";
+import { useContext, useEffect, useRef, useState } from "react";
+import FirebaseServices from "services/FirebaseServices";
+import { db } from "config/FirebaseConfig";
+import { collection, onSnapshot, query, where, getDocs } from "firebase/firestore";
+import { getLocal, log, setLocal } from "values/Utilitas";
 
 function DokterPage() {
   const navigate = useNavigate();
-  const { call, callAccepted, leaveCall } = React.useContext(SocketContext);
-  const [open, setOpen] = React.useState(true);
-  React.useEffect(() => {
+  const { call, callAccepted, leaveCall } = useContext(SocketContext);
+  const [open, setOpen] = useState(true);
+
+  const [openNotifAppointment, setOpenNotifAppointment] = useState(false);
+  const [openNotifKonsultasi, setOpenNotifKonsultasi] = useState(false);
+
+  const [messageNotifAppointment, setMessageNotifAppointment] = useState("");
+  const [messageNotifKonsultasi, setMessageNotifKonsultasi] = useState("");
+
+  const [loggin, setLoggin] = useState(true);
+
+  const fs = FirebaseServices();
+
+  useEffect(() => {
     const path = window.location.href;
-    if (path === "http://localhost:3000/dokter")
-      navigate("/dokter/appointment");
+    if (path === "http://localhost:3000/dokter") navigate("/dokter/appointment");
   }, []);
+
+  useEffect(() => {
+    const email = getLocal("email");
+    const colRef = collection(db, "pemberitahuan");
+    //real time update
+    const q = query(colRef, where("email_dokter", "==", email), where("new", "==", true));
+    onSnapshot(q, async (snapshot) => {
+      let sumAppointment = 0;
+      let sumKonsultasi = 0;
+      for (const doc of snapshot.docs) {
+        const d = doc.data();
+        const isNew = d.new;
+
+        if (isNew === true) {
+          await fs.updateDocX("pemberitahuan", doc.id, {
+            new: false,
+          });
+
+          if (d.type === "konsultasi") sumKonsultasi += 1;
+          else sumAppointment += 1;
+        }
+      }
+
+      if (sumKonsultasi > 0) {
+        setMessageNotifAppointment(`${sumKonsultasi} pemberitahuan konsultasi`);
+        setOpenNotifAppointment(true);
+      }
+
+      if (sumAppointment > 0) {
+        setMessageNotifKonsultasi(`${sumAppointment} pemberitahuan appointment`);
+        setOpenNotifKonsultasi(true);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    updateExpireTime();
+
+    window.addEventListener("click", updateExpireTime);
+    window.addEventListener("keypress", updateExpireTime);
+    window.addEventListener("scroll", updateExpireTime);
+    window.addEventListener("mousemove", updateExpireTime);
+
+    return () => {
+      window.removeEventListener("click", updateExpireTime);
+      window.removeEventListener("keypress", updateExpireTime);
+      window.removeEventListener("scroll", updateExpireTime);
+      window.removeEventListener("mousemove", updateExpireTime);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     checkForInActivity();
+  //   }, 10000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // const checkForInActivity = () => {
+  //   const expireTime = getLocal("expireTime");
+
+  //   if (expireTime < Date.now()) {
+  //     console.log("log out");
+  //     setLoggin(false);
+  //   } else {
+  //     setLoggin(true);
+  //   }
+  // };
+
+  const updateExpireTime = async () => {
+    const expireTime = Date.now() + 60000;
+    const email = getLocal("email");
+    const colRef = collection(db, "dokter");
+    const q = query(colRef, where("email", "==", email));
+    const docs = await getDocs(q);
+
+    let id;
+
+    docs.forEach((v) => {
+      id = v.id;
+    });
+
+    await fs.updateDocX("dokter", id, {
+      expire_time: expireTime,
+    });
+  };
+
+  const closeNotifAppointment = () => {
+    setOpenNotifAppointment(false);
+  };
+
+  const closeNotifKonsultasi = () => {
+    setOpenNotifKonsultasi(false);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -85,6 +184,24 @@ function DokterPage() {
             </CardActions>
           </Card>
         }
+      />
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openNotifAppointment}
+        onClose={closeNotifAppointment}
+        message={messageNotifAppointment}
+        key="top-right"
+        autoHideDuration={5000}
+      />
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openNotifKonsultasi}
+        onClose={closeNotifKonsultasi}
+        message={messageNotifKonsultasi}
+        key="top-right-1"
+        autoHideDuration={5000}
       />
     </Box>
   );

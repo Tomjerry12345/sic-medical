@@ -11,7 +11,7 @@ import {
   Stack,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import AppointmentLogic from "./AppointmentLogic";
+import Logic from "./Logic";
 
 const useStyles = makeStyles({
   table: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
 const AppointmentPage = () => {
   const classes = useStyles();
-  const { value, func } = AppointmentLogic();
+  const { value, func } = Logic();
   return (
     <>
       <Stack spacing={6} style={{ fontFamily: "lato", marginTop: "-12px" }}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FirebaseServices from "../../../../../services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
-import { log } from "../../../../../values/Utilitas";
+import { getLocal, log } from "../../../../../values/Utilitas";
 
 const AddAppointmentLogic = () => {
   const [input, setInput] = useState({
@@ -41,11 +41,7 @@ const AddAppointmentLogic = () => {
   }, []);
 
   const getDokter = async () => {
-    const data = await fs.getDataCollection(
-      "dokter",
-      "nama_dokter",
-      dokter.email
-    );
+    const data = await fs.getDataCollection("dokter", "nama_dokter", dokter.email);
 
     setDokter(data);
   };
@@ -66,6 +62,7 @@ const AddAppointmentLogic = () => {
 
     setInput({
       ...input,
+      new: true,
       email_dokter: array[0],
       nama_dokter: array[1],
     });
@@ -81,8 +78,14 @@ const AddAppointmentLogic = () => {
   const onMake = async () => {
     try {
       setLoading(true);
-      log({ input });
+      const email = getLocal("email");
       await fs.addData("appointment", input);
+      await fs.addData("pemberitahuan", {
+        email_dokter: input.email_dokter,
+        email_pasien: email,
+        new: true,
+        type: "appointment",
+      });
       navigate("/pasien/appointment");
     } catch (error) {
       setLoading(false);

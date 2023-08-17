@@ -58,10 +58,17 @@ const ChatPasienLogic = () => {
       const i = {
         ...input,
         sender: pasien,
+        from: dokter,
         timestamp: timestamp(),
       };
 
       await fs.sendMessage(dokter, pasien, i);
+      await fs.addData("pemberitahuan", {
+        email_dokter: dokter,
+        email_pasien: pasien,
+        new: true,
+        type: "konsultasi",
+      });
       setInput({
         message: "",
       });

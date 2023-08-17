@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-const CardUser = ({ image, nama, spesialis, onClick }) => {
+const CardUser = ({ image, nama, spesialis, expireTime, onClick }) => {
   return (
     <Card
       sx={{ maxWidth: 345 }}
@@ -19,7 +19,7 @@ const CardUser = ({ image, nama, spesialis, onClick }) => {
         {/* image */}
         <CardMedia
           component="img"
-          height="140"
+          height="180"
           image={image}
           alt=""
           style={{
@@ -37,6 +37,15 @@ const CardUser = ({ image, nama, spesialis, onClick }) => {
           <Typography variant="body2" fontSize="24px" color="text.secondary">
             {spesialis}
           </Typography>
+          {expireTime < Date.now() ? (
+            <Typography variant="body2" fontSize="24px" color="text.secondary">
+              offline
+            </Typography>
+          ) : (
+            <Typography variant="body2" fontSize="24px" color="text.secondary">
+              online
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>
