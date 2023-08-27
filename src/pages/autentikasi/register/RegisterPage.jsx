@@ -12,13 +12,15 @@ import {
   InputAdornment,
 } from "@mui/material";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import RegisterLogic from "./RegisterLogic";
+import Logic from "./Logic";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const RegisterPage = () => {
-  const { value, func } = RegisterLogic();
+  const { value, func } = Logic();
   return (
     <Grid
       container
@@ -50,14 +52,13 @@ const RegisterPage = () => {
       <Grid
         sx={{
           padding: 2,
+          overflow: "auto",
+          height: "100vh",
         }}
         item
         xs={5}
       >
-        <Typography
-          fontSize={36}
-          style={{ fontFamily: "lato", fontWeight: "900" }}
-        >
+        <Typography fontSize={36} style={{ fontFamily: "lato", fontWeight: "900" }}>
           Selamat datang
         </Typography>
         <Typography fontSize={26} sx={{ mt: 2 }} style={{ fontFamily: "lato" }}>
@@ -72,7 +73,7 @@ const RegisterPage = () => {
             borderRadius: "30%",
           }}
         >
-          {value.image.previewImage == null ? (
+          {value.img.previewImage == null ? (
             <img
               width="110"
               height="110"
@@ -87,11 +88,11 @@ const RegisterPage = () => {
             />
           ) : (
             <img
-              src={value.image.previewImage}
+              src={value.img.previewImage}
               width="110"
               height="110"
               style={{
-                position: "relative",
+                // position: "relative",
                 marginBottom: "14px",
                 borderRadius: "50%",
                 zIndex: 0,
@@ -106,8 +107,7 @@ const RegisterPage = () => {
             component="label"
             style={{
               background: "#8BD7EF",
-              position: "absolute",
-              marginTop: "70px",
+              marginTop: "-39px",
               marginLeft: "77px",
               fontSize: "20px",
               padding: "10px",
@@ -115,17 +115,11 @@ const RegisterPage = () => {
               color: "white",
             }}
           >
-            <input
-              hidden
-              accept="image/*"
-              type="file"
-              onChange={func.onGetImage}
-            />
+            <input hidden accept="image/*" type="file" onChange={func.onGetImage} />
             <AddAPhotoOutlinedIcon />
           </IconButton>
         </Stack>
 
-        {/* TextField */}
         <Stack spacing={2} style={{}} component="form">
           <TextField
             name="email"
@@ -136,9 +130,7 @@ const RegisterPage = () => {
             onChange={func.onChange}
           />
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
               type={value.showPassword ? "text" : "password"}
@@ -168,7 +160,7 @@ const RegisterPage = () => {
           />
           <TextField
             name="gender"
-            label="Gender"
+            label="Jenis kelamin"
             select
             fullWidth
             size="small"
@@ -177,9 +169,26 @@ const RegisterPage = () => {
             <MenuItem value="laki-laki">Laki-laki</MenuItem>
             <MenuItem value="perempuan">Perempuan</MenuItem>
           </TextField>
+          <TextField
+            name="nik"
+            label="NIK"
+            type="number"
+            variant="outlined"
+            size="small"
+            onChange={func.onChange}
+          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker label="Tanggal lahir" onChange={func.onChangeDate} />
+          </LocalizationProvider>
+          <TextField
+            name="alamat"
+            label="Alamat"
+            variant="outlined"
+            size="small"
+            onChange={func.onChange}
+          />
         </Stack>
 
-        {/* Button */}
         <Stack
           mt={4}
           style={{
@@ -205,7 +214,6 @@ const RegisterPage = () => {
           </LoadingButton>
         </Stack>
 
-        {/* sudah punya akun */}
         <Stack sx={{ alignItems: "center", fontSize: "18px", mt: 4 }}>
           <p
             style={{

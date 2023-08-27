@@ -4,15 +4,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuPasien } from "../../values/Constant";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Snackbar,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, Snackbar, Typography } from "@mui/material";
 import { SocketContext } from "../../services/Context";
+import { getLocal } from "values/Utilitas";
+import { db } from "config/FirebaseConfig";
+import { collection, onSnapshot, query, where, getDocs } from "firebase/firestore";
+import FirebaseServices from "services/FirebaseServices";
 
 const drawerWidth = 240;
 
@@ -21,15 +18,48 @@ function PasienPage() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
 
-  // React.useEffect(() => {
-  //   if (!open) {
-  //     navigate("/pasien/konsultasi/calling", {
-  //       state: {
-  //         type: "answer",
-  //       },
-  //     });
-  //   }
-  // }, []);
+  const [messageResep, setMessageResep] = React.useState("");
+  const [openNotifResep, setOpenNotifResep] = React.useState(false);
+
+  const fs = FirebaseServices();
+
+  React.useEffect(() => {
+    const email = getLocal("email");
+    const colRef = collection(db, "pemberitahuan");
+    //real time update
+    const q = query(colRef, where("email_pasien", "==", email), where("new", "==", true));
+    onSnapshot(q, async (snapshot) => {
+      let sumResep = 0;
+      // let sumKonsultasi = 0;
+      for (const doc of snapshot.docs) {
+        const d = doc.data();
+        const isNew = d.new;
+
+        if (isNew === true) {
+          await fs.updateDocX("pemberitahuan", doc.id, {
+            new: false,
+          });
+
+          if (d.type === "resep") sumResep += 1;
+          // else sumKonsultasi += 1;
+        }
+      }
+
+      if (sumResep > 0) {
+        setMessageResep(`${sumResep} pemberitahuan resep`);
+        setOpenNotifResep(true);
+      }
+
+      // if (sumKonsultasi > 0) {
+      //   setMessageNotifKonsultasi(`${sumAppointment} pemberitahuan appointment`);
+      //   setOpenNotifKonsultasi(true);
+      // }
+    });
+  }, []);
+
+  const closeNotifResep = () => {
+    setOpenNotifResep(false);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -88,6 +118,15 @@ function PasienPage() {
             </CardActions>
           </Card>
         }
+      />
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openNotifResep}
+        onClose={closeNotifResep}
+        message={messageResep}
+        key="top-right"
+        autoHideDuration={5000}
       />
     </Box>
   );

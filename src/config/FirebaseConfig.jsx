@@ -14,14 +14,28 @@ import { getFirestore } from "firebase/firestore";
 //   measurementId: "G-W4JYM4WQ36",
 // };
 
+// Andrialfiandi46
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCAUPZ6Q0jrhZI8DrlSMN8AD890cahTjgg",
+//   authDomain: "sic-medical.firebaseapp.com",
+//   projectId: "sic-medical",
+//   storageBucket: "sic-medical.appspot.com",
+//   messagingSenderId: "116397823864",
+//   appId: "1:116397823864:web:0e2dcf4e1631c7a7cc5a8d",
+//   measurementId: "G-H6ZX2LETR8",
+// };
+
+// Andrialfiandi055
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCAUPZ6Q0jrhZI8DrlSMN8AD890cahTjgg",
-  authDomain: "sic-medical.firebaseapp.com",
-  projectId: "sic-medical",
-  storageBucket: "sic-medical.appspot.com",
-  messagingSenderId: "116397823864",
-  appId: "1:116397823864:web:0e2dcf4e1631c7a7cc5a8d",
-  measurementId: "G-H6ZX2LETR8",
+  apiKey: "AIzaSyBGclGKY2awIgGwtKYBtaCMC9E5WdK3w1E",
+  authDomain: "sic-medical-c46d6.firebaseapp.com",
+  projectId: "sic-medical-c46d6",
+  storageBucket: "sic-medical-c46d6.appspot.com",
+  messagingSenderId: "1084281628215",
+  appId: "1:1084281628215:web:588991702441929ecec1b2",
+  measurementId: "G-ZCDZ5LXWN0",
 };
 
 const app = initializeApp(firebaseConfig);

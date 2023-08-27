@@ -1,11 +1,11 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Stack, Typography, Button, MenuItem } from "@mui/material";
+import { Stack, Typography, MenuItem } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import AddAppointmentLogic from "./AddAppointmentLogic";
+import AddAppointmentLogic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 
 const AddAppointment = () => {
@@ -145,9 +145,7 @@ const AddAppointment = () => {
           // onChange={func.onChange}
         >
           {value.dokter.map((e) => (
-            <MenuItem value={`${e.email}-${e.nama_dokter}`}>
-              {e.nama_dokter}
-            </MenuItem>
+            <MenuItem value={`${e.email}-${e.nama_dokter}`}>{e.nama_dokter}</MenuItem>
           ))}
         </TextField>
       </Box>

@@ -2,10 +2,6 @@ import { Button, Stack, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Logic from "./Logic";
 
-const rows = [
-  { id: 1, tanggal: "26/06/2023", keluhan: "Stress", tindakan: "Tidur" },
-];
-
 const columns = [
   { field: "date", headerName: "Tanggal", width: 300 },
   { field: "keluhan", headerName: "Keluhan", width: 300 },
@@ -20,17 +16,14 @@ const DetailRekamMedis = () => {
         width: "100%",
       }}
     >
-      <Typography
-        variant="h4"
-        style={{ marginTop: "-15px", marginBottom: "48px" }}
-      >
+      <Typography variant="h4" style={{ marginTop: "-15px", marginBottom: "48px" }}>
         Rekam Medis
       </Typography>
 
       <Stack direction="row">
-        <Typography sx={{ marginRight: 8 }}>Nomor</Typography>
+        <Typography sx={{ marginRight: 10.7 }}>NIK</Typography>
         <Typography sx={{ marginRight: 2 }}>:</Typography>
-        <Typography>001</Typography>
+        <Typography>{value.item.nik}</Typography>
       </Stack>
 
       <Stack direction="row">
@@ -46,9 +39,9 @@ const DetailRekamMedis = () => {
       </Stack>
 
       <Stack direction="row">
-        <Typography sx={{ marginRight: 9 }}>Umur</Typography>
+        <Typography sx={{ marginRight: 3 }}>Tanggal lahir</Typography>
         <Typography sx={{ marginRight: 2 }}>:</Typography>
-        <Typography>5 Tahun</Typography>
+        <Typography>{value.item.tanggal_lahir}</Typography>
       </Stack>
 
       <Stack
@@ -57,9 +50,9 @@ const DetailRekamMedis = () => {
           marginBottom: 4,
         }}
       >
-        <Typography sx={{ marginRight: 7.7 }}>Alamat</Typography>
+        <Typography sx={{ marginRight: 7.6 }}>Alamat</Typography>
         <Typography sx={{ marginRight: 2 }}>:</Typography>
-        <Typography>Samarinda</Typography>
+        <Typography>{value.item.alamat}</Typography>
       </Stack>
 
       <Button

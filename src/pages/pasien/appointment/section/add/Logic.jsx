@@ -3,14 +3,13 @@ import FirebaseServices from "../../../../../services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
 import { getLocal, log } from "../../../../../values/Utilitas";
 
-const AddAppointmentLogic = () => {
+const Logic = () => {
   const [input, setInput] = useState({
     nama_lengkap: "",
     email: "",
     no_hp: "",
     date: "",
     gender: "",
-    type_diseases: "",
     message: "",
     timestamp: new Date().getTime(),
     nama_dokter: "",
@@ -109,4 +108,4 @@ const AddAppointmentLogic = () => {
   };
 };
 
-export default AddAppointmentLogic;
+export default Logic;

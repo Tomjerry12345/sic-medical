@@ -3,7 +3,7 @@ import { log } from "../../../values/Utilitas";
 import FirebaseServices from "../../../services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
 
-const RegisterLogic = () => {
+const Logic = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -12,7 +12,7 @@ const RegisterLogic = () => {
     type: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [image, setImage] = useState({
+  const [img, setImage] = useState({
     currentFile: undefined,
     previewImage: undefined,
   });
@@ -33,6 +33,13 @@ const RegisterLogic = () => {
     });
   };
 
+  const onChangeDate = (e) => {
+    setInput({
+      ...input,
+      tanggal_lahir: `${e["$y"]}-${e["$M"] + 1}-${e["$D"]}`,
+    });
+  };
+
   const onGetImage = (e) => {
     setImage({
       currentFile: e.target.files[0],
@@ -44,12 +51,10 @@ const RegisterLogic = () => {
     try {
       setLoading(true);
       await firebaseServices.createUser(input.email, input.password);
-      const urlImage = await firebaseServices.uploadImage(image.currentFile);
+      const image = await firebaseServices.uploadImage(img.currentFile);
       const data = {
-        email: input.email,
-        nama_lengkap: input.nama_lengkap,
-        gender: input.gender,
-        image: urlImage,
+        ...input,
+        image,
         type: "pasien",
       };
       await firebaseServices.addData("user", data);
@@ -68,11 +73,12 @@ const RegisterLogic = () => {
   return {
     value: {
       showPassword,
-      image,
+      img,
       loading,
     },
     func: {
       onChange,
+      onChangeDate,
       onRegister,
       handleClickShowPassword,
       onGetImage,
@@ -81,4 +87,4 @@ const RegisterLogic = () => {
   };
 };
 
-export default RegisterLogic;
+export default Logic;

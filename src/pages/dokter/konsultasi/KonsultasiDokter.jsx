@@ -19,9 +19,7 @@ const KonsultasiDokter = () => {
               nama={item.nama_lengkap}
               spesialis={item.type}
               online={item.online}
-              onClick={() =>
-                func.onMoveToChat(item.email, item.nama_lengkap, item.image, item.id_call)
-              }
+              onClick={() => func.onMoveToChat(item)}
             />
           </Grid>
         ))}

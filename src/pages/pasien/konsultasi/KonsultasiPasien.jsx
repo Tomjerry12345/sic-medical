@@ -14,6 +14,7 @@ const KonsultasiPasien = () => {
           value.data.map((item) => (
             <Grid item xs={4}>
               <CardUser
+                showOnline
                 image={item.image}
                 nama={item.nama_dokter}
                 spesialis={item.spesialis}

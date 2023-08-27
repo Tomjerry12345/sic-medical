@@ -42,13 +42,10 @@ const KonsultasiDokterLogic = () => {
     }
   };
 
-  const onMoveToChat = (email, nama, image, idCall) => {
+  const onMoveToChat = (item) => {
     navigate("/dokter/konsultasi/chat", {
       state: {
-        email: email,
-        nama: nama,
-        image: image,
-        idCall: idCall,
+        ...item,
       },
     });
   };

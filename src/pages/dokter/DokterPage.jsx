@@ -81,25 +81,6 @@ function DokterPage() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     checkForInActivity();
-  //   }, 10000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  // const checkForInActivity = () => {
-  //   const expireTime = getLocal("expireTime");
-
-  //   if (expireTime < Date.now()) {
-  //     console.log("log out");
-  //     setLoggin(false);
-  //   } else {
-  //     setLoggin(true);
-  //   }
-  // };
-
   const updateExpireTime = async () => {
     const expireTime = Date.now() + 60000;
     const email = getLocal("email");

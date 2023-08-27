@@ -1,4 +1,4 @@
-✅ ❌
+v 0.1 ✅ ❌
 
 - login ✅
 - register ✅
@@ -14,3 +14,35 @@
 - dokter/profil✅
 - pasien/profil✅
 - dokter/appointment✅
+
+v 0.2 ✅ ❌
+
+# Bagian Pasien
+    * Bagian Appointment
+        - Hapus bagian jenis penyakit  appointment✅
+        - message berikan kata-kata "silahkan isi keluhan anda" appointment✅
+
+    * Bagian konsultasi
+        - Berikan tanda online pada dokter nya ✅
+        - Bagian resep ada notifikasi klo sudah mengirim resep dokter ✅
+
+# Bagian dokter
+    * Appointment
+        - Ada notifikasi kalo ada appointment masuk ✅
+    * Konsultasi
+        - Ada notifikasi kalo ada konsultasi masuk ✅
+    - Bagian resep perbaiki format , layaknya formal kalo bisa tambahkan barcode ✅
+    * Rekam medis 
+        - Ubah umur jadi ttl saja ✅
+
+# Bagian login 
+    * Sign up ✅
+        - Nama
+        - NIK
+        - TTL
+        - Jenis kelamin
+        - email
+        - password
+        - alamat
+
+

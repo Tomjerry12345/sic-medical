@@ -35,11 +35,8 @@ const Logic = () => {
   };
 
   const previewResep = (d) => {
-    log({ d });
     navigate("/pasien/konsultasi/viewer-resep", {
-      state: {
-        resep: d.resep,
-      },
+      state: d,
     });
   };
 

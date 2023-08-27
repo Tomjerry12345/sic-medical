@@ -116,16 +116,6 @@ const AppointmentPage = () => {
                   fontSize: "18px",
                 }}
               >
-                Jenis Penyakit
-              </TableCell>
-              <TableCell
-                style={{
-                  color: "white",
-                  fontWeight: "600",
-                  fontFamily: "lato",
-                  fontSize: "18px",
-                }}
-              >
                 Keluhan
               </TableCell>
               <TableCell
@@ -175,9 +165,6 @@ const AppointmentPage = () => {
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.gender}
-                  </TableCell>
-                  <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
-                    {row.type_diseases}
                   </TableCell>
                   <TableCell style={{ fontWeight: "600", fontFamily: "lato" }}>
                     {row.message}
