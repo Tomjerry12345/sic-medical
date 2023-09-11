@@ -45,4 +45,8 @@ v 0.2 ✅ ❌
         - password
         - alamat
 
+# Admin
+
+- Buat Dokter
+
 

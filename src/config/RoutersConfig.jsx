@@ -24,6 +24,10 @@ import ViewerResep from "pages/global/viewerResep/ViewerResep";
 import RekamMedisPage from "pages/dokter/rekam-medis/RekamMedisPage";
 import DetailRekamMedis from "pages/dokter/rekam-medis/section/detail/DetailRekamMedis";
 import AddRekamMedisPage from "pages/dokter/rekam-medis/section/add/AddRekamMedisPage";
+import AdminPage from "pages/admin/AdminPage";
+import TambahDokterPage from "pages/admin/tambah-user/TambahDokterPage";
+import AddDokterPage from "pages/admin/tambah-user/section/add/AddDokterPage";
+import EditDokterPage from "pages/admin/tambah-user/section/edit/EditDokterPage";
 
 const RoutersConfig = () => {
   return (
@@ -67,6 +71,14 @@ const RoutersConfig = () => {
             <Route path="resep" element={<ResepDokter />} />
             {/* <Route path="viewer-resep" element={<ViewerResep />} /> */}
           </Route>
+        </Route>
+        <Route path="admin" element={<AdminPage />}>
+          <Route path="tambah-dokter">
+            <Route index element={<TambahDokterPage />} />
+            <Route path="add" element={<AddDokterPage />} />
+            <Route path="edit" element={<EditDokterPage />} />
+          </Route>
+          <Route path="tambah" element={<TambahDokterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

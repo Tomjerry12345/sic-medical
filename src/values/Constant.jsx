@@ -4,6 +4,19 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
+export const menuAdmin = [
+  {
+    title: "Tambah Dokter",
+    router: "/admin/tambah-dokter",
+    icon: <MeetingRoomIcon style={{ fontSize: "2em", color: "black" }} />,
+  },
+  {
+    title: "Sign out",
+    router: "",
+    icon: <LogoutIcon style={{ fontSize: "2em", color: "black" }} />,
+  },
+];
+
 export const menuDokter = [
   {
     title: "Appointment",

@@ -28,7 +28,16 @@ const NavbarComponent = ({ menu, type }) => {
   });
 
   useEffect(() => {
-    getUser();
+    if (type === "admin") {
+      setValue({
+        ...value,
+        nama: "Admin",
+        tipe: "",
+        image: "",
+      });
+    } else {
+      getUser();
+    }
   }, []);
 
   const getUser = async () => {
