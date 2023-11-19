@@ -33,7 +33,8 @@ const NavbarComponent = ({ menu, type }) => {
         ...value,
         nama: "Admin",
         tipe: "",
-        image: "",
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/sic-medical-11a53.appspot.com/o/images%2Fgambar_admin-removebg-preview.png?alt=media&token=e0b0c088-c3f8-4c05-b396-ce8eca6e9a68&_gl=1*clrth0*_ga*MzU4MTQwNTg2LjE2ODY5MDEwMzI.*_ga_CW55HF8NVT*MTY5NTk3ODE1MC4zMC4xLjE2OTU5NzgyMDYuNC4wLjA.",
       });
     } else {
       getUser();
@@ -81,27 +82,29 @@ const NavbarComponent = ({ menu, type }) => {
           {value.nama}
         </Typography>
         {/* button */}
-        <Button
-          variant="contained"
-          style={{
-            width: "130px",
-            height: "43px",
-            backgroundColor: "#8BD7EF",
-            fontSize: "24px",
-            fontFamily: "lato",
-            margin: "auto",
-            marginTop: "10px",
-            textTransform: "none",
-          }}
-          size="small"
-        >
-          <ModalComponent
-            modal="Detail"
-            nama={value.nama}
-            image={value.image}
-            tipe={value.tipe}
-          />
-        </Button>
+        {type !== "admin" ? (
+          <Button
+            variant="contained"
+            style={{
+              width: "130px",
+              height: "43px",
+              backgroundColor: "#8BD7EF",
+              fontSize: "24px",
+              fontFamily: "lato",
+              margin: "auto",
+              marginTop: "10px",
+              textTransform: "none",
+            }}
+            size="small"
+          >
+            <ModalComponent
+              modal="Detail"
+              nama={value.nama}
+              image={value.image}
+              tipe={value.tipe}
+            />
+          </Button>
+        ) : null}
       </Stack>
       <List>
         {menu.map((val, index) => (

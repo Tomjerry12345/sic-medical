@@ -90,7 +90,11 @@ const MyDocument = ({ data }) => (
       <Space v={30} />
 
       <View style={{ flexDirection: "row", display: "flex" }}>
-        <TextComponent title="Intruksi tambahan" h="15%" s={styles.headerText} />
+        <TextComponent
+          title="Intruksi tambahan"
+          h="15%"
+          s={styles.headerText}
+        />
         <TextComponent title=":" />
       </View>
 
@@ -118,7 +122,7 @@ const MyDocument = ({ data }) => (
       <Space v={14} />
 
       <View style={{ flexDirection: "row", display: "flex" }}>
-        <TextComponent title="Spesialis" h="20%" />
+        <TextComponent title="Dokter" h="20%" />
         <TextComponent title=":" h="2%" />
         <TextComponent title={data.spesialis} />
       </View>
@@ -143,7 +147,9 @@ const ViewerResep = () => {
   const location = useLocation();
 
   return (
-    <PDFViewer style={{ position: "absolute", border: 0, height: "100%", width: "83%" }}>
+    <PDFViewer
+      style={{ position: "absolute", border: 0, height: "100%", width: "83%" }}
+    >
       <MyDocument data={location.state} />
     </PDFViewer>
   );

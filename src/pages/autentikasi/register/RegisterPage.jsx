@@ -58,7 +58,10 @@ const RegisterPage = () => {
         item
         xs={5}
       >
-        <Typography fontSize={36} style={{ fontFamily: "lato", fontWeight: "900" }}>
+        <Typography
+          fontSize={36}
+          style={{ fontFamily: "lato", fontWeight: "900" }}
+        >
           Selamat datang
         </Typography>
         <Typography fontSize={26} sx={{ mt: 2 }} style={{ fontFamily: "lato" }}>
@@ -115,7 +118,12 @@ const RegisterPage = () => {
               color: "white",
             }}
           >
-            <input hidden accept="image/*" type="file" onChange={func.onGetImage} />
+            <input
+              hidden
+              accept="image/*"
+              type="file"
+              onChange={func.onGetImage}
+            />
             <AddAPhotoOutlinedIcon />
           </IconButton>
         </Stack>
@@ -130,7 +138,9 @@ const RegisterPage = () => {
             onChange={func.onChange}
           />
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
               type={value.showPassword ? "text" : "password"}
@@ -210,7 +220,7 @@ const RegisterPage = () => {
             }}
             onClick={func.onRegister}
           >
-            Login
+            SIGN UP
           </LoadingButton>
         </Stack>
 

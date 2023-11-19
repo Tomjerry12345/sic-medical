@@ -4,17 +4,30 @@ import NavbarComponent from "component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuDokter } from "values/Constant";
 import { SocketContext } from "services/Context";
-import { Button, Card, CardActions, CardContent, Snackbar, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import FirebaseServices from "services/FirebaseServices";
 import { db } from "config/FirebaseConfig";
-import { collection, onSnapshot, query, where, getDocs } from "firebase/firestore";
-import { getLocal, log, setLocal } from "values/Utilitas";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { getLocal } from "values/Utilitas";
 
 function DokterPage() {
   const navigate = useNavigate();
-  const { call, callAccepted, leaveCall } = useContext(SocketContext);
-  const [open, setOpen] = useState(true);
+  // const { call, callAccepted } = useContext(SocketContext);
+  // const [open, setOpen] = useState(true);
 
   const [openNotifAppointment, setOpenNotifAppointment] = useState(false);
   const [openNotifKonsultasi, setOpenNotifKonsultasi] = useState(false);
@@ -22,20 +35,23 @@ function DokterPage() {
   const [messageNotifAppointment, setMessageNotifAppointment] = useState("");
   const [messageNotifKonsultasi, setMessageNotifKonsultasi] = useState("");
 
-  const [loggin, setLoggin] = useState(true);
-
   const fs = FirebaseServices();
 
   useEffect(() => {
     const path = window.location.href;
-    if (path === "http://localhost:3000/dokter") navigate("/dokter/appointment");
+    if (path === "http://localhost:3000/dokter")
+      navigate("/dokter/appointment");
   }, []);
 
   useEffect(() => {
     const email = getLocal("email");
     const colRef = collection(db, "pemberitahuan");
     //real time update
-    const q = query(colRef, where("email_dokter", "==", email), where("new", "==", true));
+    const q = query(
+      colRef,
+      where("email_dokter", "==", email),
+      where("new", "==", true)
+    );
     onSnapshot(q, async (snapshot) => {
       let sumAppointment = 0;
       let sumKonsultasi = 0;
@@ -59,7 +75,9 @@ function DokterPage() {
       }
 
       if (sumAppointment > 0) {
-        setMessageNotifKonsultasi(`${sumAppointment} pemberitahuan appointment`);
+        setMessageNotifKonsultasi(
+          `${sumAppointment} pemberitahuan appointment`
+        );
         setOpenNotifKonsultasi(true);
       }
     });
@@ -122,7 +140,7 @@ function DokterPage() {
         <Outlet />
       </Box>
 
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={call.isReceivingCall && !callAccepted && open}
         message="I love snacks"
@@ -165,7 +183,7 @@ function DokterPage() {
             </CardActions>
           </Card>
         }
-      />
+      /> */}
 
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}

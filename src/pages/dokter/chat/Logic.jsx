@@ -21,7 +21,8 @@ const Logic = () => {
       try {
         const user = await getUser();
         setU(user);
-        setDisplayName(location.state.nama);
+
+        setDisplayName(location.state.nama_lengkap);
 
         return await getMessages(user);
       } catch (e) {
@@ -78,12 +79,13 @@ const Logic = () => {
   };
 
   const onClickVideoCall = () => {
+    log({ location });
     navigate("/dokter/konsultasi/calling", {
       state: {
         nama: location.state.nama,
         email: location.state.email,
         image: location.state.image,
-        idCall: location.state.idCall,
+        idCall: location.state.id_call,
         type: "calling",
       },
     });

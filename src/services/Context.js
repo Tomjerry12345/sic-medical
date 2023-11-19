@@ -33,7 +33,6 @@ const ContextProvider = ({ children }) => {
   const onGetId = () => {
     socket.on("me", (id) => {
       setMe(id);
-      log({ id });
       updateCallId(id);
     });
   };

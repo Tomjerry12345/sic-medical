@@ -5,17 +5,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const EditAppointmentLogic = () => {
   const [input, setInput] = useState({
-    id: "",
-    nama_lengkap: "",
+    nama_dokter: "",
+    spesialis: "",
+    image: "",
     email: "",
-    no_hp: "",
-    date: "",
-    gender: "",
-    type_diseases: "",
-    message: "",
+    password: "",
+    timestamp: new Date().getTime(),
   });
-
   const [loading, setLoading] = useState(false);
+  const [img, setImage] = useState({
+    currentFile: undefined,
+    previewImage: undefined,
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const fs = FirebaseServices();
   const navigate = useNavigate();
@@ -23,10 +25,14 @@ const EditAppointmentLogic = () => {
 
   useEffect(() => {
     const state = location.state;
-
-    log({ state });
+    setImage({
+      currentFile: null,
+      previewImage: state.image,
+    });
     setInput(state);
   }, []);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -46,13 +52,24 @@ const EditAppointmentLogic = () => {
     });
   };
 
+  const onGetImage = (e) => {
+    setImage({
+      currentFile: e.target.files[0],
+      previewImage: URL.createObjectURL(e.target.files[0]),
+    });
+  };
+
   const onEdit = async () => {
     try {
       setLoading(true);
       const id = input.id;
       delete input.id;
-      await fs.updateDocAll("appointment", id, input);
-      navigate("/pasien/appointment");
+      delete input.email;
+      delete input.no;
+      delete input.id_call;
+      log({ input });
+      await fs.updateDocX("dokter", id, input);
+      navigate("/admin/tambah-dokter");
     } catch (error) {
       setLoading(false);
       log({ error });
@@ -64,11 +81,15 @@ const EditAppointmentLogic = () => {
     value: {
       input,
       loading,
+      img,
+      showPassword,
     },
     func: {
       onChange,
       onChangeDate,
       onEdit,
+      onGetImage,
+      handleClickShowPassword,
     },
   };
 };

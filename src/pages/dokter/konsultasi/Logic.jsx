@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { log } from "values/Utilitas";
 import FirebaseServices from "../../../services/FirebaseServices";
 
-const KonsultasiDokterLogic = () => {
+const Logic = () => {
   const [data, setData] = useState([]);
 
   const navigate = useNavigate();
@@ -24,9 +24,6 @@ const KonsultasiDokterLogic = () => {
       userGroup.map((email) => promises.push(getU(email)));
 
       const result = await Promise.all(promises);
-
-      log({ result });
-
       setData(result);
     } catch (error) {
       alert(error);
@@ -61,4 +58,4 @@ const KonsultasiDokterLogic = () => {
   };
 };
 
-export default KonsultasiDokterLogic;
+export default Logic;

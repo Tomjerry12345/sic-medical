@@ -102,7 +102,7 @@ const AddRekamMedisPage = () => {
             }}
             onClick={func.onMake}
           >
-            Tambah
+            save
           </LoadingButton>
         </Stack>
       </Card>

@@ -4,7 +4,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ModalSignature from "component/modal/ModalSignature";
-import dayjs from "dayjs";
 import ModalTambahObat from "component/modal/ModalTambahObat";
 import { DataGrid } from "@mui/x-data-grid";
 import { LoadingButton } from "@mui/lab";
@@ -67,7 +66,12 @@ const ResepDokter = () => {
 
         {value.rows.length > 0 ? (
           <div style={{ maxHeight: 400, width: "100%" }}>
-            <DataGrid rows={value.rows} columns={value.columns} getRowId={(row) => row?.no} />
+            <DataGrid
+              disableColumnMenu
+              rows={value.rows}
+              columns={value.columns}
+              getRowId={(row) => row?.no}
+            />
           </div>
         ) : null}
 
@@ -92,7 +96,12 @@ const ResepDokter = () => {
                 background: "aliceblue",
               }}
             >
-              <img height="200" width="300" src={value.input.tanda_tangan} alt="" />
+              <img
+                height="200"
+                width="300"
+                src={value.input.tanda_tangan}
+                alt=""
+              />
             </Box>
           </Box>
         ) : null}

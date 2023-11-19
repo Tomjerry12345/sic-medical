@@ -13,18 +13,24 @@ import {
 import VideocamIcon from "@mui/icons-material/Videocam";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import SendIcon from "@mui/icons-material/Send";
-import ChatDokterLogic from "./ChatDokterLogic";
+import Logic from "./Logic";
 const ChatDokter = () => {
-  const { value, func } = ChatDokterLogic();
+  const { value, func } = Logic();
   return (
     <div>
       {/* monkey D luffy */}
       <Box>
-        <Typography style={{ marginTop: "-15px", fontStyle: "lato", fontSize: "28px" }}>
+        <Typography
+          style={{ marginTop: "-15px", fontStyle: "lato", fontSize: "28px" }}
+        >
           {value.dislayName}
         </Typography>
         {/* icon */}
-        <Grid container justifyContent="flex-end" style={{ marginTop: "-40px" }}>
+        <Grid
+          container
+          justifyContent="flex-end"
+          style={{ marginTop: "-40px" }}
+        >
           <IconButton
             style={{
               width: "40px",
@@ -37,7 +43,10 @@ const ChatDokter = () => {
             <VideocamIcon />
           </IconButton>
 
-          <IconButton style={{ width: "50px", height: "30px" }} onClick={func.onClickResep}>
+          <IconButton
+            style={{ width: "50px", height: "30px" }}
+            onClick={func.onClickResep}
+          >
             <StickyNote2Icon />
           </IconButton>
         </Grid>
@@ -56,7 +65,9 @@ const ChatDokter = () => {
           value.messages.map((m) => (
             <Box
               display="flex"
-              justifyContent={value.u.email === m.sender ? "flex-start" : "flex-end"}
+              justifyContent={
+                value.u.email === m.sender ? "flex-end" : "flex-start"
+              }
               mt={6}
             >
               <CardChat

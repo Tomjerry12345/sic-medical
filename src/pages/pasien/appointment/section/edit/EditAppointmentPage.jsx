@@ -5,12 +5,12 @@ import { Stack, Typography, MenuItem } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import EditAppointmentLogic from "./EditAppointmentLogic";
+import Logic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 import dayjs from "dayjs";
 
 const EditAppointment = () => {
-  const { value, func } = EditAppointmentLogic();
+  const { value, func } = Logic();
   return (
     <Stack spacing={4}>
       {/* Make Appointment */}
@@ -129,17 +129,15 @@ const EditAppointment = () => {
         </TextField>
 
         <TextField
-          name="type_diseases"
-          onChange={func.onChange}
-          value={value.input.type_diseases}
+          onChange={func.onChangeDokter}
           label={
             <Typography
               style={{
                 fontFamily: "lato",
-                fontSize: "21px",
+                fontSize: "18px",
               }}
             >
-              type of diseases
+              Pilih Dokter
             </Typography>
           }
           InputProps={{
@@ -152,9 +150,11 @@ const EditAppointment = () => {
           sx={{ width: "333px" }}
           // onChange={func.onChange}
         >
-          <MenuItem value="penyakit-1">Penyakit 1</MenuItem>
-          <MenuItem value="penyakit-2">Penyakit 2</MenuItem>
-          <MenuItem value="penyakit-3">Penyakit 3</MenuItem>
+          {value.dokter.map((e) => (
+            <MenuItem value={`${e.email}-${e.nama_dokter}`}>
+              {e.nama_dokter}
+            </MenuItem>
+          ))}
         </TextField>
       </Box>
 
@@ -188,7 +188,7 @@ const EditAppointment = () => {
           }}
           onClick={func.onEdit}
         >
-          Edit
+          save
         </LoadingButton>
       </Stack>
     </Stack>

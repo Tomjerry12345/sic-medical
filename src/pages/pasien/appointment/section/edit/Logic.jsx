@@ -3,7 +3,7 @@ import FirebaseServices from "../../../../../services/FirebaseServices";
 import { log } from "../../../../../values/Utilitas";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const EditAppointmentLogic = () => {
+const Logic = () => {
   const [input, setInput] = useState({
     id: "",
     nama_lengkap: "",
@@ -16,6 +16,7 @@ const EditAppointmentLogic = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [dokter, setDokter] = useState([]);
 
   const fs = FirebaseServices();
   const navigate = useNavigate();
@@ -24,9 +25,19 @@ const EditAppointmentLogic = () => {
   useEffect(() => {
     const state = location.state;
 
-    log({ state });
     setInput(state);
+    getDokter();
   }, []);
+
+  const getDokter = async () => {
+    const data = await fs.getDataCollection(
+      "dokter",
+      "nama_dokter",
+      dokter.email
+    );
+
+    setDokter(data);
+  };
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -51,7 +62,7 @@ const EditAppointmentLogic = () => {
       setLoading(true);
       const id = input.id;
       delete input.id;
-      await fs.updateDocAll("appointment", id, input);
+      await fs.updateDocX("appointment", id, input);
       navigate("/pasien/appointment");
     } catch (error) {
       setLoading(false);
@@ -64,6 +75,7 @@ const EditAppointmentLogic = () => {
     value: {
       input,
       loading,
+      dokter,
     },
     func: {
       onChange,
@@ -73,4 +85,4 @@ const EditAppointmentLogic = () => {
   };
 };
 
-export default EditAppointmentLogic;
+export default Logic;

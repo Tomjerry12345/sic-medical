@@ -9,14 +9,7 @@ const Logic = () => {
 
   const navigate = useNavigate();
 
-  const [rows, setRows] = useState([
-    {
-      no: 0,
-      nama_dokter: "",
-      spesialis: "",
-      email: "",
-    },
-  ]);
+  const [rows, setRows] = useState([]);
 
   const [input, setInput] = useState();
 
@@ -37,7 +30,7 @@ const Logic = () => {
     },
     {
       field: "spesialis",
-      headerName: "Spesialis",
+      headerName: "Dokter",
       flex: 1,
       minWidth: 220,
       disableColumnMenu: true,
@@ -59,8 +52,10 @@ const Logic = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-          const n = [...rows];
-          const pId = params.id;
+          let n = [...rows];
+          const id = params.id;
+          const d = n[id - 1];
+          onEditDokter(d);
         };
 
         return (
@@ -77,13 +72,22 @@ const Logic = () => {
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
-        const onClick = (e) => {
+        const onClick = async (e) => {
           e.stopPropagation(); // don't select this row after clicking
           let n = [...rows];
           const id = params.id;
-          n = n.splice(id, 1);
-          n = reformatNo(n);
-          setRows(n);
+          const d = n[id - 1];
+          const success = await fs.deleteUserServices(
+            "dokter",
+            d.email,
+            d.password,
+            d.id
+          );
+          if (success) {
+            onGetDokter();
+          } else {
+            alert("terjadi kesalahan");
+          }
         };
 
         return (
@@ -99,6 +103,13 @@ const Logic = () => {
     onGetDokter();
   }, []);
 
+  const onGetDokter = async () => {
+    const result = await fs.getDataCollection("dokter");
+    const r = reformatNo(result);
+    log({ r });
+    setRows(r);
+  };
+
   const reformatNo = (d) => {
     const newArr = d.map((e, no) => ({
       ...e,
@@ -107,14 +118,14 @@ const Logic = () => {
     return newArr;
   };
 
-  const onGetDokter = async () => {
-    const result = await fs.getDataCollection("dokter");
-    const r = reformatNo(result);
-    setRows(r);
-  };
-
   const onTambahDokter = async () => {
     navigate("add");
+  };
+
+  const onEditDokter = async (row) => {
+    navigate("edit", {
+      state: row,
+    });
   };
 
   return {

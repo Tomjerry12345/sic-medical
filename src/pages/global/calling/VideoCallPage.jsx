@@ -63,11 +63,13 @@ const VideoCallPage = () => {
   }, []);
 
   useEffect(() => {
+    log({ i });
     if (i === 3) {
       if (location.state !== null) {
         if (location.state.type === "answer") {
           answerCall();
         } else {
+          console.log("location.state.idCall", location.state.idCall);
           callUser(location.state.idCall);
         }
         setData(location.state);

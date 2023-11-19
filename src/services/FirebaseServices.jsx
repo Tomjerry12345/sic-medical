@@ -2,6 +2,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  getAuth,
+  deleteUser,
 } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { auth, storage, db } from "../config/FirebaseConfig";
@@ -20,11 +22,31 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { log, timestamp } from "../values/Utilitas";
+import { timestamp } from "../values/Utilitas";
+import { log } from "values/Utilitas";
 
 const FirebaseServices = () => {
   const createUser = async (email, password) =>
     await createUserWithEmailAndPassword(auth, email, password);
+
+  const deleteUserServices = (col, email, password, id) =>
+    new Promise(async (resolve, reject) => {
+      await loginWithEmail(email, password);
+      auth.onAuthStateChanged(function (user) {
+        if (user !== null) {
+          deleteUser(user)
+            .then(() => {
+              // User deleted.
+              deletDoc(col, id);
+              resolve(true);
+            })
+            .catch((error) => {
+              log({ error });
+              resolve(false);
+            });
+        }
+      });
+    });
 
   const uploadImage = (file) => {
     return new Promise((resolve, reject) => {
@@ -34,7 +56,8 @@ const FirebaseServices = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
         },
         (error) => {
@@ -112,7 +135,11 @@ const FirebaseServices = () => {
     const user = await getCurrentUser();
     const collection_ref = collection(db, col);
 
-    const q = query(collection_ref, where("email", "==", user.email), where("new", "==", true));
+    const q = query(
+      collection_ref,
+      where("email", "==", user.email),
+      where("new", "==", true)
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newData = [];
@@ -150,7 +177,11 @@ const FirebaseServices = () => {
 
   const getDataQuery2 = async (col, key, value, key1, value1) => {
     const collection_ref = collection(db, col);
-    const q = query(collection_ref, where(key, "==", value), where(key1, "==", value1));
+    const q = query(
+      collection_ref,
+      where(key, "==", value),
+      where(key1, "==", value1)
+    );
     const docs = await getDocs(q);
     const data = [];
     docs.forEach((v) => {
@@ -161,11 +192,13 @@ const FirebaseServices = () => {
     return data;
   };
 
-  const updateDocX = (col, document, data) => updateDoc(doc(db, col, document), data);
+  const updateDocX = (col, document, data) =>
+    updateDoc(doc(db, col, document), data);
 
   const deletDoc = (col, document) => deleteDoc(doc(db, col, document));
 
-  const loginWithEmail = (email, password) => signInWithEmailAndPassword(auth, email, password);
+  const loginWithEmail = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
 
   const getCurrentUser = () =>
     new Promise((resolve, reject) => {
@@ -182,6 +215,7 @@ const FirebaseServices = () => {
 
   return {
     createUser,
+    deleteUserServices,
     uploadImage,
     addData,
     addDataSpecifict,

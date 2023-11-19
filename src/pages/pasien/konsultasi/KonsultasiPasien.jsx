@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import CardUser from "../../../component/card/CardUser";
+import CardUser from "component/card/CardUser";
 import KonsultasiPasienLogic from "./KonsultasiPasienLogic";
 
 const KonsultasiPasien = () => {
@@ -7,9 +7,15 @@ const KonsultasiPasien = () => {
   return (
     <div>
       <Typography variant="h4" style={{ marginTop: "-15px" }}>
-        Konsultasi
+        Konsultasi Dokter
       </Typography>
-      <Grid spacing={4} container my={2} display="flex" justifyContent="space-between">
+      <Grid
+        spacing={4}
+        container
+        my={2}
+        display="flex"
+        justifyContent="space-between"
+      >
         {value.data &&
           value.data.map((item) => (
             <Grid item xs={4}>

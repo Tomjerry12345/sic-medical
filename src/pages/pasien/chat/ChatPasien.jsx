@@ -39,8 +39,9 @@ const ChatPasien = () => {
               marginRight: "10px",
             }}
             onClick={func.onClickVideoCall}
+            disabled
           >
-            <VideocamIcon />
+            {/* <VideocamIcon /> */}
           </IconButton>
 
           <IconButton
@@ -66,7 +67,7 @@ const ChatPasien = () => {
             <Box
               display="flex"
               justifyContent={
-                value.u.email === m.sender ? "flex-start" : "flex-end"
+                value.u.email === m.sender ? "flex-end" : "flex-start"
               }
               mt={6}
             >

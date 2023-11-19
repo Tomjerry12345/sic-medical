@@ -1,33 +1,50 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuPasien } from "../../values/Constant";
-import { Button, Card, CardActions, CardContent, Snackbar, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { SocketContext } from "../../services/Context";
 import { getLocal } from "values/Utilitas";
 import { db } from "config/FirebaseConfig";
-import { collection, onSnapshot, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import FirebaseServices from "services/FirebaseServices";
+import { useContext, useEffect, useState } from "react";
 
 const drawerWidth = 240;
 
 function PasienPage() {
-  const { call, callAccepted } = React.useContext(SocketContext);
+  const { call, callAccepted } = useContext(SocketContext);
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
-  const [messageResep, setMessageResep] = React.useState("");
-  const [openNotifResep, setOpenNotifResep] = React.useState(false);
+  const [messageResep, setMessageResep] = useState("");
+  const [openNotifResep, setOpenNotifResep] = useState(false);
 
   const fs = FirebaseServices();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const email = getLocal("email");
     const colRef = collection(db, "pemberitahuan");
     //real time update
-    const q = query(colRef, where("email_pasien", "==", email), where("new", "==", true));
+    const q = query(
+      colRef,
+      where("email_pasien", "==", email),
+      where("new", "==", true)
+    );
     onSnapshot(q, async (snapshot) => {
       let sumResep = 0;
       // let sumKonsultasi = 0;

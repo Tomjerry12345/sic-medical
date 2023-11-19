@@ -28,9 +28,10 @@ const ModalSignature = ({ open, handleClose, sigCanvas, saveSignature }) => {
         </Typography>
         <Box backgroundColor="aliceblue">
           <ReactSignatureCanvas
+            clea
             ref={sigCanvas}
             penColor="black"
-            canvasProps={{ height: 150, className: "sigCanvas" }}
+            canvasProps={{ height: 150, width: 300, className: "sigCanvas" }}
           />
         </Box>
         <Box display="flex" justifyContent="center">

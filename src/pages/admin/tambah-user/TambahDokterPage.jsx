@@ -21,11 +21,13 @@ const TambahDokterPage = () => {
         Tambah
       </Button>
       <div style={{ width: "100%" }}>
-        <DataGrid
-          rows={value.rows}
-          columns={value.columns}
-          getRowId={(row) => row?.no}
-        />
+        {value.rows.length > 0 ? (
+          <DataGrid
+            rows={value.rows}
+            columns={value.columns}
+            getRowId={(row) => row?.no}
+          />
+        ) : null}
       </div>
     </>
   );

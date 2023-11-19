@@ -1,17 +1,23 @@
 import { Grid, Typography } from "@mui/material";
 import CardUser from "../../../component/card/CardUser";
-import KonsultasiDokterLogic from "./KonsultasiDokterLogic";
+import Logic from "./Logic";
 import { log } from "../../../values/Utilitas";
 
 const KonsultasiDokter = () => {
-  const { value, func } = KonsultasiDokterLogic();
+  const { value, func } = Logic();
 
   return (
     <div>
       <Typography variant="h4" style={{ marginTop: "-15px" }}>
-        Konsultasi
+        Konsultasi Pasien
       </Typography>
-      <Grid spacing={4} container my={2} display="flex" justifyContent="space-between">
+      <Grid
+        spacing={4}
+        container
+        my={2}
+        display="flex"
+        justifyContent="space-between"
+      >
         {value.data.map((item) => (
           <Grid item xs={4}>
             <CardUser

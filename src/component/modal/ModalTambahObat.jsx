@@ -1,4 +1,11 @@
-import { Box, Button, Modal, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { log } from "values/Utilitas";
 
@@ -22,6 +29,7 @@ const ModalTambahObat = ({ open, handleClose, onSave, onEdit, value }) => {
   });
 
   useEffect(() => {
+    log({ value });
     if (value !== null) {
       setInput(value);
     }
@@ -94,9 +102,12 @@ const ModalTambahObat = ({ open, handleClose, onSave, onEdit, value }) => {
               color: "green",
               marginTop: 16,
             }}
-            onClick={() => (value === null ? onSave(input) : onEdit(input))}
+            onClick={() => {
+              setInput({ nama_obat: "", jumlah: "", aturan_pakai: "" });
+              value === null ? onSave(input) : onEdit(input);
+            }}
           >
-            {value === null ? "Simpan" : "Edit"}
+            {value === null ? "Tambah" : "Simpan"}
           </Button>
         </Box>
       </Box>

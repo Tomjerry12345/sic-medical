@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "services/FirebaseServices";
@@ -31,14 +31,33 @@ const Logic = () => {
   const currentDate = new Date();
 
   const columns = [
-    { field: "no", headerName: "No", minWidth: 70, flex: 1 },
-    { field: "nama_obat", headerName: "Nama Obat", minWidth: 150, flex: 1 },
-    { field: "jumlah", headerName: "Jumlah", minWidth: 100, flex: 1 },
+    {
+      field: "no",
+      headerName: "No",
+      minWidth: 70,
+      flex: 1,
+      sortable: false,
+    },
+    {
+      field: "nama_obat",
+      headerName: "Nama Obat",
+      minWidth: 150,
+      flex: 1,
+      sortable: false,
+    },
+    {
+      field: "jumlah",
+      headerName: "Jumlah",
+      minWidth: 100,
+      flex: 1,
+      sortable: false,
+    },
     {
       minWidth: 300,
       flex: 1,
       field: "aturan_pakai",
       headerName: "Aturan Pakai",
+      sortable: false,
     },
     {
       field: "edit",
@@ -56,7 +75,14 @@ const Logic = () => {
         };
 
         return (
-          <Button varian="contained" fullWidth onClick={onClick}>
+          <Button
+            varian="contained"
+            fullWidth
+            onClick={onClick}
+            sx={{
+              marginLeft: "-48px",
+            }}
+          >
             Edit
           </Button>
         );
@@ -66,19 +92,27 @@ const Logic = () => {
       field: "hapus",
       headerName: "Hapus",
       sortable: false,
-      align: "center",
+      // align: "center",
+
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
           let n = [...rows];
           const id = params.id;
-          n = n.splice(id, 1);
+          n = n.filter((item) => item.no !== id);
           n = reformatNo(n);
           setRows(n);
         };
 
         return (
-          <Button varian="contained" fullWidth onClick={onClick}>
+          <Button
+            varian="contained"
+            fullWidth
+            onClick={onClick}
+            sx={{
+              marginLeft: "-16px",
+            }}
+          >
             Hapus
           </Button>
         );
@@ -132,6 +166,7 @@ const Logic = () => {
       no: rows.length + 1,
     };
     setRows([...rows, n]);
+    setObjObat(null);
     onCloseTambahObat();
   };
 

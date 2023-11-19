@@ -49,6 +49,22 @@ const KonsultasiPasienLogic = () => {
     setData(result);
   };
 
+//   const onGetData = async () => {
+//     console.log("running...");
+//     let result = await fs.getDataCollection("dokter");
+
+//     // Mengubah huruf pertama menjadi huruf besar di setiap nama dokter
+//     result = result.map((dokter) => {
+//         dokter.nama_dokter = dokter.nama_dokter.charAt(0).toUpperCase() + dokter.nama_dokter.slice(1);
+//         return dokter;
+//     });
+
+//     // Melakukan pengurutan
+//     result = result.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
+
+//     setData(result);
+// };
+
   const onMoveToChat = (email, nama) => {
     navigate("/pasien/konsultasi/chat", {
       state: {

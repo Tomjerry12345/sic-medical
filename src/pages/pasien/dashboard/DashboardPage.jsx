@@ -20,7 +20,6 @@ const DashboardPage = () => {
               sm: "24px",
               md: "30px",
             },
-            marginTop: "-20px",
           }}
         >
           Selamat datang di Klinik Hikmah versi Telemedicine
@@ -70,52 +69,6 @@ const DashboardPage = () => {
           </Stack>
         </Grid>
       </Grid>
-
-      <Stack
-        sx={{
-          marginTop: {
-            sm: "36px",
-            md: "16px",
-          },
-        }}
-      >
-        {/* Feature */}
-        <Typography
-          sx={{
-            fontFamily: "lato",
-            fontSize: {
-              sm: "24px",
-              md: "25px",
-            },
-            marginTop: "-20px",
-          }}
-          mb={4}
-        >
-          Fitur
-        </Typography>
-
-        <Stack
-          direction="row"
-          spacing={14}
-          style={{
-            justifyContent: "space-around",
-          }}
-        >
-          <CarditemDashboard
-            text={"Appointment"}
-            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
-          />
-
-          <CarditemDashboard
-            text={"Konsultasi"}
-            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
-          />
-          <CarditemDashboard
-            text={"Resep Obat"}
-            icon={<VideoCameraFrontOutlinedIcon style={styleIcon} />}
-          />
-        </Stack>
-      </Stack>
     </>
   );
 };

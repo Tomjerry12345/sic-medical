@@ -33,7 +33,7 @@ const LoginLogic = () => {
     try {
       setLoading(true);
 
-      if (input.email === "admin" && input.password === "5") {
+      if (input.email === "admin" && input.password === "admin123") {
         navigate("/admin");
       } else {
         await firebaseServices.loginWithEmail(input.email, input.password);

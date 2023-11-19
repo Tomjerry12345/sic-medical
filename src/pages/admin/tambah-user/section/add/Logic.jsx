@@ -1,49 +1,29 @@
 import { useEffect, useState } from "react";
-import FirebaseServices from "../../../../../services/FirebaseServices";
+import FirebaseServices from "services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
-import { getLocal, log } from "../../../../../values/Utilitas";
+import { getLocal, log } from "values/Utilitas";
 
 const Logic = () => {
   const [input, setInput] = useState({
-    nama_lengkap: "",
-    email: "",
-    no_hp: "",
-    date: "",
-    gender: "",
-    message: "",
-    timestamp: new Date().getTime(),
     nama_dokter: "",
-    email_dokter: "",
+    spesialis: "",
+    image: "",
+    email: "",
+    password: "",
+    timestamp: new Date().getTime(),
   });
 
   const [loading, setLoading] = useState(false);
-  const [dokter, setDokter] = useState([]);
+  const [img, setImage] = useState({
+    currentFile: undefined,
+    previewImage: undefined,
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const fs = FirebaseServices();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getData = async () => {
-      const user = await fs.getCurrentUser();
-      const data = await fs.getDataQuery("user", "email", user.email);
-
-      setInput({
-        ...input,
-        nama_lengkap: data[0]["nama_lengkap"],
-        email: data[0]["email"],
-        gender: data[0]["gender"],
-      });
-    };
-
-    getData();
-    getDokter();
-  }, []);
-
-  const getDokter = async () => {
-    const data = await fs.getDataCollection("dokter", "nama_dokter", dokter.email);
-
-    setDokter(data);
-  };
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -55,18 +35,6 @@ const Logic = () => {
     });
   };
 
-  const onChangeDokter = (e) => {
-    const value = e.target.value;
-    const array = value.split("-");
-
-    setInput({
-      ...input,
-      new: true,
-      email_dokter: array[0],
-      nama_dokter: array[1],
-    });
-  };
-
   const onChangeDate = (e) => {
     setInput({
       ...input,
@@ -74,18 +42,26 @@ const Logic = () => {
     });
   };
 
+  const onGetImage = (e) => {
+    setImage({
+      currentFile: e.target.files[0],
+      previewImage: URL.createObjectURL(e.target.files[0]),
+    });
+  };
+
   const onMake = async () => {
     try {
       setLoading(true);
-      const email = getLocal("email");
-      await fs.addData("appointment", input);
-      await fs.addData("pemberitahuan", {
-        email_dokter: input.email_dokter,
-        email_pasien: email,
-        new: true,
-        type: "appointment",
-      });
-      navigate("/pasien/appointment");
+      await fs.createUser(input.email, input.password);
+      const image = await fs.uploadImage(img.currentFile);
+      const data = {
+        ...input,
+        image,
+      };
+      log({ data });
+      await fs.addData("dokter", data);
+      navigate("/admin/tambah-dokter");
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       log({ error });
@@ -97,13 +73,15 @@ const Logic = () => {
     value: {
       input,
       loading,
-      dokter,
+      img,
+      showPassword,
     },
     func: {
       onChange,
       onChangeDate,
       onMake,
-      onChangeDokter,
+      onGetImage,
+      handleClickShowPassword,
     },
   };
 };
