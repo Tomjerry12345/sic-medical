@@ -14,6 +14,7 @@ import Logic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import InputTimePickerComponent from "component/input/time-picker/InputTimePickerComponent";
 
 const AddDokterPage = () => {
   const { value, func } = Logic();
@@ -103,7 +104,6 @@ const AddDokterPage = () => {
           value={value.input.nama_dokter}
           variant="outlined"
           sx={{
-            width: 400,
             marginBottom: "16px",
           }}
         />
@@ -116,10 +116,30 @@ const AddDokterPage = () => {
           label="Dokter"
           variant="outlined"
           sx={{
-            width: 400,
             marginBottom: "16px",
           }}
         />
+
+        <Typography sx={{
+          marginBottom: "16px"
+        }}>Waktu konsultasi</Typography>
+
+        <Box display="flex" style={{
+          width: "487px",
+          marginBottom: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}>
+          <InputTimePickerComponent style={{
+            width: "200px",
+          }} />
+          <Typography sx={{
+            margin: "0px 16px"
+          }}>Sampai</Typography>
+          <InputTimePickerComponent style={{
+            width: "200px",
+          }} />
+        </Box>
 
         <TextField
           name="email"
@@ -129,7 +149,6 @@ const AddDokterPage = () => {
           variant="outlined"
           value={value.input.email}
           sx={{
-            width: 400,
             marginBottom: "16px",
           }}
         />
@@ -173,7 +192,7 @@ const AddDokterPage = () => {
       >
         Tambah
       </LoadingButton>
-    </Stack>
+    </Stack >
   );
 };
 
