@@ -68,6 +68,15 @@ const CardUser = ({
               </Typography>
             )
           ) : null}
+          <div>
+            <Typography
+              variant="body2"
+              fontSize="24px"
+              color="text.secondary"
+            >
+              12:00 - 13:00
+            </Typography>
+          </div>
           {/* {expireTime < Date.now() ? (
             <Typography variant="body2" fontSize="24px" color="text.secondary">
               offline

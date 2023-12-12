@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FirebaseServices from "services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
-import { getLocal, log } from "values/Utilitas";
+import { getLocal, log, test, timestamp } from "values/Utilitas";
 
 const Logic = () => {
   const [input, setInput] = useState({
@@ -10,7 +10,11 @@ const Logic = () => {
     image: "",
     email: "",
     password: "",
-    timestamp: new Date().getTime(),
+    waktu_konsultasi: {
+      mulai: "",
+      selesai: ""
+    },
+    timestamp: timestamp(),
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,6 +45,16 @@ const Logic = () => {
       date: `${e["$y"]}-${e["$M"] + 1}-${e["$D"]}`,
     });
   };
+
+  const onChangeTime = (e, name) => {
+    const time = `${e.hour()}:${e.minute()}`;
+
+    setInput({
+      ...input,
+      waktu_konsultasi: { ...input.waktu_konsultasi, [name]: time },
+    });
+
+  }
 
   const onGetImage = (e) => {
     setImage({
@@ -79,6 +93,7 @@ const Logic = () => {
     func: {
       onChange,
       onChangeDate,
+      onChangeTime,
       onMake,
       onGetImage,
       handleClickShowPassword,

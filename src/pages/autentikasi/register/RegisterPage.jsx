@@ -187,6 +187,17 @@ const RegisterPage = () => {
             size="small"
             onChange={func.onChange}
           />
+          <TextField
+            name="type_pasien"
+            label="Tipe pasien"
+            select
+            fullWidth
+            size="small"
+            onChange={func.onChange}
+          >
+            <MenuItem value="umum">Umum</MenuItem>
+            <MenuItem value="bpjs">Bpjs</MenuItem>
+          </TextField>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker label="Tanggal lahir" onChange={func.onChangeDate} />
           </LocalizationProvider>

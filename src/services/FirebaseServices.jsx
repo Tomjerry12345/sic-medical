@@ -192,6 +192,16 @@ const FirebaseServices = () => {
     return data;
   };
 
+  const getDataQueryMultiple = async (col, keyValue) => {
+    const collection_ref = collection(db, col);
+    const q = query(
+      collection_ref,
+      ...keyValue.map(({ key, value }) => where(key, '==', value))
+    );
+    const docs = await getDocs(q);
+    return docs.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  }
+
   const updateDocX = (col, document, data) =>
     updateDoc(doc(db, col, document), data);
 
@@ -222,6 +232,7 @@ const FirebaseServices = () => {
     loginWithEmail,
     getDataQuery,
     getDataQuery2,
+    getDataQueryMultiple,
     getCurrentUser,
     updateDocX,
     deletDoc,

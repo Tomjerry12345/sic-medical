@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "config/FirebaseConfig";
-import { log } from "values/Utilitas";
+import { day, timestamp } from "values/Utilitas";
 
 const KonsultasiPasienLogic = () => {
   const [data, setData] = useState();
+  const [listKonsultasi, setListKonsultasi] = useState();
+  const [open, setOpen] = useState(false);
+  const [pickDokter, setPickDokter] = useState();
 
   const navigate = useNavigate();
   const fs = FirebaseServices();
+
+  const timePickerRef = useRef(null);
 
   // useEffect(() => {
   //   const colRef = collection(db, "dokter");
@@ -49,21 +52,82 @@ const KonsultasiPasienLogic = () => {
     setData(result);
   };
 
-//   const onGetData = async () => {
-//     console.log("running...");
-//     let result = await fs.getDataCollection("dokter");
+  //   const onGetData = async () => {
+  //     console.log("running...");
+  //     let result = await fs.getDataCollection("dokter");
 
-//     // Mengubah huruf pertama menjadi huruf besar di setiap nama dokter
-//     result = result.map((dokter) => {
-//         dokter.nama_dokter = dokter.nama_dokter.charAt(0).toUpperCase() + dokter.nama_dokter.slice(1);
-//         return dokter;
-//     });
+  //     // Mengubah huruf pertama menjadi huruf besar di setiap nama dokter
+  //     result = result.map((dokter) => {
+  //         dokter.nama_dokter = dokter.nama_dokter.charAt(0).toUpperCase() + dokter.nama_dokter.slice(1);
+  //         return dokter;
+  //     });
 
-//     // Melakukan pengurutan
-//     result = result.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
+  //     // Melakukan pengurutan
+  //     result = result.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
 
-//     setData(result);
-// };
+  //     setData(result);
+  // };
+
+  const onPickTime = async (waktuKonsultasi, email, nama) => {
+    const list = []
+
+    const pasien = await fs.getCurrentUser();
+    let result = await fs.getDataQueryMultiple("konsultasi", [
+      {
+        key: "email_dokter",
+        value: email,
+      },
+      {
+        key: "date",
+        value: timestamp(),
+      },
+    ]);
+
+    if (result.length < 1) {
+      setOpen(true);
+    } else {
+      alert("anda sudah melakukan konsultasi pada hari ini!");
+    }
+
+    result.forEach(e => {
+      const waktuKonsultasi = e.waktu_konsultasi.split(":")
+
+
+      list.push({
+        startHour: waktuKonsultasi[0],
+        startMinute: waktuKonsultasi[1]
+      })
+    })
+
+    setPickDokter({
+      email_dokter: email,
+      email_pasien: pasien.email,
+    });
+
+    setListKonsultasi(list);
+
+
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onChangeTime = async (e) => {
+    try {
+      const time = `${e.hour()}:${e.minute()}`;
+
+      await fs.addData("konsultasi", {
+        email_dokter: pickDokter.email_dokter,
+        email_pasien: pickDokter.email_pasien,
+        waktu_konsultasi: time,
+      });
+      handleClose()
+    } catch (e) {
+      alert(e)
+    }
+
+  };
 
   const onMoveToChat = (email, nama) => {
     navigate("/pasien/konsultasi/chat", {
@@ -77,10 +141,16 @@ const KonsultasiPasienLogic = () => {
   return {
     value: {
       data,
+      timePickerRef,
+      open,
+      listKonsultasi,
     },
     func: {
       onGetData,
+      onPickTime,
       onMoveToChat,
+      handleClose,
+      onChangeTime,
     },
   };
 };

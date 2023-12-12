@@ -4,13 +4,7 @@ import FirebaseServices from "../../../services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
 
 const Logic = () => {
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-    nama_lengkap: "",
-    gender: "",
-    type: "",
-  });
+  const [input, setInput] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [img, setImage] = useState({
     currentFile: undefined,

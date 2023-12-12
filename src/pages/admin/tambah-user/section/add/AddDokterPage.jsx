@@ -132,13 +132,15 @@ const AddDokterPage = () => {
         }}>
           <InputTimePickerComponent style={{
             width: "200px",
-          }} />
+          }} onAccept={(value) => func.onChangeTime(value, "mulai")} />
+
           <Typography sx={{
             margin: "0px 16px"
           }}>Sampai</Typography>
+
           <InputTimePickerComponent style={{
             width: "200px",
-          }} />
+          }} onAccept={(value) => func.onChangeTime(value, "selesai")} />
         </Box>
 
         <TextField

@@ -28,3 +28,9 @@ export const getSizeScreen = (set) => {
 };
 
 export const timestamp = () => new Date().getTime();
+
+export const day = () => new Date().getDay();
+
+export const month = () => new Date().getMonth();
+
+export const year = () => new Date().getFullYear();

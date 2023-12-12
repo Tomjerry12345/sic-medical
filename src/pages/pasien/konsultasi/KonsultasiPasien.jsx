@@ -1,6 +1,7 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import CardUser from "component/card/CardUser";
 import KonsultasiPasienLogic from "./KonsultasiPasienLogic";
+import ModalTimePicker from "component/modal/ModalTimePicker";
 
 const KonsultasiPasien = () => {
   const { value, func } = KonsultasiPasienLogic();
@@ -25,11 +26,13 @@ const KonsultasiPasien = () => {
                 nama={item.nama_dokter}
                 spesialis={item.spesialis}
                 expireTime={item.expire_time}
-                onClick={() => func.onMoveToChat(item.email, item.nama_dokter)}
+                onClick={() => func.onPickTime(item.waktu_konsultasi, item.email, item.nama_dokter)}
               />
             </Grid>
           ))}
       </Grid>
+
+      <ModalTimePicker open={value.open} handleClose={func.handleClose} onAccept={func.onChangeTime} />
     </div>
   );
 };
