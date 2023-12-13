@@ -6,6 +6,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
 import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
+import { log, logS } from "values/Utilitas";
+import dayjs from "dayjs";
 
 const style = {
   position: "absolute",
@@ -19,27 +21,22 @@ const style = {
 };
 
 const ModalTimePicker = ({ open, handleClose, label, onAccept, timeDisabled = null }) => {
+
   const shouldDisableTime = (value, view) => {
     if (timeDisabled !== null) {
       if (view === 'hours') {
-        const hour = value.hour();
-        const minute = value.minute();
+        const { startHour, startMinute, endHour, endMinute } = timeDisabled;
 
-        for (let i = 0; i < timeDisabled.length; i++) {
-          const { startHour, startMinute } = timeDisabled[i];
+        const hour = value.hour()
+        const minute = value.minute()
 
-          if (
-            (hour > startHour || (hour === startHour && minute >= startMinute))
-          ) {
-            return true;
-          }
+        if ((hour > startHour) && (hour <= endHour)) {
+          return false; // disabled
+        } else {
+          return true // non disabled
         }
       }
-      return false;
     }
-
-    return false;
-
   };
 
   return (
@@ -56,13 +53,16 @@ const ModalTimePicker = ({ open, handleClose, label, onAccept, timeDisabled = nu
           >
             <DemoItem label="Pilih jam konsultasi">
               <StaticTimePicker
+                defaultValue={dayjs('2000-09-07T00:00')}
                 viewRenderers={{
                   hours: renderTimeViewClock,
                   minutes: renderTimeViewClock,
                   seconds: renderTimeViewClock,
                 }}
+                minutesStep={15}
                 shouldDisableTime={shouldDisableTime}
-                onAccept={onAccept} />
+                onAccept={onAccept} onClose={handleClose} />
+
             </DemoItem>
           </DemoContainer>
 

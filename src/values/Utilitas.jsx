@@ -27,10 +27,41 @@ export const getSizeScreen = (set) => {
   });
 };
 
+export const convertTimestampToDate = (timestamp) => {
+  const t = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+  const day = t.getDate();
+  const month = t.getMonth() + 1;
+  const year = t.getFullYear();
+  return {
+    day,
+    month,
+    year
+  }
+}
+
 export const timestamp = () => new Date().getTime();
 
-export const day = () => new Date().getDay();
+export const getTimeTodayAndTomorrow = () => {
+  // Mendapatkan tanggal hari ini
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set jam menjadi 00:00:00 untuk hari ini
 
-export const month = () => new Date().getMonth();
+  // Mendapatkan tanggal besok
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0); // Set jam menjadi 00:00:00 untuk besok
+
+  return {
+    today, tomorrow
+  }
+}
+
+export const day = () => new Date().getDate();
+
+export const month = () => new Date().getMonth() + 1;
 
 export const year = () => new Date().getFullYear();
+
+export const hour = () => new Date().getHours();
+
+export const minute = () => new Date().getMinutes();

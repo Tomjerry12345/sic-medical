@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { day, timestamp } from "values/Utilitas";
+import { day, log, convertTimestampToDate, month } from "values/Utilitas";
 
 const KonsultasiPasienLogic = () => {
   const [data, setData] = useState();
-  const [listKonsultasi, setListKonsultasi] = useState();
   const [open, setOpen] = useState(false);
-  const [pickDokter, setPickDokter] = useState();
+  const [pickDokter, setPickDokter] = useState({
+    waktu_konsultasi: null
+  });
 
   const navigate = useNavigate();
   const fs = FirebaseServices();
@@ -15,97 +16,98 @@ const KonsultasiPasienLogic = () => {
   const timePickerRef = useRef(null);
 
   // useEffect(() => {
-  //   const colRef = collection(db, "dokter");
-  //   //real time update
+  //   const interval = setInterval(() => {
+  //     onGetData();
+  //   }, 20000);
 
-  //   onSnapshot(colRef, async (snapshot) => {
-  //     let l = [];
-  //     for (const doc of snapshot.docs) {
-  //       const d = doc.data();
-  //       l.push(d);
-  //     }
-
-  //     log({ l });
-
-  //     l = l.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
-
-  //     setData(l);
-  //   });
+  //   return () => clearInterval(interval);
   // }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      onGetData();
-    }, 20000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     onGetData();
   }, []);
 
   const onGetData = async () => {
-    console.log("running...");
-    let result = await fs.getDataCollection("dokter");
-    result = result.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
-    setData(result);
-  };
+    const listDokter = []
 
-  //   const onGetData = async () => {
-  //     console.log("running...");
-  //     let result = await fs.getDataCollection("dokter");
-
-  //     // Mengubah huruf pertama menjadi huruf besar di setiap nama dokter
-  //     result = result.map((dokter) => {
-  //         dokter.nama_dokter = dokter.nama_dokter.charAt(0).toUpperCase() + dokter.nama_dokter.slice(1);
-  //         return dokter;
-  //     });
-
-  //     // Melakukan pengurutan
-  //     result = result.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
-
-  //     setData(result);
-  // };
-
-  const onPickTime = async (waktuKonsultasi, email, nama) => {
-    const list = []
+    let resultDokter = await fs.getDataCollection("dokter");
+    resultDokter = resultDokter.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
 
     const pasien = await fs.getCurrentUser();
-    let result = await fs.getDataQueryMultiple("konsultasi", [
+
+    let resKonsultasi = await fs.getDataQueryMultiple("konsultasi", [
       {
-        key: "email_dokter",
-        value: email,
-      },
-      {
-        key: "date",
-        value: timestamp(),
+        key: "email_pasien",
+        operator: "==",
+        value: pasien.email,
       },
     ]);
 
-    if (result.length < 1) {
-      setOpen(true);
-    } else {
-      alert("anda sudah melakukan konsultasi pada hari ini!");
-    }
 
-    result.forEach(e => {
-      const waktuKonsultasi = e.waktu_konsultasi.split(":")
-
-
-      list.push({
-        startHour: waktuKonsultasi[0],
-        startMinute: waktuKonsultasi[1]
+    resultDokter.forEach(d => {
+      let l = {
+        ...d,
+      }
+      resKonsultasi.forEach(k => {
+        const timestamp = convertTimestampToDate(k.timestamp);
+        if (d.email === k.email_dokter && timestamp.day === day() && timestamp.month === month()) {
+          l = {
+            ...l,
+            ...k
+          }
+        }
       })
+
+      listDokter.push(l)
     })
 
-    setPickDokter({
-      email_dokter: email,
-      email_pasien: pasien.email,
-    });
+    log({ listDokter })
 
-    setListKonsultasi(list);
+    setData(resultDokter);
+  };
 
+
+  const onPickTime = async (waktuKonsultasiDokter, emailDokter, namaDokter) => {
+    try {
+      let isEmptyPasien = true
+
+      const startKonsultasiDokter = waktuKonsultasiDokter.mulai.split(":")
+      const endKonsultasiDokter = waktuKonsultasiDokter.selesai.split(":")
+
+      const pasien = await fs.getCurrentUser();
+      let result = await fs.getDataQueryMultiple("konsultasi", [
+        {
+          key: "email_dokter",
+          operator: "==",
+          value: emailDokter,
+        },
+      ]);
+
+      result.forEach(e => {
+        const timestamp = convertTimestampToDate(e.timestamp);
+        if (e.email_pasien === pasien.email && timestamp.day === day() && timestamp.month === month()) {
+          isEmptyPasien = false
+        }
+      })
+
+      if (isEmptyPasien) {
+        setPickDokter({
+          email_dokter: emailDokter,
+          email_pasien: pasien.email,
+          waktu_konsultasi: {
+            startHour: parseInt(startKonsultasiDokter[0]),
+            startMinute: parseInt(startKonsultasiDokter[1]),
+            endHour: parseInt(endKonsultasiDokter[0]),
+            endMinute: parseInt(endKonsultasiDokter[1]),
+          }
+        });
+        setOpen(true);
+      } else {
+        alert("anda sudah melakukan konsultasi pada hari ini!");
+      }
+    } catch (e) {
+      alert(e)
+    }
 
   };
 
@@ -120,7 +122,7 @@ const KonsultasiPasienLogic = () => {
       await fs.addData("konsultasi", {
         email_dokter: pickDokter.email_dokter,
         email_pasien: pickDokter.email_pasien,
-        waktu_konsultasi: time,
+        waktu_konsultasi_pasien: time,
       });
       handleClose()
     } catch (e) {
@@ -143,7 +145,7 @@ const KonsultasiPasienLogic = () => {
       data,
       timePickerRef,
       open,
-      listKonsultasi,
+      pickDokter
     },
     func: {
       onGetData,

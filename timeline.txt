@@ -1,10 +1,14 @@
 v 0.2 ✅ ❌ 🔥
 
-- ketika pilih dokter di konsultasi pasien, bisa pilih jam konsultasi ❌
+- ketika pilih dokter di konsultasi pasien, bisa pilih jam konsultasi ✅
 - tambahkan jam konsultasi pada tambah data dokter di admin ✅
-- urutkan daftar pasien yang tampil sesuai dengan urutan paling konsultasi ❌
+- hanya 1 kali dalam sehari melakukan konsultasi ✅
+- waktu konsultasi yang dapat di pilih pasien harus dalam waktu rentang waktu
+  konsultasi dokter ❌
+- urutkan daftar pasien yang tampil sesuai dengan urutan paling pertama konsultasi ❌
 - ketika pasien sudah memilih waktu konsultasi, maka pasien lain tidak bisa memilih lagi
   waktu tersebut ❌
+- batasi ruang chat sampai 15 menit ❌
 - halaman chat tidak bisa terbuka sebelum sampai waktu konsultasi baik dokter mau pun pasien ❌
 - tambahkan tipe pasien: umum dan bpjs di registrasi pasien ✅
 

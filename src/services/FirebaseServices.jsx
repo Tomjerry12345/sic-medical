@@ -196,7 +196,7 @@ const FirebaseServices = () => {
     const collection_ref = collection(db, col);
     const q = query(
       collection_ref,
-      ...keyValue.map(({ key, value }) => where(key, '==', value))
+      ...keyValue.map(({ key, operator, value }) => where(key, operator, value))
     );
     const docs = await getDocs(q);
     return docs.docs.map((doc) => ({ ...doc.data(), id: doc.id }));

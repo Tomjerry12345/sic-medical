@@ -32,7 +32,11 @@ const KonsultasiPasien = () => {
           ))}
       </Grid>
 
-      <ModalTimePicker open={value.open} handleClose={func.handleClose} onAccept={func.onChangeTime} />
+      <ModalTimePicker
+        open={value.open}
+        handleClose={func.handleClose}
+        onAccept={func.onChangeTime}
+        timeDisabled={value.pickDokter.waktu_konsultasi} />
     </div>
   );
 };
