@@ -24,16 +24,43 @@ const ModalTimePicker = ({ open, handleClose, label, onAccept, timeDisabled = nu
 
   const shouldDisableTime = (value, view) => {
     if (timeDisabled !== null) {
+      const hour = value.hour()
+      const minute = value.minute()
+
       if (view === 'hours') {
         const { startHour, startMinute, endHour, endMinute } = timeDisabled;
 
-        const hour = value.hour()
-        const minute = value.minute()
-
-        if ((hour > startHour) && (hour <= endHour)) {
+        if ((hour >= startHour) && (hour <= endHour)) {
           return false; // disabled
         } else {
           return true // non disabled
+        }
+      }
+
+      if (view === 'minutes') {
+        const { startHour, startMinute, endHour, endMinute } = timeDisabled;
+
+        // log({ startMinute })
+        // log({ minute })
+        // log({ hour })
+        // log({ startHour })
+
+        // if ((hour !== startHour && minute >= startMinute)) {
+        //   log("", "false")
+        //   return false; // disabled
+        // } else {
+        //   log("", "true")
+        //   return true // non disabled
+        // }
+
+        if (hour === startHour && minute >= startMinute && hour !== endHour) {
+          return false; // disabled
+        } else if (hour === endHour && minute <= endMinute && hour !== startHour) {
+          return false; // disabled
+        } else if (hour > startHour && hour <= endHour) {
+          return false; // disabled
+        } else {
+          return true; // non disabled
         }
       }
     }
