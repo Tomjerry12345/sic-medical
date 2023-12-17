@@ -1,18 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuDokter } from "values/Constant";
-import { SocketContext } from "services/Context";
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
   Snackbar,
-  Typography,
 } from "@mui/material";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import FirebaseServices from "services/FirebaseServices";
 import { db } from "config/FirebaseConfig";
 import {

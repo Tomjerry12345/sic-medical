@@ -1,4 +1,4 @@
-import CardChat from "../../../component/card/CardChat";
+import CardChat from "component/card/CardChat";
 import {
   Box,
   Typography,
@@ -10,12 +10,13 @@ import {
   FormControl,
   Stack,
 } from "@mui/material";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import SendIcon from "@mui/icons-material/Send";
-import ChatPasienLogic from "./ChatPasienLogic";
+import Logic from "./Logic";
+
 const ChatPasien = () => {
-  const { value, func } = ChatPasienLogic();
+  const { value, func } = Logic();
+
   return (
     <div>
       <Box display="flex">
@@ -30,12 +31,6 @@ const ChatPasien = () => {
           justifyContent="flex-end"
 
         >
-          {/* <IconButton
-            onClick={func.onClickVideoCall}
-          >
-            <VideocamIcon />
-          </IconButton> */}
-
           <IconButton
             onClick={func.onClickResep}
           >

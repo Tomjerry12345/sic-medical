@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "../../component/navbar/NavbarComponent";
@@ -19,12 +20,10 @@ import {
   onSnapshot,
   query,
   where,
-  getDocs,
 } from "firebase/firestore";
 import FirebaseServices from "services/FirebaseServices";
 import { useContext, useEffect, useState } from "react";
 
-const drawerWidth = 240;
 
 function PasienPage() {
   const { call, callAccepted } = useContext(SocketContext);
@@ -118,7 +117,7 @@ function PasienPage() {
                   });
                 }}
 
-                // onClick={answerCall}
+              // onClick={answerCall}
               >
                 Answer
               </Button>

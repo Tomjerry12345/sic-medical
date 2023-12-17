@@ -1,7 +1,6 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Stack, Typography, Button, MenuItem, Card } from "@mui/material";
+import { Stack, Typography, Card } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -10,6 +9,7 @@ import { LoadingButton } from "@mui/lab";
 
 const AddRekamMedisPage = () => {
   const { value, func } = Logic();
+
   return (
     <div
       style={{

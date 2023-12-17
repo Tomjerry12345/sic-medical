@@ -1,5 +1,5 @@
-import { Button, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { Button } from "@mui/material";
+import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "services/FirebaseServices";
 import { log, timestamp } from "values/Utilitas";

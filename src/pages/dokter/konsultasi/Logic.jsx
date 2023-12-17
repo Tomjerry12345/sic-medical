@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { convertTimestampToDate, day, hour, log, minute, month } from "values/Utilitas";
-import FirebaseServices from "../../../services/FirebaseServices";
+import FirebaseServices from "services/FirebaseServices";
 
 const Logic = () => {
   const [data, setData] = useState([]);
@@ -13,19 +14,8 @@ const Logic = () => {
     onGetData();
   }, []);
 
-  const getUser = async () => await fs.getCurrentUser();
-
   const onGetData = async () => {
     try {
-      // const user = await getUser();
-      // const userGroup = await fs.getGrupMessage(user.email);
-
-      // const promises = [];
-      // userGroup.map((email) => promises.push(getU(email)));
-
-      // const result = await Promise.all(promises);
-      // setData(result);
-
       const listDataKonsultasi = [];
 
       const dokter = await fs.getCurrentUser();
@@ -40,9 +30,7 @@ const Logic = () => {
 
       let resUser = await fs.getDataCollection("user");
 
-      log({ resUser })
-
-      resKonsultasi = resKonsultasi.sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1));
+      resKonsultasi = resKonsultasi.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
 
       resKonsultasi.forEach(konsultasi => {
         const timestamp = convertTimestampToDate(konsultasi.timestamp);
@@ -63,15 +51,6 @@ const Logic = () => {
     }
   };
 
-  const getU = async (email) => {
-    try {
-      const result = await fs.getDataQuery("user", "email", email);
-      return result[0];
-    } catch (err) {
-      throw err;
-    }
-  };
-
   const onClickCard = (item) => {
     const konsultasiPasien = item.waktu_konsultasi_pasien.split(":")
     const hourPasien = parseInt(konsultasiPasien[0])
@@ -84,14 +63,14 @@ const Logic = () => {
   }
 
   const onMoveToChat = (item) => {
-
+    log({ item })
     navigate("/dokter/konsultasi/chat", {
       state: {
         waktu_konsultasi_pasien: item.waktu_konsultasi_pasien,
         nama_lengkap: item.nama_pasien,
         email: item.email_pasien,
         image: item.image_pasien,
-        idCall: ""
+        id_call: item.id_call
       },
     });
   };

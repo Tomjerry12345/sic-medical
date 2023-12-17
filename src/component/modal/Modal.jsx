@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Button, Card, Typography } from "@mui/material";
 import Modal from "@mui/material/Modal";
-import EmailIcon from "@mui/icons-material/Email";
 
 const style = {
   position: "absolute",

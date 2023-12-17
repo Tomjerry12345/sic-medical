@@ -2,18 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {
-  FormControl,
   IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Stack,
   Typography,
 } from "@mui/material";
 import Logic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const EditDokterPage = () => {
   const { value, func } = Logic();

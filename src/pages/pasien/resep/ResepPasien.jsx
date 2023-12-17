@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CardResep from "../../../component/card/CardResep";
 import Logic from "./Logic";
-import { log } from "values/Utilitas";
 
 const ResepPasien = () => {
   const { value, func } = Logic();

@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { collection } from "@firebase/firestore";
 import { db } from "config/FirebaseConfig";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import FirebaseServices from "services/FirebaseServices";
-import { log } from "values/Utilitas";
 
 const Logic = () => {
   const fs = FirebaseServices();

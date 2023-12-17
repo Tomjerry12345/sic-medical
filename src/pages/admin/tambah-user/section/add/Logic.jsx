@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FirebaseServices from "services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
-import { getLocal, log, test, timestamp } from "values/Utilitas";
+import { log, timestamp } from "values/Utilitas";
 
 const Logic = () => {
+
   const [input, setInput] = useState({
     nama_dokter: "",
     spesialis: "",

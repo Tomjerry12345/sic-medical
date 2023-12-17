@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import CardUser from "component/card/CardUser";
 import Logic from "./Logic";
 
@@ -18,8 +18,8 @@ const RekamMedisPage = () => {
         display="flex"
         justifyContent="space-between"
       >
-        {value.data.map((item) => (
-          <Grid item xs={4}>
+        {value.data.map((item, i) => (
+          <Grid key={i} item xs={4}>
             <CardUser
               image={item.image}
               nama={item.nama_lengkap}

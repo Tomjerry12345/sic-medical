@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import FirebaseServices from "../../../../../services/FirebaseServices";
+import FirebaseServices from "services/FirebaseServices";
 import { useNavigate } from "react-router-dom";
-import { getLocal, log } from "../../../../../values/Utilitas";
+import { getLocal, log } from "values/Utilitas";
 
 const Logic = () => {
   const [input, setInput] = useState({

@@ -37,12 +37,11 @@
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.6.2",
     "styled-components": "^6.0.0-rc.6",
-    "web-vitals": "^2.1.0",
-    "yarn": "^1.22.10"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
+    "dev": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

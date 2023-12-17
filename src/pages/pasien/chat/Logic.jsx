@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import FirebaseServices from "../../../services/FirebaseServices";
-import { log, timestamp } from "../../../values/Utilitas";
+import FirebaseServices from "services/FirebaseServices";
+import { timestamp } from "values/Utilitas";
 
-const ChatPasienLogic = () => {
+const Logic = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const fs = FirebaseServices();
@@ -144,4 +145,4 @@ const ChatPasienLogic = () => {
   };
 };
 
-export default ChatPasienLogic;
+export default Logic;

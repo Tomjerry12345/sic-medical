@@ -1,17 +1,9 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import VideoCameraFrontOutlinedIcon from "@mui/icons-material/VideoCameraFrontOutlined";
-import CarditemDashboard from "../../../component/card/CardItemDashboard";
+
 const DashboardPage = () => {
-  const styleIcon = {
-    width: "100px",
-    height: "calc(100vh - 635px)",
-    margin: "auto",
-  };
+
   return (
     <>
-      {/* <Toolbar /> */}
-
-      {/* tulisan dashboard */}
       <Stack>
         <Typography
           sx={{

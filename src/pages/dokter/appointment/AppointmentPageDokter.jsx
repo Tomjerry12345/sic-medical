@@ -7,12 +7,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   Stack,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import AppointmentLogic from "../../pasien/appointment/Logic";
-import AppointmentLogicDokter from "./AppointmentLogic";
+import Logic from "./Logic";
 
 const useStyles = makeStyles({
   table: {
@@ -22,7 +20,7 @@ const useStyles = makeStyles({
 
 const AppointmentPageDokter = () => {
   const classes = useStyles();
-  const { value } = AppointmentLogicDokter();
+  const { value } = Logic();
   return (
     <>
       <Stack spacing={6} style={{ fontFamily: "lato", marginTop: "-12px" }}>

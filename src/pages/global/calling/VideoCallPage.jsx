@@ -1,13 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
-
 import VideoPlayer from "./components/VideoPlayer";
-import Sidebar from "./components/Sidebar";
-import Notifications from "./components/Notifications";
 import { SocketContext } from "services/Context";
-import { log } from "values/Utilitas";
 import { useLocation } from "react-router-dom";
-import FirebaseServices from "services/FirebaseServices";
 import { Box, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,12 +38,8 @@ const VideoCallPage = () => {
     useContext(SocketContext);
 
   const [data, setData] = useState();
-
   const location = useLocation();
-
-  const [i, setI] = useState(0);
-  const [j, setJ] = useState(0);
-  const fs = FirebaseServices();
+  const [i, setI] = useState(0)
 
   useEffect(() => {
     startStream();
@@ -63,7 +55,6 @@ const VideoCallPage = () => {
   }, []);
 
   useEffect(() => {
-    log({ i });
     if (i === 3) {
       if (location.state !== null) {
         if (location.state.type === "answer") {

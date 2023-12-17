@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import FirebaseServices from "../../../services/FirebaseServices";
-import { log } from "../../../values/Utilitas";
+import FirebaseServices from "services/FirebaseServices";
 import { useEffect, useState } from "react";
 
-const AppointmentLogicDokter = () => {
+const Logic = () => {
   const [data, setData] = useState();
 
   const fs = FirebaseServices();
@@ -27,4 +25,4 @@ const AppointmentLogicDokter = () => {
   };
 };
 
-export default AppointmentLogicDokter;
+export default Logic;

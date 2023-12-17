@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import FirebaseServices from "../../../../../services/FirebaseServices";
-import { log } from "../../../../../values/Utilitas";
+import FirebaseServices from "services/FirebaseServices";
+import { log } from "values/Utilitas";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const EditAppointmentLogic = () => {

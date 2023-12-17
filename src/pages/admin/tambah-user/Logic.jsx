@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FirebaseServices from "services/FirebaseServices";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
@@ -8,10 +9,7 @@ const Logic = () => {
   const fs = FirebaseServices();
 
   const navigate = useNavigate();
-
   const [rows, setRows] = useState([]);
-
-  const [input, setInput] = useState();
 
   const columns = [
     {

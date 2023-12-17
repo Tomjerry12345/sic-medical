@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { day, log, convertTimestampToDate, month, hour, minute, getLocal } from "values/Utilitas";
+import { day, log, convertTimestampToDate, month, hour, minute } from "values/Utilitas";
 
 const Logic = () => {
   const [data, setData] = useState();

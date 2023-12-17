@@ -5,7 +5,7 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { auth, storage, db } from "../config/FirebaseConfig";
+import { auth, storage, db } from "config/FirebaseConfig";
 import {
   collection,
   addDoc,
@@ -25,6 +25,7 @@ import { timestamp } from "../values/Utilitas";
 import { log } from "values/Utilitas";
 
 const FirebaseServices = () => {
+
   const createUser = async (email, password) =>
     await createUserWithEmailAndPassword(auth, email, password);
 
@@ -162,25 +163,25 @@ const FirebaseServices = () => {
     return data;
   };
 
-  const getNotif = async (col, setData) => {
-    const user = await getCurrentUser();
-    const collection_ref = collection(db, col);
+  // const getNotif = async (col, setData) => {
+  //   const user = await getCurrentUser();
+  //   const collection_ref = collection(db, col);
 
-    const q = query(
-      collection_ref,
-      where("email", "==", user.email),
-      where("new", "==", true)
-    );
+  //   const q = query(
+  //     collection_ref,
+  //     where("email", "==", user.email),
+  //     where("new", "==", true)
+  //   );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const newData = [];
-      querySnapshot.forEach((doc) => {
-        newData.push({ id: doc.id, ...doc.data() });
-      });
-      console.log(newData);
-      // Lakukan sesuatu dengan data newData
-    });
-  };
+  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //     const newData = [];
+  //     querySnapshot.forEach((doc) => {
+  //       newData.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     console.log(newData);
+  //     // Lakukan sesuatu dengan data newData
+  //   });
+  // };
 
   const getDataSpecifict = async (col) => {
     const collection_ref = col;
@@ -268,7 +269,7 @@ const FirebaseServices = () => {
     updateDocX,
     deletDoc,
     getDataCollection,
-    getNotif,
+    // getNotif,
     getDataSpecifict,
     sendMessage,
     getMessage,

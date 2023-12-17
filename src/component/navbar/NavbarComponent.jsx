@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -5,11 +6,9 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Stack, Button, Modal } from "@mui/material";
-import { namedMenuPasien } from "../../values/Constant";
+import { Box, Typography, Stack, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { log } from "../../values/Utilitas";
-import FirebaseServices from "../../services/FirebaseServices";
+import FirebaseServices from "services/FirebaseServices";
 import ModalComponent from "../modal/Modal";
 
 const drawerWidth = 240;
