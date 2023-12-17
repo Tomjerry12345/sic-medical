@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Grid, Typography, Paper } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { SocketContext } from "services/Context";
+import { log } from "values/Utilitas";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -22,6 +23,10 @@ const VideoPlayer = ({ data }) => {
     useContext(SocketContext);
   const classes = useStyles();
 
+  log({ name });
+  log({ call });
+  log({ data });
+
   return (
     <Grid container className={classes.gridContainer}>
       {stream && (
@@ -30,7 +35,13 @@ const VideoPlayer = ({ data }) => {
             <Typography variant="h5" gutterBottom>
               {name || "Not Found"}
             </Typography>
-            <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
+            <video
+              playsInline
+              muted
+              ref={myVideo}
+              autoPlay
+              className={classes.video}
+            />
           </Grid>
         </Paper>
       )}
@@ -38,9 +49,14 @@ const VideoPlayer = ({ data }) => {
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" gutterBottom>
-              {call.name || data.nama}
+              {Object.keys(call).length === 0 ? data.nama : call.name}
             </Typography>
-            <video playsInline ref={userVideo} autoPlay className={classes.video} />
+            <video
+              playsInline
+              ref={userVideo}
+              autoPlay
+              className={classes.video}
+            />
           </Grid>
         </Paper>
       )}

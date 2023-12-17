@@ -35,14 +35,13 @@ const Logic = () => {
   }, []);
 
   useEffect(() => {
-    countDownRoomChat()
-  }, [])
-
+    countDownRoomChat();
+  }, []);
 
   const countDownRoomChat = async () => {
     const user = await getUser();
     let jam_konsultasi = location.state.waktu_konsultasi_pasien;
-    let konsultasi_parts = jam_konsultasi.split(':');
+    let konsultasi_parts = jam_konsultasi.split(":");
     let konsultasi_hours = parseInt(konsultasi_parts[0], 10);
     let konsultasi_minutes = parseInt(konsultasi_parts[1], 10);
 
@@ -62,19 +61,19 @@ const Logic = () => {
       let minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
 
-      setCountDownRoom(`Sisa waktu: ${minutesLeft} menit, ${secondsLeft} detik`)
+      setCountDownRoom(
+        `Sisa waktu: ${minutesLeft} menit, ${secondsLeft} detik`
+      );
 
       if (distance < 0) {
         const dokter = location.state.email;
         const pasien = user.email;
         clearInterval(countdown);
-        await fs.deleteMessage(dokter, pasien)
-        navigate(-1)
+        await fs.deleteMessage(dokter, pasien);
+        navigate(-1);
       }
     }, 1000);
-
-
-  }
+  };
 
   const getUser = async () => await fs.getCurrentUser();
 
@@ -126,7 +125,7 @@ const Logic = () => {
     log({ location });
     navigate("/dokter/konsultasi/calling", {
       state: {
-        nama: location.state.nama,
+        nama: location.state.nama_lengkap,
         email: location.state.email,
         image: location.state.image,
         idCall: location.state.id_call,

@@ -37,9 +37,8 @@ const VideoCallPage = () => {
   const { startStream, callUser, answerCall, stream, leaveCall } =
     useContext(SocketContext);
 
-  const [data, setData] = useState();
   const location = useLocation();
-  const [i, setI] = useState(0)
+  const [i, setI] = useState(0);
 
   useEffect(() => {
     startStream();
@@ -63,7 +62,6 @@ const VideoCallPage = () => {
           console.log("location.state.idCall", location.state.idCall);
           callUser(location.state.idCall);
         }
-        setData(location.state);
       }
     }
 
@@ -72,7 +70,7 @@ const VideoCallPage = () => {
 
   return (
     <div className={classes.wrapper}>
-      <VideoPlayer data={data} />
+      <VideoPlayer data={location.state} />
       <Box display="flex">
         <Button
           variant="outlined"
