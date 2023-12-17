@@ -12,9 +12,10 @@ const Logic = () => {
     message: "",
   });
 
-  const [dislayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [u, setU] = useState();
   const [messages, setMessages] = useState();
+  const [countDownRoom, setCountDownRoom] = useState("");
 
   useEffect(() => {
     const unsubcribe = async () => {
@@ -31,6 +32,48 @@ const Logic = () => {
     };
     return async () => await unsubcribe();
   }, []);
+
+  useEffect(() => {
+    countDownRoomChat()
+  }, [])
+
+
+  const countDownRoomChat = async () => {
+    const user = await getUser();
+    let jam_konsultasi = location.state.waktu_konsultasi_pasien;
+    let konsultasi_parts = jam_konsultasi.split(':');
+    let konsultasi_hours = parseInt(konsultasi_parts[0], 10);
+    let konsultasi_minutes = parseInt(konsultasi_parts[1], 10);
+
+    let nextConsultation = new Date();
+    nextConsultation.setHours(konsultasi_hours);
+    nextConsultation.setMinutes(konsultasi_minutes);
+    nextConsultation.setSeconds(0);
+
+    // Menambahkan 15 menit ke waktu konsultasi
+    nextConsultation.setMinutes(nextConsultation.getMinutes() + 15);
+
+    // Menghitung mundur
+    let countdown = setInterval(async function () {
+      let distance = nextConsultation.getTime() - new Date().getTime();
+
+      // let hoursLeft = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setCountDownRoom(`Sisa waktu: ${minutesLeft} menit, ${secondsLeft} detik`)
+
+      if (distance < 0) {
+        const dokter = location.state.email;
+        const pasien = user.email;
+        clearInterval(countdown);
+        await fs.deleteMessage(dokter, pasien)
+        navigate(-1)
+      }
+    }, 1000);
+
+
+  }
 
   const getUser = async () => await fs.getCurrentUser();
 
@@ -98,7 +141,7 @@ const Logic = () => {
   };
 
   return {
-    value: { input, messages, u, dislayName },
+    value: { input, messages, u, displayName, countDownRoom },
     func: { sendMessage, onChange, onClickVideoCall, onClickResep },
   };
 };

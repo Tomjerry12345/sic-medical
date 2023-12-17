@@ -4,12 +4,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import { formatTime } from "values/Utilitas";
 
 const CardUser = ({
   image,
   nama,
   spesialis,
   expireTime,
+  waktuKonsultasiDokter = null,
+  waktuKonsultasiPasien = null,
   onClick,
   showOnline = false,
 }) => {
@@ -47,7 +50,7 @@ const CardUser = ({
             {nama}
           </Typography>
           <Typography variant="body2" fontSize="24px" color="text.secondary">
-            {spesialis}
+            {spesialis ?? null}
           </Typography>
           {showOnline ? (
             expireTime < Date.now() || expireTime === undefined ? (
@@ -68,15 +71,37 @@ const CardUser = ({
               </Typography>
             )
           ) : null}
-          <div>
+          {waktuKonsultasiDokter !== null ? <div>
             <Typography
               variant="body2"
               fontSize="24px"
               color="text.secondary"
             >
-              12:00 - 13:00
+
+              {formatTime(waktuKonsultasiDokter.mulai)} - {formatTime(waktuKonsultasiDokter.selesai)}
             </Typography>
-          </div>
+          </div> : null}
+
+          {
+            waktuKonsultasiPasien !== null ? <div>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: "14px",
+                  color: "firebrick",
+                  fontWeight: "700"
+                }}
+              >
+
+                {
+                  waktuKonsultasiDokter !== null ? `Silahkan melakukan konsultasi pada jam ${waktuKonsultasiPasien}` : `Waktu konsultasi pasien jam: ${waktuKonsultasiPasien}`
+                }
+
+
+              </Typography>
+            </div> : null
+          }
+
           {/* {expireTime < Date.now() ? (
             <Typography variant="body2" fontSize="24px" color="text.secondary">
               offline

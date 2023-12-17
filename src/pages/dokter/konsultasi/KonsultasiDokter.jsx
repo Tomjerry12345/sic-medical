@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import CardUser from "../../../component/card/CardUser";
 import Logic from "./Logic";
-import { log } from "../../../values/Utilitas";
 
 const KonsultasiDokter = () => {
   const { value, func } = Logic();
@@ -21,11 +20,10 @@ const KonsultasiDokter = () => {
         {value.data.map((item) => (
           <Grid item xs={4}>
             <CardUser
-              image={item.image}
-              nama={item.nama_lengkap}
-              spesialis={item.type}
-              online={item.online}
-              onClick={() => func.onMoveToChat(item)}
+              image={item.image_pasien}
+              nama={item.nama_pasien}
+              waktuKonsultasiPasien={item.waktu_konsultasi_pasien}
+              onClick={() => func.onClickCard(item)}
             />
           </Grid>
         ))}

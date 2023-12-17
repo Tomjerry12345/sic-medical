@@ -2,7 +2,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  getAuth,
   deleteUser,
 } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -119,6 +118,38 @@ const FirebaseServices = () => {
       alert(error);
     }
   };
+
+  const deleteMessage = async (dokter, pasien) => {
+    const colRef = collection(db, `chat/${dokter}/message/${pasien}/message`);
+
+    getDocs(colRef)
+      .then((querySnapshot) => {
+        const deletePromises = [];
+
+        querySnapshot.forEach((doc) => {
+          deletePromises.push(deleteDoc(doc.ref));
+        });
+
+        return Promise.all(deletePromises);
+      })
+      .then(() => {
+        return getDocs(colRef);
+      })
+      .then((emptySnapshot) => {
+        if (emptySnapshot.size === 0) {
+          const parentCollection = colRef.parent;
+          log({ parentCollection })
+          return deleteDoc(parentCollection, 'message'); // Delete 'message' field to remove the collection
+        }
+        return Promise.resolve();
+      })
+      .then(() => {
+        console.log('Operasi penghapusan selesai.');
+      })
+      .catch((error) => {
+        console.error('Terjadi kesalahan:', error);
+      });
+  }
 
   const getDataCollection = async (col) => {
     const collection_ref = collection(db, col);
@@ -242,6 +273,7 @@ const FirebaseServices = () => {
     sendMessage,
     getMessage,
     getGrupMessage,
+    deleteMessage,
     onSignOut,
   };
 };

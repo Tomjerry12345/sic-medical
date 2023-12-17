@@ -20,15 +20,15 @@ const style = {
   p: 4,
 };
 
-const ModalTimePicker = ({ open, handleClose, label, onAccept, timeDisabled = null }) => {
+const ModalTimePicker = ({ open, handleClose, label, onAccept, disabledTime = null, nonDisabledTime = null }) => {
 
   const shouldDisableTime = (value, view) => {
-    if (timeDisabled !== null) {
+    if (disabledTime !== null) {
       const hour = value.hour()
       const minute = value.minute()
 
       if (view === 'hours') {
-        const { startHour, startMinute, endHour, endMinute } = timeDisabled;
+        const { startHour, endHour } = disabledTime;
 
         if ((hour >= startHour) && (hour <= endHour)) {
           return false; // disabled
@@ -38,20 +38,15 @@ const ModalTimePicker = ({ open, handleClose, label, onAccept, timeDisabled = nu
       }
 
       if (view === 'minutes') {
-        const { startHour, startMinute, endHour, endMinute } = timeDisabled;
+        const { startHour, startMinute, endHour, endMinute } = disabledTime;
 
-        // log({ startMinute })
-        // log({ minute })
-        // log({ hour })
-        // log({ startHour })
-
-        // if ((hour !== startHour && minute >= startMinute)) {
-        //   log("", "false")
-        //   return false; // disabled
-        // } else {
-        //   log("", "true")
-        //   return true // non disabled
-        // }
+        if (nonDisabledTime !== null) {
+          nonDisabledTime.forEach(e => {
+            if (hour === e.hour && minute === e.minute) {
+              return false
+            }
+          })
+        }
 
         if (hour === startHour && minute >= startMinute && hour !== endHour) {
           return false; // disabled

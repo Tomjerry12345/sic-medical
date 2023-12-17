@@ -49,6 +49,8 @@ const LoginLogic = () => {
         if (length === 0) {
           navigate("/dokter");
         } else {
+          setLocal("nama", result[0].nama_lengkap);
+          setLocal("image", result[0].image);
           navigate("/pasien");
         }
       }

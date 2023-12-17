@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { day, log, convertTimestampToDate, month } from "values/Utilitas";
+import { day, log, convertTimestampToDate, month, hour, minute, getLocal } from "values/Utilitas";
 
-const KonsultasiPasienLogic = () => {
+const Logic = () => {
   const [data, setData] = useState();
   const [open, setOpen] = useState(false);
   const [pickDokter, setPickDokter] = useState({
@@ -61,15 +61,14 @@ const KonsultasiPasienLogic = () => {
       listDokter.push(l)
     })
 
-    log({ listDokter })
-
-    setData(resultDokter);
+    setData(listDokter);
   };
 
 
-  const onPickTime = async (waktuKonsultasiDokter, emailDokter, namaDokter) => {
+  const onPickTime = async (waktuKonsultasiDokter, emailDokter, namaDokter, image, idCall) => {
     try {
       let isEmptyPasien = true
+      let resPasien = {}
 
       const startKonsultasiDokter = waktuKonsultasiDokter.mulai.split(":")
       const endKonsultasiDokter = waktuKonsultasiDokter.selesai.split(":")
@@ -83,10 +82,14 @@ const KonsultasiPasienLogic = () => {
         },
       ]);
 
-      result.forEach(e => {
-        const timestamp = convertTimestampToDate(e.timestamp);
-        if (e.email_pasien === pasien.email && timestamp.day === day() && timestamp.month === month()) {
+      result.forEach(konsultasi => {
+        const timestamp = convertTimestampToDate(konsultasi.timestamp);
+        if (konsultasi.email_pasien === pasien.email && timestamp.day === day() && timestamp.month === month()) {
           isEmptyPasien = false
+          resPasien = {
+            ...konsultasi
+
+          }
         }
       })
 
@@ -103,9 +106,19 @@ const KonsultasiPasienLogic = () => {
         });
         setOpen(true);
       } else {
-        alert("anda sudah melakukan konsultasi pada hari ini!");
+        const konsultasiPasien = resPasien.waktu_konsultasi_pasien.split(":")
+        const hourPasien = parseInt(konsultasiPasien[0])
+        const minutePasien = parseInt(konsultasiPasien[1])
+        if (hourPasien === hour() && (minute() >= minutePasien && minute() <= minutePasien + 15)) {
+          log({ konsultasiPasien })
+          onMoveToChat(emailDokter, namaDokter, image, idCall, resPasien.waktu_konsultasi_pasien)
+        } else {
+          alert("anda sudah melakukan konsultasi pada hari ini!");
+        }
+
       }
     } catch (e) {
+      log({ e })
       alert(e)
     }
 
@@ -118,24 +131,32 @@ const KonsultasiPasienLogic = () => {
   const onChangeTime = async (e) => {
     try {
       const time = `${e.hour()}:${e.minute()}`;
+      // const namaPasien = getLocal("nama")
+      // const imagePasien = getLocal("image")
 
       await fs.addData("konsultasi", {
         email_dokter: pickDokter.email_dokter,
         email_pasien: pickDokter.email_pasien,
+        // nama_pasien: namaPasien,
+        // image_pasien: imagePasien,
         waktu_konsultasi_pasien: time,
       });
       handleClose()
     } catch (e) {
+      log({ e })
       alert(e)
     }
 
   };
 
-  const onMoveToChat = (email, nama) => {
+  const onMoveToChat = (email, nama, image, idCall, waktuKonsultasiPasien) => {
     navigate("/pasien/konsultasi/chat", {
       state: {
-        email: email,
-        nama: nama,
+        email,
+        nama,
+        image,
+        idCall: idCall,
+        waktu_konsultasi_pasien: waktuKonsultasiPasien
       },
     });
   };
@@ -157,4 +178,4 @@ const KonsultasiPasienLogic = () => {
   };
 };
 
-export default KonsultasiPasienLogic;
+export default Logic;

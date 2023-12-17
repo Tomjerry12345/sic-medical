@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import CardUser from "component/card/CardUser";
-import KonsultasiPasienLogic from "./KonsultasiPasienLogic";
+import KonsultasiPasienLogic from "./Logic";
 import ModalTimePicker from "component/modal/ModalTimePicker";
 
 const KonsultasiPasien = () => {
@@ -26,7 +26,9 @@ const KonsultasiPasien = () => {
                 nama={item.nama_dokter}
                 spesialis={item.spesialis}
                 expireTime={item.expire_time}
-                onClick={() => func.onPickTime(item.waktu_konsultasi, item.email, item.nama_dokter)}
+                waktuKonsultasiDokter={item.waktu_konsultasi}
+                waktuKonsultasiPasien={item.waktu_konsultasi_pasien}
+                onClick={() => func.onPickTime(item.waktu_konsultasi, item.email, item.nama_dokter, item.image, item.id_call)}
               />
             </Grid>
           ))}
@@ -36,7 +38,11 @@ const KonsultasiPasien = () => {
         open={value.open}
         handleClose={func.handleClose}
         onAccept={func.onChangeTime}
-        timeDisabled={value.pickDokter.waktu_konsultasi} />
+        disabledTime={value.pickDokter.waktu_konsultasi}
+        nonDisabledTime={[{
+          hour: 13,
+          minute: 30
+        }]} />
     </div>
   );
 };

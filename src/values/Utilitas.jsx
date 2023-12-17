@@ -65,3 +65,9 @@ export const year = () => new Date().getFullYear();
 export const hour = () => new Date().getHours();
 
 export const minute = () => new Date().getMinutes();
+
+export const formatTime = (inputTime) => {
+  const [hour, minute] = inputTime.split(':');
+  const formattedMinute = minute.length === 1 ? `0${minute}` : minute;
+  return `${hour}:${formattedMinute}`;
+}

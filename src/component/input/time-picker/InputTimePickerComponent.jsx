@@ -5,10 +5,6 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
 
 const InputTimePickerComponent = ({ label, style, onAccept, timeDisabled = null }) => {
-    const disabledTimeRanges = [
-        { startHour: 12, endHour: 13 },
-        { startHour: 15, endHour: 16 },
-    ];
 
     const shouldDisableTime = (value, view) => {
         if (timeDisabled !== null) {
