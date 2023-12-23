@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { log, timestamp } from "values/Utilitas";
 
 const Logic = () => {
-
   const [input, setInput] = useState({
     nama_dokter: "",
     spesialis: "",
@@ -13,7 +12,7 @@ const Logic = () => {
     password: "",
     waktu_konsultasi: {
       mulai: "",
-      selesai: ""
+      selesai: "",
     },
     timestamp: timestamp(),
   });
@@ -54,8 +53,7 @@ const Logic = () => {
       ...input,
       waktu_konsultasi: { ...input.waktu_konsultasi, [name]: time },
     });
-
-  }
+  };
 
   const onGetImage = (e) => {
     setImage({
@@ -67,7 +65,7 @@ const Logic = () => {
   const onMake = async () => {
     try {
       setLoading(true);
-      await fs.createUser(input.email, input.password);
+      const res = await fs.createUser(input.email, input.password);
       const image = await fs.uploadImage(img.currentFile);
       const data = {
         ...input,

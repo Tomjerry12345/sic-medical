@@ -17,7 +17,7 @@ const Logic = () => {
   const [input, setInput] = useState({
     nama_pasien: dataPasien.nama_lengkap,
     tanggal_lahir: dataPasien.tanggal_lahir,
-    jenis_kelamin: dataPasien.gender,
+    jenis_kelamin: dataPasien.jenis_kelamin,
     tanda_tangan: null,
   });
   const [objObat, setObjObat] = useState(null);
@@ -171,7 +171,6 @@ const Logic = () => {
   };
 
   const onEditObat = (v) => {
-    log({ v });
     let n = [...rows];
     n[id] = v;
     setRows(n);
@@ -186,6 +185,7 @@ const Logic = () => {
 
       const i = {
         ...input,
+        type_pasien: dataPasien.type_pasien,
         list_obat: rows,
         nama_dokter: dataDokter[0].nama_dokter,
         spesialis: dataDokter[0].spesialis,
@@ -193,8 +193,6 @@ const Logic = () => {
         dokterEmail: user.email,
         timestamp: timestamp(),
       };
-
-      log({ i });
 
       await fs.addData("resep", i);
       await fs.addData("pemberitahuan", {

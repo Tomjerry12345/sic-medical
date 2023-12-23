@@ -1,17 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import Logic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
+import InputTimePickerComponent from "component/input/time-picker/InputTimePickerComponent";
+import { log } from "values/Utilitas";
 
 const EditDokterPage = () => {
   const { value, func } = Logic();
+
   return (
     <Stack spacing={4} direction="column" alignItems="center">
       <Typography
@@ -115,6 +114,48 @@ const EditDokterPage = () => {
             marginBottom: "16px",
           }}
         />
+
+        <Typography
+          sx={{
+            marginBottom: "16px",
+          }}
+        >
+          Waktu konsultasi
+        </Typography>
+
+        <Box
+          display="flex"
+          style={{
+            width: "487px",
+            marginBottom: "16px",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <InputTimePickerComponent
+            defaultValue={value.input.waktu_konsultasi.mulai}
+            style={{
+              width: "200px",
+            }}
+            onAccept={(value) => func.onChangeTime(value, "mulai")}
+          />
+
+          <Typography
+            sx={{
+              margin: "0px 16px",
+            }}
+          >
+            Sampai
+          </Typography>
+
+          <InputTimePickerComponent
+            defaultValue={value.input.waktu_konsultasi.selesai}
+            style={{
+              width: "200px",
+            }}
+            onAccept={(value) => func.onChangeTime(value, "selesai")}
+          />
+        </Box>
 
         {/* <TextField
           name="email"

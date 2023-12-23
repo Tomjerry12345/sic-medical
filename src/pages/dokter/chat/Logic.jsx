@@ -51,7 +51,7 @@ const Logic = () => {
     nextConsultation.setSeconds(0);
 
     // Menambahkan 15 menit ke waktu konsultasi
-    nextConsultation.setMinutes(nextConsultation.getMinutes() + 15);
+    nextConsultation.setMinutes(nextConsultation.getMinutes() + 25);
 
     // Menghitung mundur
     let countdown = setInterval(async function () {
@@ -135,6 +135,7 @@ const Logic = () => {
   };
 
   const onClickResep = () => {
+    log("location.state", location.state);
     navigate("/dokter/konsultasi/resep", {
       state: location.state,
     });

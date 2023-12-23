@@ -121,6 +121,8 @@ const Logic = () => {
   };
 
   const onEditDokter = async (row) => {
+    const d = rows.find((r) => r.email === row.email);
+    log({ d });
     navigate("edit", {
       state: row,
     });

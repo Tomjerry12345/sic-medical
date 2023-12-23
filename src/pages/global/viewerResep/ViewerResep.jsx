@@ -48,6 +48,14 @@ const MyDocument = ({ data }) => (
       <Space v={6} />
 
       <View style={{ flexDirection: "row", display: "flex" }}>
+        <TextComponent title="Pasien" h="20%" />
+        <TextComponent title=":" h="2%" />
+        <TextComponent title={data.type_pasien} h="20%" />
+      </View>
+
+      <Space v={6} />
+
+      <View style={{ flexDirection: "row", display: "flex" }}>
         <TextComponent title="Tanggal Lahir" h="20%" />
         <TextComponent title=":" h="2%" />
         <TextComponent title={data.tanggal_lahir} h="20%" />

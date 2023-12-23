@@ -5,12 +5,19 @@ import { log } from "values/Utilitas";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const EditAppointmentLogic = () => {
+  const location = useLocation();
+
   const [input, setInput] = useState({
-    nama_dokter: "",
-    spesialis: "",
-    image: "",
-    email: "",
-    password: "",
+    // nama_dokter: "",
+    // spesialis: "",
+    // waktu_konsultasi: {
+    //   mulai: "",
+    //   selesai: "",
+    // },
+    // image: "",
+    // email: "",
+    // password: "",
+    ...location.state,
     timestamp: new Date().getTime(),
   });
   const [loading, setLoading] = useState(false);
@@ -22,10 +29,10 @@ const EditAppointmentLogic = () => {
 
   const fs = FirebaseServices();
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const state = location.state;
+    log({ state });
     setImage({
       currentFile: null,
       previewImage: state.image,
@@ -50,6 +57,15 @@ const EditAppointmentLogic = () => {
     setInput({
       ...input,
       date: `${e["$y"]}-${e["$M"] + 1}-${e["$D"]}`,
+    });
+  };
+
+  const onChangeTime = (e, name) => {
+    const time = `${e.hour()}:${e.minute()}`;
+
+    setInput({
+      ...input,
+      waktu_konsultasi: { ...input.waktu_konsultasi, [name]: time },
     });
   };
 
@@ -88,6 +104,7 @@ const EditAppointmentLogic = () => {
     func: {
       onChange,
       onChangeDate,
+      onChangeTime,
       onEdit,
       onGetImage,
       handleClickShowPassword,

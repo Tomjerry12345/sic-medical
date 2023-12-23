@@ -19,7 +19,6 @@ const Logic = () => {
     try {
       const user = await fs.getCurrentUser();
       const dokter = location.state;
-      log({ dokter });
       const res = await fs.getDataQuery2(
         "resep",
         "pasienEmail",

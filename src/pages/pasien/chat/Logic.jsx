@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "services/FirebaseServices";
+import { log } from "values/Utilitas";
 import { timestamp } from "values/Utilitas";
 
 const Logic = () => {
@@ -29,14 +30,13 @@ const Logic = () => {
   }, []);
 
   useEffect(() => {
-    countDownRoomChat()
-  }, [])
-
+    countDownRoomChat();
+  }, []);
 
   const countDownRoomChat = async () => {
     const user = await getUser();
     let jam_konsultasi = location.state.waktu_konsultasi_pasien;
-    let konsultasi_parts = jam_konsultasi.split(':');
+    let konsultasi_parts = jam_konsultasi.split(":");
     let konsultasi_hours = parseInt(konsultasi_parts[0], 10);
     let konsultasi_minutes = parseInt(konsultasi_parts[1], 10);
 
@@ -46,7 +46,7 @@ const Logic = () => {
     nextConsultation.setSeconds(0);
 
     // Menambahkan 15 menit ke waktu konsultasi
-    nextConsultation.setMinutes(nextConsultation.getMinutes() + 15);
+    nextConsultation.setMinutes(nextConsultation.getMinutes() + 25);
 
     // Menghitung mundur
     let countdown = setInterval(async function () {
@@ -56,19 +56,19 @@ const Logic = () => {
       let minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       let secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
 
-      setCountDownRoom(`Sisa waktu: ${minutesLeft} menit, ${secondsLeft} detik`)
+      setCountDownRoom(
+        `Sisa waktu: ${minutesLeft} menit, ${secondsLeft} detik`
+      );
 
       if (distance < 0) {
         const dokter = location.state.email;
         const pasien = user.email;
         clearInterval(countdown);
-        await fs.deleteMessage(dokter, pasien)
-        navigate(-1)
+        await fs.deleteMessage(dokter, pasien);
+        navigate(-1);
       }
     }, 1000);
-
-
-  }
+  };
 
   const getUser = async () => await fs.getCurrentUser();
 
@@ -134,6 +134,7 @@ const Logic = () => {
   };
 
   const onClickResep = () => {
+    log("location.state", location.state);
     navigate("/pasien/konsultasi/resep", {
       state: location.state,
     });

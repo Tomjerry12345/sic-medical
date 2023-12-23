@@ -2,13 +2,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
-import { day, log, convertTimestampToDate, month, hour, minute } from "values/Utilitas";
+import {
+  day,
+  log,
+  convertTimestampToDate,
+  month,
+  hour,
+  minute,
+} from "values/Utilitas";
 
 const Logic = () => {
   const [data, setData] = useState();
   const [open, setOpen] = useState(false);
   const [pickDokter, setPickDokter] = useState({
-    waktu_konsultasi: null
+    waktu_konsultasi: null,
   });
 
   const navigate = useNavigate();
@@ -29,10 +36,12 @@ const Logic = () => {
   }, []);
 
   const onGetData = async () => {
-    const listDokter = []
+    const listDokter = [];
 
     let resultDokter = await fs.getDataCollection("dokter");
-    resultDokter = resultDokter.sort((a, b) => (a.nama_dokter > b.nama_dokter ? 1 : -1));
+    resultDokter = resultDokter.sort((a, b) =>
+      a.nama_dokter > b.nama_dokter ? 1 : -1
+    );
 
     const pasien = await fs.getCurrentUser();
 
@@ -44,35 +53,45 @@ const Logic = () => {
       },
     ]);
 
-
-    resultDokter.forEach(d => {
+    resultDokter.forEach((d) => {
       let l = {
         ...d,
-      }
-      resKonsultasi.forEach(k => {
+      };
+      resKonsultasi.forEach((k) => {
         const timestamp = convertTimestampToDate(k.timestamp);
-        if (d.email === k.email_dokter && timestamp.day === day() && timestamp.month === month()) {
+        if (
+          d.email === k.email_dokter &&
+          timestamp.day === day() &&
+          timestamp.month === month()
+        ) {
           l = {
             ...l,
-            ...k
-          }
+            ...k,
+          };
         }
-      })
+      });
 
-      listDokter.push(l)
-    })
+      log({ l });
+
+      listDokter.push(l);
+    });
 
     setData(listDokter);
   };
 
-
-  const onPickTime = async (waktuKonsultasiDokter, emailDokter, namaDokter, image, idCall) => {
+  const onPickTime = async (
+    waktuKonsultasiDokter,
+    emailDokter,
+    namaDokter,
+    image,
+    idCall
+  ) => {
     try {
-      let isEmptyPasien = true
-      let resPasien = {}
+      let isEmptyPasien = true;
+      let resPasien = {};
 
-      const startKonsultasiDokter = waktuKonsultasiDokter.mulai.split(":")
-      const endKonsultasiDokter = waktuKonsultasiDokter.selesai.split(":")
+      const startKonsultasiDokter = waktuKonsultasiDokter.mulai.split(":");
+      const endKonsultasiDokter = waktuKonsultasiDokter.selesai.split(":");
 
       const pasien = await fs.getCurrentUser();
       let result = await fs.getDataQueryMultiple("konsultasi", [
@@ -83,46 +102,68 @@ const Logic = () => {
         },
       ]);
 
-      result.forEach(konsultasi => {
+      result.forEach((konsultasi) => {
         const timestamp = convertTimestampToDate(konsultasi.timestamp);
-        if (konsultasi.email_pasien === pasien.email && timestamp.day === day() && timestamp.month === month()) {
-          isEmptyPasien = false
+        if (
+          konsultasi.email_pasien === pasien.email &&
+          timestamp.day === day() &&
+          timestamp.month === month()
+        ) {
+          isEmptyPasien = false;
           resPasien = {
-            ...konsultasi
-
-          }
+            ...konsultasi,
+          };
         }
-      })
+      });
 
       if (isEmptyPasien) {
-        setPickDokter({
-          email_dokter: emailDokter,
-          email_pasien: pasien.email,
-          waktu_konsultasi: {
-            startHour: parseInt(startKonsultasiDokter[0]),
-            startMinute: parseInt(startKonsultasiDokter[1]),
-            endHour: parseInt(endKonsultasiDokter[0]),
-            endMinute: parseInt(endKonsultasiDokter[1]),
-          }
-        });
-        setOpen(true);
+        const startHour = parseInt(startKonsultasiDokter[0]);
+        const startMinute = parseInt(startKonsultasiDokter[1]);
+        const endHour = parseInt(endKonsultasiDokter[0]);
+        const endMinute = parseInt(endKonsultasiDokter[1]);
+
+        const currentTimeInMinutes = hour() * 60 + minute();
+        const endTimeInMinutes = endHour * 60 + endMinute;
+
+        if (currentTimeInMinutes <= endTimeInMinutes) {
+          setPickDokter({
+            email_dokter: emailDokter,
+            email_pasien: pasien.email,
+            waktu_konsultasi: {
+              startHour: startHour,
+              startMinute: startMinute,
+              endHour: endHour,
+              endMinute: endMinute,
+            },
+          });
+          setOpen(true);
+        } else {
+          alert("tidak bisa melakukan konsultasi, silahkan lakukan besok!");
+        }
       } else {
-        const konsultasiPasien = resPasien.waktu_konsultasi_pasien.split(":")
-        const hourPasien = parseInt(konsultasiPasien[0])
-        const minutePasien = parseInt(konsultasiPasien[1])
-        if (hourPasien === hour() && (minute() >= minutePasien && minute() <= minutePasien + 15)) {
-          log({ konsultasiPasien })
-          onMoveToChat(emailDokter, namaDokter, image, idCall, resPasien.waktu_konsultasi_pasien)
+        const konsultasiPasien = resPasien.waktu_konsultasi_pasien.split(":");
+        const hourPasien = parseInt(konsultasiPasien[0]);
+        const minutePasien = parseInt(konsultasiPasien[1]);
+        if (
+          hourPasien === hour() &&
+          minute() >= minutePasien &&
+          minute() <= minutePasien + 15
+        ) {
+          onMoveToChat(
+            emailDokter,
+            namaDokter,
+            image,
+            idCall,
+            resPasien.waktu_konsultasi_pasien
+          );
         } else {
           alert("anda sudah melakukan konsultasi pada hari ini!");
         }
-
       }
     } catch (e) {
-      log({ e })
-      alert(e)
+      log({ e });
+      alert(e);
     }
-
   };
 
   const handleClose = () => {
@@ -130,6 +171,7 @@ const Logic = () => {
   };
 
   const onChangeTime = async (e) => {
+    log("onChangeTime", "");
     try {
       const time = `${e.hour()}:${e.minute()}`;
       // const namaPasien = getLocal("nama")
@@ -142,12 +184,12 @@ const Logic = () => {
         // image_pasien: imagePasien,
         waktu_konsultasi_pasien: time,
       });
-      handleClose()
+      handleClose();
+      navigate("/pasien/konsultasi");
     } catch (e) {
-      log({ e })
-      alert(e)
+      log({ e });
+      alert(e);
     }
-
   };
 
   const onMoveToChat = (email, nama, image, idCall, waktuKonsultasiPasien) => {
@@ -157,7 +199,7 @@ const Logic = () => {
         nama,
         image,
         idCall: idCall,
-        waktu_konsultasi_pasien: waktuKonsultasiPasien
+        waktu_konsultasi_pasien: waktuKonsultasiPasien,
       },
     });
   };
@@ -167,7 +209,7 @@ const Logic = () => {
       data,
       timePickerRef,
       open,
-      pickDokter
+      pickDokter,
     },
     func: {
       onGetData,
