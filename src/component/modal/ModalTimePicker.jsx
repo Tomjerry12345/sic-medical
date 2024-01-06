@@ -7,7 +7,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import dayjs from "dayjs";
-import { log } from "values/Utilitas";
+import { hour, log, minute } from "values/Utilitas";
 
 const style = {
   position: "absolute",
@@ -23,20 +23,23 @@ const style = {
 const ModalTimePicker = ({
   open,
   handleClose,
-  label,
   onAccept,
   disabledTime = null,
-  nonDisabledTime = null,
+  disabledTimeList = null,
 }) => {
-  const shouldDisableTime = (value, view) => {
-    if (disabledTime !== null) {
-      const hour = value.hour();
-      const minute = value.minute();
 
+  const shouldDisableTime = (value, view) => {
+    log("test 1", "t")
+    const hourPick = value.hour();
+    const minutePick = value.minute();
+
+    const pickTime = hourPick * 60 + minutePick;
+
+    if (disabledTime !== null) {
       if (view === "hours") {
         const { startHour, endHour } = disabledTime;
 
-        if (hour >= startHour && hour <= endHour) {
+        if (hourPick >= startHour && hourPick <= endHour) {
           return false; // disabled
         } else {
           return true; // non disabled
@@ -44,26 +47,47 @@ const ModalTimePicker = ({
       }
 
       if (view === "minutes") {
-        const { endHour, endMinute } = disabledTime;
+        let isDisabled = null
+        const { startHour, startMinute, endHour, endMinute } = disabledTime;
 
-        const start = hour * 60 + minute;
-        const end = endHour * 60 + endMinute;
+        const timeNow = hour() * 60 + minute();
+        const startTimeDokter = startHour * 60 + startMinute;
+        const endTimeDokter = endHour * 60 + endMinute;
 
-        if (nonDisabledTime !== null) {
-          nonDisabledTime.forEach((e) => {
-            if (hour === e.hour && minute === e.minute) {
-              return false;
-            }
-          });
+        disabledTimeList.forEach(c => {
+          const cDisabled = parseInt(c.hour) * 60 + parseInt(c.minute)
+          if (cDisabled === pickTime) {
+            isDisabled = true
+          }
+        })
+
+        if (isDisabled !== null) return isDisabled
+        else {
+          if (pickTime >= startTimeDokter && pickTime <= endTimeDokter) {
+            if (pickTime <= timeNow) return true
+            return false;
+          } else {
+            return true;
+          }
         }
 
-        if (start <= end) {
-          return false;
-        } else {
-          return true;
-        }
       }
     }
+
+    return false
+
+    // if (disabledTimeList !== null) {
+    //   disabledTimeList.forEach((e) => {
+    //     const t = parseInt(e.hour) * 60 + parseInt(e.minute)
+
+    //     if (pickTime === t) {
+    //       log("hour", `${e.hour}:${e.minute}`)
+    //       return true;
+    //     } else {
+    //       return false
+    //     }
+    //   });
+    // }
   };
 
   return (

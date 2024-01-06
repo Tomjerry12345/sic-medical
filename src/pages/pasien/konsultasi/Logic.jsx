@@ -18,6 +18,8 @@ const Logic = () => {
     waktu_konsultasi: null,
   });
 
+  const [listWaktuKonsultasi, setListWaktuKonsultasi] = useState()
+
   const navigate = useNavigate();
   const fs = FirebaseServices();
 
@@ -37,6 +39,7 @@ const Logic = () => {
 
   const onGetData = async () => {
     const listDokter = [];
+    const listKonsultasi = [];
 
     let resultDokter = await fs.getDataCollection("dokter");
     resultDokter = resultDokter.sort((a, b) =>
@@ -45,13 +48,7 @@ const Logic = () => {
 
     const pasien = await fs.getCurrentUser();
 
-    let resKonsultasi = await fs.getDataQueryMultiple("konsultasi", [
-      {
-        key: "email_pasien",
-        operator: "==",
-        value: pasien.email,
-      },
-    ]);
+    let resKonsultasi = await fs.getDataCollection("konsultasi");
 
     resultDokter.forEach((d) => {
       let l = {
@@ -60,7 +57,7 @@ const Logic = () => {
       resKonsultasi.forEach((k) => {
         const timestamp = convertTimestampToDate(k.timestamp);
         if (
-          d.email === k.email_dokter &&
+          d.email === k.email_dokter && k.email_pasien === pasien.email &&
           timestamp.day === day() &&
           timestamp.month === month()
         ) {
@@ -69,14 +66,32 @@ const Logic = () => {
             ...k,
           };
         }
-      });
 
-      log({ l });
+
+      });
 
       listDokter.push(l);
     });
 
+    resKonsultasi.forEach((k) => {
+      const timestamp = convertTimestampToDate(k.timestamp);
+
+      if (timestamp.day === day() &&
+        timestamp.month === month()) {
+        const waktuKonsultasiPasien = k.waktu_konsultasi_pasien.split(":");
+        const hourKonsultasi = waktuKonsultasiPasien[0]
+        const minuteKonsultasi = waktuKonsultasiPasien[1]
+        listKonsultasi.push({
+          hour: hourKonsultasi,
+          minute: minuteKonsultasi
+        })
+      }
+
+
+    })
+
     setData(listDokter);
+    setListWaktuKonsultasi(listKonsultasi)
   };
 
   const onPickTime = async (
@@ -210,6 +225,7 @@ const Logic = () => {
       timePickerRef,
       open,
       pickDokter,
+      listWaktuKonsultasi
     },
     func: {
       onGetData,

@@ -5,7 +5,6 @@ import {
   convertTimestampToDate,
   day,
   hour,
-  log,
   minute,
   month,
 } from "values/Utilitas";
@@ -60,7 +59,7 @@ const Logic = () => {
           });
         }
       });
-      log({ listDataKonsultasi });
+
       setData(listDataKonsultasi);
     } catch (error) {
       alert(error);
@@ -83,7 +82,6 @@ const Logic = () => {
   };
 
   const onMoveToChat = (item) => {
-    log({ item });
     navigate("/dokter/konsultasi/chat", {
       state: {
         waktu_konsultasi_pasien: item.waktu_konsultasi_pasien,

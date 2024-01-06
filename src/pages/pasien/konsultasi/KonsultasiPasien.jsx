@@ -39,10 +39,7 @@ const KonsultasiPasien = () => {
         handleClose={func.handleClose}
         onAccept={func.onChangeTime}
         disabledTime={value.pickDokter.waktu_konsultasi}
-        nonDisabledTime={[{
-          hour: 13,
-          minute: 30
-        }]} />
+        disabledTimeList={value.listWaktuKonsultasi} />
     </div>
   );
 };

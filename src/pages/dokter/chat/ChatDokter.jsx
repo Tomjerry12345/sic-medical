@@ -21,7 +21,7 @@ const ChatDokter = () => {
       {/* monkey D luffy */}
       <Box display="flex">
         <Typography
-          style={{ fontStyle: "lato", fontSize: "28px" }}
+          style={{ fontStyle: "lato", fontSize: "28px", width: "100%" }}
         >
           {value.displayName}
         </Typography>
