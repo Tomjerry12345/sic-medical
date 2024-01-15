@@ -65,7 +65,7 @@ const Logic = () => {
   const onMake = async () => {
     try {
       setLoading(true);
-      const res = await fs.createUser(input.email, input.password);
+      // const res = await fs.createUser(input.email, input.password);
       const image = await fs.uploadImage(img.currentFile);
       const data = {
         ...input,

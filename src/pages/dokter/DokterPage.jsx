@@ -34,7 +34,7 @@ function DokterPage() {
 
   useEffect(() => {
     const path = window.location.href;
-    if (path === "http://localhost:3000/dokter")
+    if (path === `${process.env.REACT_APP_BASE_URL}:3000/dokter`)
       navigate("/dokter/appointment");
   }, []);
 

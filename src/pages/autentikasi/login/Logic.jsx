@@ -4,7 +4,7 @@ import FirebaseServices from "../../../services/FirebaseServices";
 import { log, setLocal } from "../../../values/Utilitas";
 import { SocketContext } from "../../../services/Context";
 
-const LoginLogic = () => {
+const Logic = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -82,4 +82,4 @@ const LoginLogic = () => {
   };
 };
 
-export default LoginLogic;
+export default Logic;
