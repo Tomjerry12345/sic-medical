@@ -126,7 +126,7 @@ function PasienPage() {
                 size="small"
                 onClick={() => {
                   setOpen(false);
-                  window.location.replace("http://localhost:3000/");
+                  window.location.replace(`http://${process.env.REACT_APP_BASE_URL}:3000/`);
                 }}
               >
                 Reject

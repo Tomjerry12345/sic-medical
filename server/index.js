@@ -25,6 +25,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+        console.log("userToCall", userToCall)
+        console.log("from", from)
+        console.log("name", name)
+        console.log("========\n\n")
         io.to(userToCall).emit("callUser", { signal: signalData, from, name });
     });
 
