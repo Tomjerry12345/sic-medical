@@ -7,8 +7,7 @@ import FirebaseServices from "services/FirebaseServices";
 
 const SocketContext = createContext();
 
-const socket = io("http://localhost:5000");
-// const socket = io("https://warm-wildwood-81069.herokuapp.com");
+const socket = io(`${process.env.REACT_APP_BASE_URL}:5000`);
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
@@ -33,6 +32,7 @@ const ContextProvider = ({ children }) => {
 
   const onGetId = () => {
     socket.on("me", (id) => {
+      log({ id })
       setMe(id);
       updateCallId(id);
     });

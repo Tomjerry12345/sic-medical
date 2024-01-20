@@ -12,10 +12,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import LoginLogic from "./LoginLogic";
+import Logic from "./Logic"
 
 const LoginPage = () => {
-  const { value, func } = LoginLogic();
+  const { value, func } = Logic();
   return (
     <Grid
       container

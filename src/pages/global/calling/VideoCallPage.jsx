@@ -47,9 +47,8 @@ const VideoCallPage = () => {
   useEffect(() => {
     window.history.pushState(null, null, document.URL);
     window.addEventListener("popstate", function (event) {
-      //  window.location.replace(`YOUR URL`);
-      leaveCall();
-      window.location.replace("http://localhost:3000/");
+      // leaveCall();
+      window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/`);
     });
   }, []);
 
@@ -77,7 +76,7 @@ const VideoCallPage = () => {
           color="error"
           onClick={() => {
             leaveCall();
-            window.location.replace("http://localhost:3000/");
+            window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/`);
           }}
         >
           Matikan

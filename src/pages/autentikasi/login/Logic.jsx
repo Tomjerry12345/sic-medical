@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseServices from "../../../services/FirebaseServices";
 import { log, setLocal } from "../../../values/Utilitas";
 import { SocketContext } from "../../../services/Context";
 
-const LoginLogic = () => {
+const Logic = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -18,6 +18,11 @@ const LoginLogic = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const { onGetId } = useContext(SocketContext);
+
+  useEffect(() => {
+    console.log("https://medium.com/@Carmichaelize/enabling-the-microphone-camera-in-chrome-for-local-unsecure-origins-9c90c3149339")
+  }, [])
+
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -82,4 +87,4 @@ const LoginLogic = () => {
   };
 };
 
-export default LoginLogic;
+export default Logic;
