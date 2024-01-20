@@ -3,9 +3,10 @@ v 0.4
 1. isi chatnya klw dibuka masih ada yang kemarin
 2. ketika pasien sdh memilih jam, ada pemberitahuan masuk di dokter
 3. klw sudah vc, langsung kembali ke menu konsultasi untuk input resep
-4. list resep sebaiknya yang terbaru berada diatas.
+4. list resep sebaiknya yang terbaru berada diatas✅
 5. video call konsultasi 2 arah ✅
 6. waktu room chat tdk sesuai dengan dokter dan pasien
+7. di rekam medis ada tipe pasien : bpjs/umum
 
 v 0.3 
 1. pasien lain bisa na pilih jam yg sama (seharusnya nda bisami) ✅
