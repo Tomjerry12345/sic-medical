@@ -37,7 +37,7 @@ const Logic = () => {
       let resUser = await fs.getDataCollection("user");
 
       resKonsultasi = resKonsultasi.sort((a, b) =>
-        a.timestamp < b.timestamp ? 1 : -1
+        a.timestamp > b.timestamp ? 1 : -1
       );
 
       resKonsultasi.forEach((konsultasi) => {

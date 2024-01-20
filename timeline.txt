@@ -1,6 +1,13 @@
+v 0.4
+1. isi chatnya klw dibuka masih ada yang kemarin
+2. ketika pasien sdh memilih jam, ada pemberitahuan masuk di dokter
+3. klw sudah vc, langsung kembali ke menu konsultasi untuk input resep
+4. list resep sebaiknya yang terbaru berada diatas.
+
 v 0.3 
 1. pasien lain bisa na pilih jam yg sama (seharusnya nda bisami) ✅
-2. klw sdh video call langsung nda bisa mi konsultasi (harusnya masih bisa konsultasi karena mau input obat) ✅
+2. klw sdh video call langsung nda bisa mi konsultasi 
+(harusnya masih bisa konsultasi karena mau input obat) ✅
 3. perbaiki tampilan yg pas konsultasi dokter, kasi kecil namanya biar nda turun ke bawah ✅
 
 v 0.2 ✅ ❌ 🔥

@@ -6,7 +6,6 @@ import Logic from "./Logic";
 import { LoadingButton } from "@mui/lab";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import InputTimePickerComponent from "component/input/time-picker/InputTimePickerComponent";
-import { log } from "values/Utilitas";
 
 const EditDokterPage = () => {
   const { value, func } = Logic();
