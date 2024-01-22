@@ -55,6 +55,12 @@ const DetailRekamMedis = () => {
         <Typography>{value.item.alamat}</Typography>
       </Stack>
 
+      <Stack direction="row">
+        <Typography sx={{ marginRight: 3 }}>Tipe pasien</Typography>
+        <Typography sx={{ marginRight: 2 }}>:</Typography>
+        <Typography>{value.item.type_pasien}</Typography>
+      </Stack>
+
       <Button
         variant="contained"
         sx={{

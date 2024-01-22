@@ -21,7 +21,7 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { timestamp } from "../values/Utilitas";
+import { day, month, timestamp, year } from "../values/Utilitas";
 import { log } from "values/Utilitas";
 
 const FirebaseServices = () => {
@@ -72,11 +72,13 @@ const FirebaseServices = () => {
     });
   };
 
-  const addData = (col, data) =>
+  const addData = (col, data) => 
     addDoc(collection(db, col), { ...data, timestamp: serverTimestamp() });
 
-  const addDataSpecifict = (col, data) =>
+  const addDataSpecifict = (col, data) => 
     addDoc(col, { ...data, timestamp: serverTimestamp() });
+  
+    const addDataSpecifictDocument = (col, document, data) =>  setDoc(doc(db, col, document), data);
 
   const sendMessage = (dokter, pasien, data) => {
     const colRef = collection(db, `chat`, dokter, "message", pasien, "message");
@@ -94,7 +96,7 @@ const FirebaseServices = () => {
       QuerySnapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-      // messages = messages.sort((a, b) => a.timestamp - b.timestamp);
+      messages = messages.sort((a, b) => a.timestamp - b.timestamp);
       setMessages(messages);
     });
 
@@ -139,7 +141,6 @@ const FirebaseServices = () => {
       .then((emptySnapshot) => {
         if (emptySnapshot.size === 0) {
           const parentCollection = colRef.parent;
-          log({ parentCollection })
           return deleteDoc(parentCollection, 'message'); // Delete 'message' field to remove the collection
         }
         return Promise.resolve();
@@ -151,6 +152,40 @@ const FirebaseServices = () => {
         console.error('Terjadi kesalahan:', error);
       });
   }
+
+  const resetMessage = async () => {
+    const res = await getDataCollection("date-reference");
+    if (res.length > 0) {
+      const resDay = res[0]["day"];
+      const resMonth = res[0]["month"];
+      const resYear = res[0]["year"];
+
+      if (resDay > day() && resMonth === month() && resYear === year()) {
+        const resKonsultasi = await getDataCollection("konsultasi");
+        if (resKonsultasi.length > 0) {
+          resKonsultasi.forEach(async (e) => {
+            const emailDokter = e["email_dokter"];
+            const emailPasien = e["email_pasien"];
+  
+            await deleteMessage(emailDokter, emailPasien);
+            await deletDoc("konsultasi", e.id);
+          });
+          await updateDocX("date-reference", "time", {
+            day: day(),
+            month: month(),
+            year: year(),
+          });
+        }
+        
+      }
+    } else {
+      await addDataSpecifictDocument("date-reference", "time", {
+        day: day(),
+        month: month(),
+        year: year(),
+      });
+    }
+  };
 
   const getDataCollection = async (col) => {
     const collection_ref = collection(db, col);
@@ -275,6 +310,7 @@ const FirebaseServices = () => {
     getMessage,
     getGrupMessage,
     deleteMessage,
+    resetMessage,
     onSignOut,
   };
 };

@@ -36,6 +36,7 @@ function PasienPage() {
   const fs = FirebaseServices();
 
   useEffect(() => {
+    fs.resetMessage()
     const email = getLocal("email");
     const colRef = collection(db, "pemberitahuan");
     //real time update

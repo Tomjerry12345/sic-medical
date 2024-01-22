@@ -27,7 +27,7 @@ const App = () => {
       }
     };
 
-    onLogged();
+    onLogged()
 
     // if (getLogged) {
     //   log("main")

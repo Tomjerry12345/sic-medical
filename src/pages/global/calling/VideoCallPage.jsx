@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import VideoPlayer from "./components/VideoPlayer";
 import { SocketContext } from "services/Context";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +76,8 @@ const VideoCallPage = () => {
           color="error"
           onClick={() => {
             leaveCall();
-            window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/`);
+            Navigate(-1)
+            // window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/`);
           }}
         >
           Matikan

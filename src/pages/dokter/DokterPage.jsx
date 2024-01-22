@@ -33,6 +33,7 @@ function DokterPage() {
   const fs = FirebaseServices();
 
   useEffect(() => {
+    fs.resetMessage()
     const path = window.location.href;
     if (path === `${process.env.REACT_APP_BASE_URL}:3000/dokter`)
       navigate("/dokter/appointment");
