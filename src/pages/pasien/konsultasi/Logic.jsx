@@ -186,7 +186,6 @@ const Logic = () => {
   };
 
   const onChangeTime = async (e) => {
-    log("onChangeTime", "");
     try {
       const time = `${e.hour()}:${e.minute()}`;
       // const namaPasien = getLocal("nama")
@@ -199,8 +198,14 @@ const Logic = () => {
         // image_pasien: imagePasien,
         waktu_konsultasi_pasien: time,
       });
+      await fs.addData("pemberitahuan", {
+        email_dokter: pickDokter.email_dokter,
+        email_pasien: pickDokter.email_pasien,
+        new: true,
+        type: "konsultasi",
+      });
       handleClose();
-      navigate("/pasien/konsultasi");
+      window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/pasien/konsultasi`);
     } catch (e) {
       log({ e });
       alert(e);

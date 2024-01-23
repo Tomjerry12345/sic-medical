@@ -45,6 +45,7 @@ function PasienPage() {
       where("email_pasien", "==", email),
       where("new", "==", true)
     );
+
     onSnapshot(q, async (snapshot) => {
       let sumResep = 0;
       // let sumKonsultasi = 0;
@@ -67,11 +68,8 @@ function PasienPage() {
         setOpenNotifResep(true);
       }
 
-      // if (sumKonsultasi > 0) {
-      //   setMessageNotifKonsultasi(`${sumAppointment} pemberitahuan appointment`);
-      //   setOpenNotifKonsultasi(true);
-      // }
     });
+    
   }, []);
 
   const closeNotifResep = () => {

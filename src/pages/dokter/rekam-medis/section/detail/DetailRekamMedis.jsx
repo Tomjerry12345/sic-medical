@@ -16,7 +16,10 @@ const DetailRekamMedis = () => {
         width: "100%",
       }}
     >
-      <Typography variant="h4" style={{ marginTop: "-15px", marginBottom: "48px" }}>
+      <Typography
+        variant="h4"
+        style={{ marginTop: "-15px", marginBottom: "48px" }}
+      >
         Rekam Medis
       </Typography>
 
@@ -44,20 +47,20 @@ const DetailRekamMedis = () => {
         <Typography>{value.item.tanggal_lahir}</Typography>
       </Stack>
 
+      <Stack direction="row">
+        <Typography sx={{ marginRight: 7.8 }}>Alamat</Typography>
+        <Typography sx={{ marginRight: 2 }}>:</Typography>
+        <Typography>{value.item.alamat}</Typography>
+      </Stack>
+
       <Stack
         direction="row"
         sx={{
           marginBottom: 4,
         }}
       >
-        <Typography sx={{ marginRight: 7.6 }}>Alamat</Typography>
-        <Typography sx={{ marginRight: 2 }}>:</Typography>
-        <Typography>{value.item.alamat}</Typography>
-      </Stack>
-
-      <Stack direction="row">
-        <Typography sx={{ marginRight: 3 }}>Tipe pasien</Typography>
-        <Typography sx={{ marginRight: 2 }}>:</Typography>
+        <Typography sx={{ marginRight: 4.1 }}>Tipe pasien</Typography>
+        <Typography sx={{ marginRight: 2.2 }}>:</Typography>
         <Typography>{value.item.type_pasien}</Typography>
       </Stack>
 

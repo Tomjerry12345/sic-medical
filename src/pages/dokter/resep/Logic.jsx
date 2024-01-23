@@ -127,7 +127,6 @@ const Logic = () => {
       ...e,
       no: no + 1,
     }));
-    log({ newArr });
     return newArr;
   };
 

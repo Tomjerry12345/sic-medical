@@ -1,7 +1,6 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
 const DashboardPage = () => {
-
   return (
     <>
       <Stack>

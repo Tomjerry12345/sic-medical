@@ -49,7 +49,7 @@ const InputTimePickerComponent = ({
           }}
           shouldDisableTime={shouldDisableTime}
           onAccept={onAccept}
-        />{" "}
+        />
       </DemoContainer>
     </LocalizationProvider>
   );
