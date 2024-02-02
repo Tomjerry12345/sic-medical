@@ -15,7 +15,7 @@ import {
   updateDoc,
   doc,
   deleteDoc,
-  setDoc,
+  // setDoc,
   serverTimestamp,
   orderBy,
   limit,
@@ -82,9 +82,9 @@ const FirebaseServices = () => {
 
   const sendMessage = (dokter, pasien, data) => {
     const colRef = collection(db, `chat`, dokter, "message", pasien, "message");
-    const colUser = doc(db, `chat`, dokter, "message", pasien);
+    // const colUser = doc(db, `chat`, dokter, "message", pasien);
     addDoc(colRef, data);
-    setDoc(colUser, { generate: timestamp() });
+    // setDoc(colUser, { generate: timestamp() });
   };
 
   const getMessage = (setMessages, dokter, pasien) => {

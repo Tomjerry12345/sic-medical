@@ -122,7 +122,6 @@ const Logic = () => {
   };
 
   const onClickVideoCall = () => {
-    log({ location });
     navigate("/dokter/konsultasi/calling", {
       state: {
         nama: location.state.nama_lengkap,
@@ -135,7 +134,6 @@ const Logic = () => {
   };
 
   const onClickResep = () => {
-    log("location.state", location.state);
     navigate("/dokter/konsultasi/resep", {
       state: location.state,
     });

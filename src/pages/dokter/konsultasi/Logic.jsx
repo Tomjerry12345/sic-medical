@@ -73,7 +73,7 @@ const Logic = () => {
     if (
       hourPasien === hour() &&
       minute() >= minutePasien &&
-      minute() <= minutePasien + 15
+      minute() <= minutePasien + 25
     ) {
       onMoveToChat(item);
     } else {

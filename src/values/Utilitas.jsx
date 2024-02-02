@@ -28,18 +28,21 @@ export const getSizeScreen = (set) => {
 };
 
 export const convertTimestampToDate = (timestamp) => {
-  const t = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+  const t = new Date(
+    timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+  );
   const day = t.getDate();
   const month = t.getMonth() + 1;
   const year = t.getFullYear();
   return {
     day,
     month,
-    year
-  }
-}
+    year,
+  };
+};
 
-export const timestamp = () => new Date().getTime();
+// export const timestamp = () => new Date().getTime();
+export const timestamp = () => new Date.now();
 
 export const getTimeTodayAndTomorrow = () => {
   // Mendapatkan tanggal hari ini
@@ -52,9 +55,10 @@ export const getTimeTodayAndTomorrow = () => {
   tomorrow.setHours(0, 0, 0, 0); // Set jam menjadi 00:00:00 untuk besok
 
   return {
-    today, tomorrow
-  }
-}
+    today,
+    tomorrow,
+  };
+};
 
 export const day = () => new Date().getDate();
 
@@ -67,7 +71,7 @@ export const hour = () => new Date().getHours();
 export const minute = () => new Date().getMinutes();
 
 export const formatTime = (inputTime) => {
-  const [hour, minute] = inputTime.split(':');
+  const [hour, minute] = inputTime.split(":");
   const formattedMinute = minute.length === 1 ? `0${minute}` : minute;
   return `${hour}:${formattedMinute}`;
-}
+};

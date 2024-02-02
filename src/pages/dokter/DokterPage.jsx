@@ -4,9 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "component/navbar/NavbarComponent";
 import { Outlet, useNavigate } from "react-router-dom";
 import { menuDokter } from "values/Constant";
-import {
-  Snackbar,
-} from "@mui/material";
+import { Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import FirebaseServices from "services/FirebaseServices";
 import { db } from "config/FirebaseConfig";
@@ -33,7 +31,7 @@ function DokterPage() {
   const fs = FirebaseServices();
 
   useEffect(() => {
-    fs.resetMessage()
+    fs.resetMessage();
     const path = window.location.href;
     if (path === `${process.env.REACT_APP_BASE_URL}:3000/dokter`)
       navigate("/dokter/appointment");
@@ -48,6 +46,7 @@ function DokterPage() {
       where("email_dokter", "==", email),
       where("new", "==", true)
     );
+
     onSnapshot(q, async (snapshot) => {
       let sumAppointment = 0;
       let sumKonsultasi = 0;
