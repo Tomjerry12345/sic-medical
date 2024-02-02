@@ -43,7 +43,6 @@ const RoutersConfig = () => {
             <Route path="add" element={<AddAppointment />} />
             <Route path="edit" element={<EditAppointment />} />
           </Route>
-
           <Route path="konsultasi">
             <Route index element={<KonsultasiPasien />} />
             <Route path="chat" element={<ChatPasien />} />

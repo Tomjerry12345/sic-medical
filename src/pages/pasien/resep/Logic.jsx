@@ -27,7 +27,6 @@ const Logic = () => {
         dokter.email
       );
       //   const output = new Date(res[0].timestamp.seconds * 1000);
-      log({ res });
       setData(res);
     } catch (e) {
       log({ e });

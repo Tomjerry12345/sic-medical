@@ -11,10 +11,14 @@ const CardResep = ({ nama, onPreview }) => {
       }}
     >
       <CardContent>
-        <Typography display="flex" justifyContent="space-between" fontWeight="600">
+        <Typography
+          display="flex"
+          justifyContent="space-between"
+          fontWeight="600"
+        >
           {nama}
-          <PreviewIcon onClick={onPreview} />
         </Typography>
+        <PreviewIcon onClick={onPreview} />
       </CardContent>
     </Card>
   );
