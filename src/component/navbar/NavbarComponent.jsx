@@ -10,7 +10,6 @@ import { Box, Typography, Stack, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import FirebaseServices from "services/FirebaseServices";
 import ModalComponent from "../modal/Modal";
-import { log } from "values/Utilitas";
 
 const drawerWidth = 240;
 
@@ -44,7 +43,7 @@ const NavbarComponent = ({ menu, type }) => {
   const getUser = async () => {
     const user = await fs.getCurrentUser();
     const data = await fs.getDataQuery(type, "email", user.email);
-    if (data[0] === undefined) navigate("/login")
+    if (data[0] === undefined) navigate("/login");
     setValue({
       ...value,
       nama: type === "dokter" ? data[0].nama_dokter : data[0].nama_lengkap,

@@ -3,9 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import VideoPlayer from "./components/VideoPlayer";
 import { SocketContext } from "services/Context";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Box, Button } from "@mui/material";
-import { log } from "values/Utilitas";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -76,9 +75,11 @@ const VideoCallPage = () => {
           variant="outlined"
           color="error"
           onClick={() => {
-            const currentUrl = window.location.href.split("/")
+            const currentUrl = window.location.href.split("/");
             leaveCall();
-            window.location.replace(`${process.env.REACT_APP_BASE_URL}:3000/${currentUrl[3]}/${currentUrl[4]}`);
+            window.location.replace(
+              `${process.env.REACT_APP_BASE_URL}:3000/${currentUrl[3]}/${currentUrl[4]}`
+            );
           }}
         >
           Matikan

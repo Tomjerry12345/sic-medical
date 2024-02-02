@@ -21,7 +21,7 @@ import {
   limit,
   onSnapshot,
 } from "firebase/firestore";
-import { day, month, timestamp, year } from "../values/Utilitas";
+import { timestamp } from "../values/Utilitas";
 import { log } from "values/Utilitas";
 
 const FirebaseServices = () => {
@@ -77,8 +77,8 @@ const FirebaseServices = () => {
   const addDataSpecifict = (col, data) =>
     addDoc(col, { ...data, timestamp: serverTimestamp() });
 
-  const addDataSpecifictDocument = (col, document, data) =>
-    setDoc(doc(db, col, document), data);
+  // const addDataSpecifictDocument = (col, document, data) =>
+  //   setDoc(doc(db, col, document), data);
 
   const sendMessage = (dokter, pasien, data) => {
     const colRef = collection(db, `chat`, dokter, "message", pasien, "message");
@@ -161,9 +161,9 @@ const FirebaseServices = () => {
         const emailPasien = e["email_pasien"];
         const currentTimestamp = e["timestamp"].toMillis();
         const nowTimestamp = timestamp();
-        const oneDay = 24 * 60 * 60 * 1000
+        const oneDay = 24 * 60 * 60 * 1000;
 
-        if ((nowTimestamp - currentTimestamp) >  oneDay) {
+        if (nowTimestamp - currentTimestamp > oneDay) {
           await deleteMessage(emailDokter, emailPasien);
           await deletDoc("konsultasi", e.id);
         }
