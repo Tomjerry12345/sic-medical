@@ -41,8 +41,8 @@ export const convertTimestampToDate = (timestamp) => {
   };
 };
 
-// export const timestamp = () => new Date().getTime();
-export const timestamp = () => new Date.now();
+export const timestamp = () => new Date().getTime();
+// export const timestamp = () => new Date.now();
 
 export const getTimeTodayAndTomorrow = () => {
   // Mendapatkan tanggal hari ini

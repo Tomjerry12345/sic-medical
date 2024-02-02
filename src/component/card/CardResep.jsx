@@ -17,8 +17,9 @@ const CardResep = ({ nama, onPreview }) => {
           fontWeight="600"
         >
           {nama}
+
+          <PreviewIcon onClick={onPreview} />
         </Typography>
-        <PreviewIcon onClick={onPreview} />
       </CardContent>
     </Card>
   );
